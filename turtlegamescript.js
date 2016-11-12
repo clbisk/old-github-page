@@ -12,21 +12,10 @@ $(document).ready(function() {
 	$('#myForm').on('submit', function( event ) {
 		event.preventDefault();
       
-        /**$.ajax({
-            url : $(this).attr('action') || window.location.pathname,
-            type: "GET",
-            data: $(this).serialize(),
-            success: function (data) {
-                $("#form_output").html(data);
-            },
-            error: function (jXHR, textStatus, errorThrown) {
-                alert(errorThrown);
-            }
-        });**/
-      
 		//alert( "IS IT WORKING" );
         $('#myForm').remove();
-        $('.screen').append('<div>Hello.</div>');
+        var name = //get name;
+        $('.screen').append('<div>Hi. My name\'s' + name + ', and today\'s my very first day of classes.</div>');
 	});
 	
 });
