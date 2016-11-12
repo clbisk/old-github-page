@@ -8,11 +8,7 @@ $(document).ready(function() {
 	$('body').fadeOut(0);
 	$('body').fadeIn(2000);
 	 
-	$('#submit').click( function() {
-		$('#getName').submit();
-	});
-	
-	$('#getName').submit( function( event ) {
+	$('form').submit( function( event ) {
 		event.preventDefault();
 		//pull up text event "introduction"
 		alert( "IS IT WORKING" );
