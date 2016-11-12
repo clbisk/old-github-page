@@ -13,7 +13,7 @@ $(document).ready(function() {
 		event.preventDefault();
       
 		//sets up form info as variables
-        var name = $("input:text").val();
+        var name = $("input[type='text']").val();
         var pronoun = $("input:radio:checked").val();
       
         $('#myForm').remove();
