@@ -8,14 +8,16 @@ $(document).ready(function() {
 	$('body').fadeOut(0);
 	$('body').fadeIn(2000);
 	 
-  //on submit, pulls up text event "introduction"
+//on submit, pulls up text event "introduction"
 	$('#myForm').on('submit', function( event ) {
 		event.preventDefault();
       
-		//alert( "IS IT WORKING" );
+		//sets up form info as variables
+        var name = $("input:text").val();
+        var pronoun = $("input:radio:checked").val();
+      
         $('#myForm').remove();
-        var name = //get name;
-        $('.screen').append('<div>Hi. My name\'s' + name + ', and today\'s my very first day of classes.</div>');
+        $('.screen').append("<div>Hi. My name's " + name + ", and today\'s my very first day of classes.</div>");
 	});
 	
 });
