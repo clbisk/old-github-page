@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<head>
+	<title>Beloit Turtle Project</title>
+	
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+	
+	<link rel="stylesheet" href="/uglyturtlestyle.css"/>
+	<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script type="text/javascript" src="/turtlegamescript.js"></script>	
+</head>
+
+<body>
+
+	<div class='sidebar'>
+		<div class='statBox'>
+			
+			<div id='bar1'>
+				Belonging
+				<div id='belonging'></div>
+			</div>
+			
+			<div id='bar2'>
+				Energy
+				<div id='energy'></div>
+			</div>
+		
+		</div>
+	</div>
+
+	<div class='screen'>
+		<form id='getNameNPronoun'>
+			
+			<!--maybe set up later to look like a real nametag! ...lol work-->
+			<div id='nametag'>Hello, my name is:</div>
+			<input type='text' name='name'>
+			
+			<div class='promptChoices'>
+				<fieldset>
+					<legend>My pronouns are:</legend>
+					
+					<label for='he'>He/him pronouns</label>
+					<input type='radio' name='pronoun' id='he'><br/>
+					
+					<label for='she'>She/her pronouns</label>
+					<input type='radio' name='pronoun' id='she'><br/>
+					
+					<label for='they'>They/them pronouns</label>
+					<input type='radio' name='pronoun' id='they'><br/>
+				</fieldset>
+			</div>
+			
+			<input type='submit' name='submit'>
+			
+		</form>
+	</div>
+  
+</body>
