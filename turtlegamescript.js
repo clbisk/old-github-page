@@ -9,7 +9,6 @@ $(document).ready(function() {
 	$('body').fadeIn(2000);
 	 
   //on submit, pulls up text event "introduction"
-  //NOT WORKING
 	$('#myForm').on('submit', function( event ) {
 		event.preventDefault();
       
@@ -25,7 +24,7 @@ $(document).ready(function() {
             }
         });
       
-		alert( "IS IT WORKING" );
+		//alert( "IS IT WORKING" );
         $('#myForm').delete();
         $('.screen').append('<div>Hello.</div>');
 	});
