@@ -8,7 +8,17 @@ $(document).ready(function() {
 	$('body').fadeOut(0);
 	$('body').fadeIn(2000);
 	 
-	$('form').submit( function( event ) {
+	$('#myForm').submit( function( event ) {
+      
+        $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: frm.serialize(),
+            success: function (data) {
+                alert('ok');
+            }
+        });
+      
 		event.preventDefault();
 		//pull up text event "introduction"
 		alert( "IS IT WORKING" );
