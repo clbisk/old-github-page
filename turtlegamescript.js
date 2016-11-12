@@ -26,6 +26,8 @@ $(document).ready(function() {
         });
       
 		alert( "IS IT WORKING" );
+        $('#myForm').delete();
+        $('.screen').append('<div>Hello.</div>');
 	});
 	
 });
