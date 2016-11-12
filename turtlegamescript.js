@@ -12,7 +12,7 @@ $(document).ready(function() {
 	$('#myForm').on('submit', function( event ) {
 		event.preventDefault();
       
-        $.ajax({
+        /**$.ajax({
             url : $(this).attr('action') || window.location.pathname,
             type: "GET",
             data: $(this).serialize(),
@@ -22,7 +22,7 @@ $(document).ready(function() {
             error: function (jXHR, textStatus, errorThrown) {
                 alert(errorThrown);
             }
-        });
+        });**/
       
 		//alert( "IS IT WORKING" );
         $('#myForm').remove();
