@@ -8,7 +8,9 @@ $(document).ready(function() {
 	$('body').fadeOut(0);
 	$('body').fadeIn(2000);
 	 
-	$('#myForm').submit( function( event ) {
+  //on submit, pulls up text event "introduction"
+  //NOT WORKING
+	$('#myForm').on('submit', function( event ) {
 		event.preventDefault();
       
         $.ajax({
@@ -23,7 +25,6 @@ $(document).ready(function() {
             }
         });
       
-		//pull up text event "introduction"
 		alert( "IS IT WORKING" );
 	});
 	
