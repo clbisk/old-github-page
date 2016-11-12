@@ -9,17 +9,20 @@ $(document).ready(function() {
 	$('body').fadeIn(2000);
 	 
 	$('#myForm').submit( function( event ) {
+		event.preventDefault();
       
         $.ajax({
-            type: frm.attr('method'),
-            url: frm.attr('action'),
-            data: frm.serialize(),
+            url : $(this).attr('action') || window.location.pathname,
+            type: "GET",
+            data: $(this).serialize(),
             success: function (data) {
-                alert('ok');
+                $("#form_output").html(data);
+            },
+            error: function (jXHR, textStatus, errorThrown) {
+                alert(errorThrown);
             }
         });
       
-		event.preventDefault();
 		//pull up text event "introduction"
 		alert( "IS IT WORKING" );
 	});
