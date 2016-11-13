@@ -28,6 +28,14 @@ $(document).ready(function() {
     $('.screen').append("<div class='picNtext'></div>");
     $('.picNtext').append("<div class='scene'>" + picture + "</div>");
     $('.picNtext').append("<div class='story'>" + text + "</div>");
+    
+    //tryin dat type effect
+    $(function(){
+      $(".story").typed({
+        strings: ["First sentence.", "Second sentence."],
+        typeSpeed: 0
+      });
+    });
   }
 	
 });
