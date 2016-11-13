@@ -21,14 +21,14 @@ $(document).ready(function() {
         //$('.screen').append("<div class='picNtext'><div class='scene'></div><div class='story'>Hi. My name's " + name + ", and today\'s my very first day of classes.</div></div>");
 	});
   
-  function clearScreen( ) {
+  function clearScreen() {
     $('.screen').empty();
-  }
+  };
   
   function addPicNtext( picture, text ) {
     $('.screen').append("<div class='picNtext'></div>");
     $('.picNtext').append("<div class='scene'>" + picture + "</div>");
     $('.picNtext').append("<div class='story'>" + text + "</div>");
-  }
+  };
 	
 });
