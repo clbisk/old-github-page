@@ -17,6 +17,7 @@ $(document).ready(function() {
         var pronoun = $("input:radio:checked").val();
       
         $('#myForm').remove();
+        $('.screen').append("<div class='picNtext'><div class='scene'></div><div class='story'>Hi. My name's " + name + ", and today\'s my very first day of classes.</div></div>");
 	});
 	
 });
