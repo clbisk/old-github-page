@@ -17,9 +17,10 @@ $(document).ready(function() {
         var pronoun = $("input:radio:checked").val();
       
         clearScreen();
-        addPicNtext("<img src='https://www.wildgratitude.com/wp-content/uploads/2015/07/turtle-spirit-animal1.jpg'>", "Hi. My name's " + name + ", and today\'s my very first day of classes.");
+        addPicNtext("<img src='https://i.ytimg.com/vi/p4Jj9QZFJvw/hqdefault.jpg>'", "Hi. My name's " + name + ", and today\'s my very first day of classes.");
 	});
   
+//functions
   function clearScreen() {
     $('.screen').empty();
   }
@@ -27,15 +28,15 @@ $(document).ready(function() {
   function addPicNtext( picture, text ) {
     $('.screen').append("<div class='picNtext'></div>");
     $('.picNtext').append("<div class='scene'>" + picture + "</div>");
-    $('.picNtext').append("<div class='story'>" + text + "</div>");
+    $('.picNtext').append("<div class='story'></div>");
     
-    //tryin dat type effect
+  //tryin dat type effect
     $(function(){
       $(".story").typed({
-        strings: ["First sentence.", "Second sentence."],
+        strings: [text],
         typeSpeed: 0
-      });
-    });
-  }
+       });
+     });
+    }
 	
 });
