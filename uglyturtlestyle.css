@@ -8,11 +8,29 @@
 }
 
 /*a general style that sets up an animation with short text descrip*/
+.animation {
+  border: solid;
+}
 
 /*same for picture and long text*/
+.picNtext {
+  border: solid;
+}
+
+.picNtext > .scene {
+  border: solid;
+}
+
+.picNtext > .story {
+  border: solid;
+}
 
 /*same for prompt and choices*/
+.callResponse {
+  border: solid;
+}
 
+/*unrelated*/
 .promptChoices {
 	/*border: solid;*/
 	text-align: center;
