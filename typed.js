@@ -417,7 +417,7 @@
 		// false = infinite
 		loopCount: false,
 		// show cursor
-		showCursor: true,
+		showCursor: false,
 		// character for cursor
 		cursorChar: "|",
 		// attribute to type (null == text)
