@@ -18,7 +18,6 @@ $(document).ready(function() {
       
         clearScreen();
         addPicNtext("<img src='https://i.ytimg.com/vi/p4Jj9QZFJvw/hqdefault.jpg>'", "Hi. My name's " + name + ", and today\'s my very first day of classes.");
-        //$('.screen').append("<div class='picNtext'><div class='scene'></div><div class='story'>Hi. My name's " + name + ", and today\'s my very first day of classes.</div></div>");
 	});
   
   function clearScreen() {
