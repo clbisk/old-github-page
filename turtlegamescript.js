@@ -16,8 +16,19 @@ $(document).ready(function() {
         var name = $("input[type='text']").val();
         var pronoun = $("input:radio:checked").val();
       
-        $('#myForm').remove();
-        $('.screen').append("<div class='picNtext'><div class='scene'></div><div class='story'>Hi. My name's " + name + ", and today\'s my very first day of classes.</div></div>");
+        clearScreen();
+        addPicNText(<img href="https://i.ytimg.com/vi/p4Jj9QZFJvw/hqdefault.jpg>"/>, "Hi. My name's " + name + ", and today\'s my very first day of classes.");
+        //$('.screen').append("<div class='picNtext'><div class='scene'></div><div class='story'>Hi. My name's " + name + ", and today\'s my very first day of classes.</div></div>");
 	});
+  
+  function clearScreen( ) {
+    $('.screen').empty();
+  }
+  
+  function addPicNtext( picture, text ) {
+    $('.screen').append("<div class='picNtext'></div>");
+    $('.picNtext').append("<div class='scene'>" + picture + "</div>");
+    $('.picNtext').append("<div class='story'>" + text + "</div>");
+  }
 	
 });
