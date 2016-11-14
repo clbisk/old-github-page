@@ -7,6 +7,14 @@
     cursor:pointer;
 }
 
+/*what is this????*/
+html, body{height: 100%}
+.screen {
+	height: calc(100% - 80px);
+	min-height: calc(100% - 80px);
+	border: solid;
+}
+
 /*a general style that sets up an animation with short text descrip*/
 .animation {
   border: solid;
@@ -19,6 +27,8 @@
 
 .picNtext > .scene {
   border: solid;
+	height: 70%;
+	min-height: 70%;
 }
 
 .picNtext > .story {
