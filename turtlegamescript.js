@@ -20,23 +20,22 @@ $(document).ready(function() {
         addPicNtext("<img src='https://i.ytimg.com/vi/p4Jj9QZFJvw/hqdefault.jpg>'", "Hi. My name's " + name + ", and today\'s my very first day of classes.");
 	});
   
-//functions
   function clearScreen() {
     $('.screen').empty();
   }
   
   function addPicNtext( picture, text ) {
-    $('.screen').append("<div class='picNtext'></div>");
-    $('.picNtext').append("<div class='scene'>" + picture + "</div>");
-    $('.picNtext').append("<div class='story'></div>");
+  $('.screen').append("<div class='picNtext'></div>");
+  $('.picNtext').append("<div class='scene'>" + picture + "</div>");
+  $('.picNtext').append("<div class='story'></div>");
     
   //tryin dat type effect
-    $(function(){
-      $(".story").typed({
-        strings: [text],
-        typeSpeed: 0
-       });
+  $(function(){
+    $(".story").typed({
+      strings: [text],
+      typeSpeed: 0
      });
-    }
+   });
+  }
 	
 });
