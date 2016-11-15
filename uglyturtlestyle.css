@@ -10,8 +10,8 @@
 /*what is this????*/
 html, body{height: 100%}
 .screen {
-	height: calc(100% - 80px);
-	min-height: calc(100% - 80px);
+	height: calc(100% - 96px);
+	min-height: calc(100% - 96px);
 	border: solid;
 }
 
