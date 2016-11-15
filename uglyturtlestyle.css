@@ -12,27 +12,35 @@ html, body{height: 100%}
 .screen {
 	height: calc(100% - 96px);
 	min-height: calc(100% - 96px);
-	border: solid;
+	/*border: solid;*/
 }
 
 /*a general style that sets up an animation with short text descrip*/
 .animation {
-  border: solid;
+	height: 100%;
+}
+.animation > .scene {
+	
+}
+.animation > {
+	
 }
 
 /*same for picture and long text*/
 .picNtext {
-  border: solid;
+	height: 100%;
 }
 
 .picNtext > .scene {
-  border: solid;
 	height: 70%;
 	min-height: 70%;
 }
 
+.picNtext > .scene > img {
+	max-width: 100%;
+}
+
 .picNtext > .story {
-  border: solid;
 }
 
 /*same for prompt and choices*/
@@ -75,7 +83,7 @@ fieldset > label {
 	width: 220px;
 	padding: 15px;
 	position: fixed;
-	bottom: 70px;
+	bottom: 10px;
 	text-align: center;
 	font-family: 'Itim', cursive;
 }
