@@ -7,12 +7,21 @@
     cursor:pointer;
 }
 
-/*what is this????*/
 html, body{height: 100%}
 .screen {
 	height: calc(100% - 96px);
 	min-height: calc(100% - 96px);
 	/*border: solid;*/
+}
+
+/*sets up styles on the left sidebar*/
+.logo {
+  padding: 20px 0px 20px 0px;
+}
+.DayOtheWeek {
+  font-family: 'Itim', cursive;
+  font-size: 24px;
+  text-align: center;
 }
 
 /*a general style that sets up an animation with short text descrip*/
@@ -51,14 +60,14 @@ html, body{height: 100%}
 .callResponse > form {
 	height: 100%;
 }
-.callResponse > .call {
+.call {
 	padding: 30px 0px 30px 0px;
     font-size: 40px;
 }
 .callResponse > .response {	
 }
-.callResponse > fieldset {
-	padding: 30px;
+fieldset {
+	margin: 30px;
 }
 
 /*unrelated*/
