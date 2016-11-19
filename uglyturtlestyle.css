@@ -53,11 +53,12 @@ html, body{height: 100%}
 }
 .callResponse > .call {
 	padding: 30px 0px 30px 0px;
+    font-size: 40px;
 }
 .callResponse > .response {	
 }
 .callResponse > fieldset {
-	padding: 30px 0px 30px 0px;
+	padding: 30px;
 }
 
 /*unrelated*/
