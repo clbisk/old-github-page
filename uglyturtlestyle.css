@@ -7,6 +7,10 @@
     cursor:pointer;
 }
 
+input {
+	margin: 20px;
+}
+
 html, body{height: 100%}
 .screen {
 	height: calc(100% - 96px);

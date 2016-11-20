@@ -22,11 +22,13 @@ $(document).ready(function() {
         clearScreen();
         pushNext();
 	});
-  
-  if( $('#belonging').value <= 0 || $('#energy').value <= 0 ) {
+ 
+//gameover scenario
+  if( $('#belonging').progressbar('value') <= 0 || $('#energy').progressbar('value') <= 0 ) {
     gameOver();
   }
 	
+//events that advance the story
 		$(document).on('click', '.next', function() {
           clearScreen();
           progression.push('x');
@@ -36,7 +38,7 @@ $(document).ready(function() {
         $(document).on('submit', '.response', function( event ) {
           event.preventDefault();
           
-          var selection = $("input:radio:checked").getAttribute('id');
+          var selection = $("input:radio:checked").attr('id');
           
           clearScreen();
           progression.push(selection);
@@ -48,7 +50,8 @@ $(document).ready(function() {
           progression = [];
           pushNext();
         });
-  
+ 
+ //v useful functions
   function clearScreen() {
     $('.screen').empty();
   }
@@ -91,29 +94,72 @@ $(document).ready(function() {
    });
   }
 	
+//*****key function*****
+  //controls the progression of the story and keeps the slides in order
   function pushNext() {
     if ( progression.length == 0 ) {
-      addPicNtext("<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Chelonia_mydas_is_going_for_the_air.jpg/1280px-Chelonia_mydas_is_going_for_the_air.jpg'>", "Hi. My name's " + name + ", and today\'s my very first day of classes at Beloit Turtle College.");
+      addPicNtext("<img src='https://upload.wikimedia.org/wikipedia/commons/f/f5/Beloit_College_sign.JPG'>",
+                  "Hi. My name's " + name + ", and today\'s my very first day of classes at Beloit Turtle College, a small liberal arts college for turtles like me!\nI said goodbye to my turtle mom and dad and moved in here more than a week ago for orientation. Now all I gotta do is survive college long enough to get my degree.");
     }
-    if ( progression.length == 1 ) {
+    
+    else if ( progression.length == 1 ) {
       var choices = ["Go eat breakfast at commons",
                      "Go right to class",
                      "Sleep in   (Just 5 more minutes!)"]
       addCallResponse("What should I do first?", choices);
     }
     
-    if ( progression.length == 2 ) {
-      if ( progression[3] === '1' ) {
-        //addPicNtext( <>, <> );
-      } else if ( progression[3] === '2' ) {
-        //addPicNtext( <>, <> );
+    else if ( progression.length == 2 ) {
+      if ( progression[1] === '0' ) {
+        addPicNtext("<img src='http://www.landmarkmn.com/enews/0912/images/p_01.gif'>",
+                    "They do say that breakfast is the most important meal of the day!");
+        belongingUp();
+        energyUp();
+      } else if ( progression[1] === '1' ) {
+        addPicNtext("<img src='http://www.findorff.com/wp-content/uploads/2014/04/beloit-2.jpg'>",
+                    "Can't be late for my first day of college!");
+        energyDown();
       } else {
-        //addPicNtext( <>, <> );
+        addPicNtext("<img src='http://66.media.tumblr.com/65fda358cc91a21e36d46f66330fc4aa/tumblr_o6j3ht8kSO1qjpd3ao1_1280.jpg'>",
+                    "This way I'm sure to be rested for my first class...");
+        energyUp();
       }
+    }
+    
+    else if ( progression.length == 3) {
+      
     }
     
   }
   
+//makes things less confusing for me
+  function belongingUp() {
+    $('#belonging').progressbar('value', ($('#belonging').progressbar('value') + 7) );
+  }
+  function belonging2Up() {
+    $('#belonging').progressbar('value', ($('#belonging').progressbar('value') + 14) );
+  }
+  function belongingDown() {
+    $('#belonging').progressbar('value', ($('#belonging').progressbar('value') - 7) );
+  }
+  function belonging2Down() {
+    $('#belonging').progressbar('value', ($('#belonging').progressbar('value') - 14) );
+  }
+  
+  function energyUp() {
+    $('#energy').progressbar('value', ($('#energy').progressbar('value') + 7) );
+  }
+  function energy2Up() {
+    $('#energy').progressbar('value', ($('#energy').progressbar('value') + 14) );
+  }
+  function energyDown() {
+    $('#energy').progressbar('value', ($('#energy').progressbar('value') - 7) );
+  }
+  function energy2Down() {
+    $('#energy').progressbar('value', ($('#energy').progressbar('value') - 14) );
+  }
+ 
+//posts gameover scenario
   function gameOver() {
     clearScreen();
     addPicNtext("<img src='http://ichef.bbci.co.uk/wwfeatures/wm/live/624_351/images/live/p0/2g/hc/p02ghcq8.jpg'>",
