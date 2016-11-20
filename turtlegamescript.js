@@ -25,9 +25,15 @@ $(document).ready(function() {
 	});
  
 //gameover scenario
-  if( $('#belonging').progressbar('value') <= 0 || $('#energy').progressbar('value') <= 0 ) {
+  $(document).on("progressbarchange", '#belonging', function() {
     gameOver();
-  }
+  });
+  $(document).on("progressbarchange", '#energy', function() {
+    gameOver();
+  });
+  //if( $('#belonging').progressbar('value') <= 0 || $('#energy').progressbar('value') <= 0 ) {
+  //  gameOver();
+  //}
 	
 //events that advance the story
 		$(document).on('click', '.next', function() {
@@ -46,7 +52,7 @@ $(document).ready(function() {
           pushNext();
         });
   
-        $(document).on('click', 'tryAgain', function() {
+        $(document).on('click', '.tryAgain', function() {
           clearScreen();
           progression = [];
           pushNext();
@@ -733,6 +739,8 @@ $(document).ready(function() {
 //posts gameover scenario
   function gameOver() {
     clearScreen();
+    $('body').fadeOut(500).delay(200).fadeIn(500);
+    $('body').fadeOut(500).delay(200).fadeIn(500);
     addPicNtext("<img src='http://ichef.bbci.co.uk/wwfeatures/wm/live/624_351/images/live/p0/2g/hc/p02ghcq8.jpg'>",
                 "Maybe college isn't for me... No, I just have to get back up and keep trying! ...If someone will just come flip me back over...");
     $('.screen').append("<input type='submit' class='tryAgain' value='Try Again?'></input>");
