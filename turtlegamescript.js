@@ -1,6 +1,7 @@
 $(document).ready(function() {
 	
     var progression = [];
+    var name;
   
 	$('#belonging').progressbar({value: 5});
 	$('#energy').progressbar({value: 95});
@@ -16,7 +17,7 @@ $(document).ready(function() {
 		event.preventDefault();
       
 		//sets up form info as variables
-        var name = $("input[type='text']").val();
+        name = $("input[type='text']").val();
         var pronoun = $("input:radio:checked").val();
       
         clearScreen();
@@ -238,9 +239,13 @@ $(document).ready(function() {
         belonging2Up();
         energy2Down();
       }
+      progression.push('x');
+      pushNext();
     }
     
     else if ( progression.length == 12 ) {
+      $('body').fadeOut(1000);
+      $('body').fadeIn(1000);
       addPicNtext("<img src='http://66.media.tumblr.com/65fda358cc91a21e36d46f66330fc4aa/tumblr_o6j3ht8kSO1qjpd3ao1_1280.jpg'>",
                   "Whew, I'm pooped. Fist day of college: check.");
     }
@@ -305,7 +310,7 @@ $(document).ready(function() {
     }
     
     else if ( progression.length == 19 ) {
-      addPicNtext("<img src='http://tophdimgs.com/data_images/wallpapers/8/352891-cellphone.jpg'>",
+      addPicNtext("<img src='http://www.clipartkid.com/images/242/cell-phone-icon-png-xw9bYK-clipart.png'>",
                   "Text: \"Wanna get something to eat?\"");
     }
     
@@ -351,7 +356,7 @@ $(document).ready(function() {
     }
     
     else if ( progression.length == 24 ) {
-      addPicNtext("<img src='http://tophdimgs.com/data_images/wallpapers/8/352891-cellphone.jpg'>",
+      addPicNtext("<img src='http://www.clipartkid.com/images/242/cell-phone-icon-png-xw9bYK-clipart.png'>",
                   "Text: \"Let's hang out after class!\"");
     }
       
@@ -503,7 +508,7 @@ $(document).ready(function() {
                     "Van Damme",
                     "Van Helsing",
                     "Van Galder"];
-      addCallResponse("Question 1:  Question 2: What is the name of the bus line that goes to Chicago and the O'Hare Airport?", choices);
+      addCallResponse("Question 2: What is the name of the bus line that goes to Chicago and the O'Hare Airport?", choices);
     }
       
     else if ( progression.length == 39 ) {
@@ -525,7 +530,7 @@ $(document).ready(function() {
                     "Bangalore",
                     "New Delhi",
                     "Kolkata"];
-      addCallResponse("Question 1:  Question 3:  What is the capital of India?", choices);
+      addCallResponse("Question 3:  What is the capital of India?", choices);
     }
       
     else if ( progression.length == 41 ) {
@@ -684,7 +689,7 @@ $(document).ready(function() {
     }
       
     else if ( progression.length == 53 ) {
-      $('screen').append("<div class='bigFont'>Thanks for playing!<br><br>This game was created for the 2016 Beloit Being Here Festival.<br>Story by Rose Stahl and Cecilia Bisk<br>Programmed by Cecilia Bisk</div>);
+      $('.screen').append("<div class='bigFont'>Thanks for playing!<br><br>This game was created for the 2016 Beloit Being Here Festival.<br>Story by Rose Stahl and Cecilia Bisk<br>Programmed by Cecilia Bisk</div>");
     }
       
     //else if ( progression.length == 23413456) {
