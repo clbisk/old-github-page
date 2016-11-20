@@ -421,11 +421,12 @@ $(document).ready(function() {
       }
       if (gameover == false) {
         addAnimation();
-        $(document).delay(1000);
+        setTimeout(function() {
         var choices = ["Use the kitchen to make your own dinner!",
                       "Go to commons with friends",
                       "Stay in the room and study"];
-        addCallResponse("Dinner time!", choices)
+        addCallResponse("Dinner time!", choices);
+        }, 2000);
       }
     }
       
