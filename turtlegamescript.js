@@ -2,6 +2,7 @@ $(document).ready(function() {
 	
     var progression = [];
     var name;
+    var gameover = false;
   
 	$('#belonging').progressbar({value: 5});
 	$('#energy').progressbar({value: 95});
@@ -26,15 +27,18 @@ $(document).ready(function() {
  
 //gameover scenario
   $(document).on("progressbarchange", '#belonging', function() {
-    gameOver();
+    if( $('#belonging').progressbar('value') <= 0) {
+      gameover = true;
+      gameOver();
+    }
   });
   $(document).on("progressbarchange", '#energy', function() {
-    gameOver();
+    if( $('#energy').progressbar('value') <= 0) {
+      gameover = true;
+      gameOver();
+    }
   });
-  //if( $('#belonging').progressbar('value') <= 0 || $('#energy').progressbar('value') <= 0 ) {
-  //  gameOver();
-  //}
-	
+  
 //events that advance the story
 		$(document).on('click', '.next', function() {
           clearScreen();
@@ -53,6 +57,7 @@ $(document).ready(function() {
         });
   
         $(document).on('click', '.tryAgain', function() {
+          gameover = false;
           clearScreen();
           progression = [];
           pushNext();
@@ -111,6 +116,7 @@ $(document).ready(function() {
 //*****key function*****
   //controls the progression of the story and keeps the slides in order
   function pushNext() {
+    if (gameover == false) {
     if ( progression.length == 0 ) {
       addPicNtext("<img src='https://upload.wikimedia.org/wikipedia/commons/f/f5/Beloit_College_sign.JPG'>",
                   "Hi. My name's " + name + ", and today\'s my very first day of classes at Beloit Turtle College, a small liberal arts college for turtles like me!\nI said goodbye to my turtle mom and dad and moved in here more than a week ago for orientation. Now all I gotta do is survive college long enough to get my degree.");
@@ -165,8 +171,10 @@ $(document).ready(function() {
         initialResponse = "Oh dear, thank you so very much!";
         belonging2Up();
       }
-      addPicNtext("<img src='http://4.bp.blogspot.com/-TUtBpS7fVsw/UKpbcgWasBI/AAAAAAAAAGg/4AIi6dT4g8w/s1600/smart+turtle.jpg'>",
+      if (gameover == false) {
+        addPicNtext("<img src='http://4.bp.blogspot.com/-TUtBpS7fVsw/UKpbcgWasBI/AAAAAAAAAGg/4AIi6dT4g8w/s1600/smart+turtle.jpg'>",
                     "\"" + initialResponse + " My name's Sheldon. It's nice to meet you! I'm actually a tortoise, which means I'm completely a land-dweller.\nAnyways, how was your orientation week?\"");
+      }
     }
     
     else if ( progression.length == 6 ) {
@@ -196,9 +204,11 @@ $(document).ready(function() {
         addCallResponse("What should I order?", choices);
       } else {
         energyDown();
-        progression.push('x');
-        progression.push('x');
-        pushNext();
+        if (gameover == false) {
+          progression.push('x');
+          progression.push('x');
+          pushNext();
+        }
       }
     }
     
@@ -245,8 +255,10 @@ $(document).ready(function() {
         belonging2Up();
         energy2Down();
       }
-      progression.push('x');
-      pushNext();
+      if (gameover == false) {
+        progression.push('x');
+        pushNext();
+      }
     }
     
     else if ( progression.length == 12 ) {
@@ -284,8 +296,10 @@ $(document).ready(function() {
         energy2Up();
       } else {
         energy2Down();
-        progression.push('x');
-        pushNext();
+        if (gameover == false) {
+          progression.push('x');
+          pushNext();
+        }
       }
     }
     
@@ -311,8 +325,10 @@ $(document).ready(function() {
         belonging2Up();
         energyDown();
       }
-      addPicNtext("<img src='http://www.bollywoodshaadis.com/img/article-201441004572417844000.jpg'>",
-                  "Today we're learning about the differences in marriage arrangements between north India and south India and what it means for society.");
+      if (gameover == false) {
+        addPicNtext("<img src='http://www.bollywoodshaadis.com/img/article-201441004572417844000.jpg'>",
+                    "Today we're learning about the differences in marriage arrangements between north India and south India and what it means for society.");
+      }
     }
     
     else if ( progression.length == 19 ) {
@@ -339,11 +355,13 @@ $(document).ready(function() {
       } else {
         energyUp();
       }
-      $('body').fadeOut(1000);
-      $('body').fadeIn(1000);
-      var choices = ["Go to bed",
-                    "Stay up watching TurtleFlix with friends"];
-      addCallResponse("It's gotten pretty late. What should I do now?", choices);
+      if (gameover == false) {
+        $('body').fadeOut(1000);
+        $('body').fadeIn(1000);
+        var choices = ["Go to bed",
+                      "Stay up watching TurtleFlix with friends"];
+        addCallResponse("It's gotten pretty late. What should I do now?", choices);
+      }
     }
     
     else if ( progression.length == 23 ) {
@@ -353,12 +371,14 @@ $(document).ready(function() {
         belonging2Up();
         energyDown();
       }
-      $('body').fadeOut(1000);
-      $('.DayOtheWeek').empty();
-      $('.DayOtheWeek').append("Wednesday");
-      $('body').fadeIn(1000);
-      addPicNtext("<img src='http://66.media.tumblr.com/65fda358cc91a21e36d46f66330fc4aa/tumblr_o6j3ht8kSO1qjpd3ao1_1280.jpg'>",
-                 "Wednesday! What's in store today?");
+      if (gameover == false) {
+        $('body').fadeOut(1000);
+        $('.DayOtheWeek').empty();
+        $('.DayOtheWeek').append("Wednesday");
+        $('body').fadeIn(1000);
+        addPicNtext("<img src='http://66.media.tumblr.com/65fda358cc91a21e36d46f66330fc4aa/tumblr_o6j3ht8kSO1qjpd3ao1_1280.jpg'>",
+                   "Wednesday! What's in store today?");
+      }
     }
     
     else if ( progression.length == 24 ) {
@@ -377,12 +397,14 @@ $(document).ready(function() {
         belonging2Up();
         energyDown();
       }
-      $('body').fadeOut(1000);
-      $('body').fadeIn(1000);
-      var choices = ["Use the kitchen to make your own dinner!",
-                    "Go to commons with friends",
-                    "Stay in the room and study"];
-      addCallResponse("Dinner time!", choices)
+      if (gameover == false) {
+        $('body').fadeOut(1000);
+        $('body').fadeIn(1000);
+        var choices = ["Use the kitchen to make your own dinner!",
+                      "Go to commons with friends",
+                      "Stay in the room and study"];
+        addCallResponse("Dinner time!", choices)
+      }
     }
       
     else if ( progression.length == 27 ) {
@@ -418,9 +440,11 @@ $(document).ready(function() {
         energyUp();
         belongingDown();
       }
-      var choices = ["Yeah!",
-                    "Nah, I should turn in early"];
-      addCallResponse("There's a late-night showing of Finding Dory tonight! Should I go?", choices);
+      if (gameover == false) {
+        var choices = ["Yeah!",
+                      "Nah, I should turn in early"];
+        addCallResponse("There's a late-night showing of Finding Dory tonight! Should I go?", choices);
+      }
     }
     
     else if ( progression.length == 30 ) {
@@ -456,8 +480,10 @@ $(document).ready(function() {
         energy2Up();
       } else {
         energy2Down();
-        progression.push('x');
-        pushNext();
+        if (gameover == false) {
+          progression.push('x');
+          pushNext();
+        }
       }
     }
     
@@ -483,8 +509,10 @@ $(document).ready(function() {
         belonging2Up();
         energyDown();
       }
-      addPicNtext("<img src='http://www.citizenship-aei.org/wp-content/uploads/Testing.jpg'>",
-                  "Oh no! There's a pop quiz!");
+      if (gameover == false) {
+        addPicNtext("<img src='http://www.citizenship-aei.org/wp-content/uploads/Testing.jpg'>",
+                    "Oh no! There's a pop quiz!");
+      }
     }
                   
     else if ( progression.length == 36 ) {
@@ -504,8 +532,10 @@ $(document).ready(function() {
       } else {
         energyDown();
         belongingDown();
-        addPicNtext("<img src='https://cdn.pixabay.com/photo/2012/04/12/20/12/x-30465_1280.png'>",
-                   "Incorrect!");
+        if (gameover == false) {
+          addPicNtext("<img src='https://cdn.pixabay.com/photo/2012/04/12/20/12/x-30465_1280.png'>",
+                     "Incorrect!");
+        }
       }
     }
       
@@ -526,11 +556,13 @@ $(document).ready(function() {
       } else {
         energyDown();
         belongingDown();
-        addPicNtext("<img src='https://cdn.pixabay.com/photo/2012/04/12/20/12/x-30465_1280.png'>",
-                   "Incorrect!");
+        if (gameover == false) {
+          addPicNtext("<img src='https://cdn.pixabay.com/photo/2012/04/12/20/12/x-30465_1280.png'>",
+                     "Incorrect!");
+        }
       }
     }
-      
+    
     else if ( progression.length == 40 ) {
       var choices = ["Mumbai",
                     "Bangalore",
@@ -548,8 +580,10 @@ $(document).ready(function() {
       } else {
         energyDown();
         belongingDown();
-        addPicNtext("<img src='https://cdn.pixabay.com/photo/2012/04/12/20/12/x-30465_1280.png'>",
-                   "Incorrect!");
+        if (gameover == false) {
+          addPicNtext("<img src='https://cdn.pixabay.com/photo/2012/04/12/20/12/x-30465_1280.png'>",
+                     "Incorrect!");
+        }
       }
     }
     
@@ -558,7 +592,7 @@ $(document).ready(function() {
                     "Systems, Arts, Behavior, the Universe, and Texts",
                     "Systems, Arts, Health, Social Science, and Texts",
                     "There are more than five domains!"];
-      addCallResponse("Question 1:  Question 4: What are the five \"Domains\" of a liberal arts education at Beloit?", choices);
+      addCallResponse("Question 4: What are the five \"Domains\" of a liberal arts education at Beloit?", choices);
     }
       
     else if ( progression.length == 43 ) {
@@ -570,8 +604,10 @@ $(document).ready(function() {
       } else {
         energyDown();
         belongingDown();
-        addPicNtext("<img src='https://cdn.pixabay.com/photo/2012/04/12/20/12/x-30465_1280.png'>",
-                   "Incorrect!");
+        if (gameover == false) {
+          addPicNtext("<img src='https://cdn.pixabay.com/photo/2012/04/12/20/12/x-30465_1280.png'>",
+                     "Incorrect!");
+        }
       }
     }
       
@@ -591,17 +627,21 @@ $(document).ready(function() {
       if (progression[45] === '0') {
         energy2Down();
         belonging2Up();
-        addPicNtext("<img src='http://www.hudsonvalleygoodstuff.com/wp-content/uploads/2011/08/6a0120a7acde64970b014e8a87083a970d.jpg'>",
-                   "I do love a good swim!");
+        if (gameover == false) {
+          addPicNtext("<img src='http://www.hudsonvalleygoodstuff.com/wp-content/uploads/2011/08/6a0120a7acde64970b014e8a87083a970d.jpg'>",
+                     "I do love a good swim!");
+        }
       } else if (progression[45] === '0') {
         addPicNtext("<img src='http://66.media.tumblr.com/65fda358cc91a21e36d46f66330fc4aa/tumblr_o6j3ht8kSO1qjpd3ao1_1280.jpg'>",
                    "It's nice to just relax.");
         energy2Up();
       } else {
-        addPicNtext("<img src='http://collegeboundmentor.com/wp-content/uploads/2013/04/cbm_lisa_beloit_quad.jpg'>",
-                   "There are always some turtles playing frisbee out here for some reason. Might as well join in!");
         energy2Down();
         belonging2Up();
+        if (gameover == false) {
+          addPicNtext("<img src='http://collegeboundmentor.com/wp-content/uploads/2013/04/cbm_lisa_beloit_quad.jpg'>",
+                     "There are always some turtles playing frisbee out here for some reason. Might as well join in!");
+        }
       }
     }
       
@@ -641,9 +681,11 @@ $(document).ready(function() {
         addCallResponse("What should I order?", choices);
       } else {
         energyDown();
-        progression.push('x');
-        progression.push('x');
-        pushNext();
+        if (gameover == false) {
+          progression.push('x');
+          progression.push('x');
+          pushNext();
+        }
       }
     }
     
@@ -688,25 +730,18 @@ $(document).ready(function() {
       } else {
         energy2Up();
       }
-      $('body').fadeOut(500).delay(200).fadeIn(500);
-      $('body').fadeOut(500).delay(200).fadeIn(500);
-      addPicNtext("<img src='http://www.aaanything.net/wp-content/uploads/2013/04/happy_turtle_look_mom_no_hands.jpg'>",
+      if (gameover == false) {
+         $('body').fadeOut(500).delay(200).fadeIn(500);
+        $('body').fadeOut(500).delay(200).fadeIn(500);
+        addPicNtext("<img src='http://www.aaanything.net/wp-content/uploads/2013/04/happy_turtle_look_mom_no_hands.jpg'>",
                   "You did it!! You survived college!");
+      }
     }
       
     else if ( progression.length == 53 ) {
       $('.screen').append("<div class='bigFont'>Thanks for playing!<br><br>This game was created for the 2016 Beloit Being Here Festival.<br>Story by Rose Stahl and Cecilia Bisk<br>Programmed by Cecilia Bisk</div>");
     }
-      
-    //else if ( progression.length == 23413456) {
-    //  var choices = [];
-    //  addCallResponse("", choices);
-    //}
-    //else if ( progression.length == 23413456) {
-    //  if progression[2]
-    //  addPicNtext("<img src=''>",
-    //             "");
-    //}
+    }
   }
   
 //makes things less confusing for me
