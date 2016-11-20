@@ -144,6 +144,18 @@ $(document).ready(function() {
                     "This way I'm sure to be rested for my first class...");
         energyUp();
       }
+      $( ".statBox" ).animate({
+    		width: "60%",
+   			marginLeft: "0.6in",
+   		 	fontSize: "3em",
+  		  borderWidth: "10px"
+  		}, 1500 );
+			$( ".statBox" ).animate({
+    		width: "220px",
+   		 	marginLeft: "0in",
+   		 	fontSize: "1em",
+  		  borderWidth: "0px"
+  		}, 1500 );
     }
     
     else if ( progression.length == 3 ) {
@@ -734,7 +746,7 @@ $(document).ready(function() {
          $('body').fadeOut(500).delay(200).fadeIn(500);
         $('body').fadeOut(500).delay(200).fadeIn(500);
         addPicNtext("<img src='http://www.aaanything.net/wp-content/uploads/2013/04/happy_turtle_look_mom_no_hands.jpg'>",
-                  "You did it!! You survived college!");
+                  "You did it!! You survived college! You finished with a score of: " + $('#belonging').progressbar('value') + " points of belonging! Nice!");
       }
     }
       
@@ -774,10 +786,29 @@ $(document).ready(function() {
 //posts gameover scenario
   function gameOver() {
     clearScreen();
+    var whyLost;
+    if ($('#energy').progressbar('value') <= 0) {
+      whyLost = 'energy';
+    } else if ($('#belonging').progressbar('value') <= 0){
+      whyLost = 'sense of belonging';
+    } else {
+      whyLost = 'motivation';
+    }
     $('body').fadeOut(500).delay(200).fadeIn(500);
     $('body').fadeOut(500).delay(200).fadeIn(500);
-    addPicNtext("<img src='http://ichef.bbci.co.uk/wwfeatures/wm/live/624_351/images/live/p0/2g/hc/p02ghcq8.jpg'>",
-                "Maybe college isn't for me... No, I just have to get back up and keep trying! ...If someone will just come flip me back over...");
+    var picture = "<img src='http://ichef.bbci.co.uk/wwfeatures/wm/live/624_351/images/live/p0/2g/hc/p02ghcq8.jpg'>";
+    var text = "Maybe college isn't for me... No, I just have to get back up and keep trying! ...If someone will just come flip me back over... (You lost because you had zero: " + whyLost + ")";
+    $('.screen').append("<div class='picNtext'></div>");
+    $('.picNtext').append("<div class='scene'>" + picture + "</div>");
+    $('.picNtext').append("<div class='story'></div>");
+    
+  //tryin dat type effect
+  $(function(){
+    $(".story").typed({
+      strings: [text],
+      typeSpeed: 0
+     });
+   });
     $('.screen').append("<input type='submit' class='tryAgain' value='Try Again?'></input>");
   }
   
