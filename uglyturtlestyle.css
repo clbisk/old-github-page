@@ -7,6 +7,17 @@
     cursor:pointer;
 }
 
+.bigFont {
+  font-size: 42;
+}
+
+.black {
+  background-color: #000000;
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+}
+
 input {
 	margin: 20px;
 }
