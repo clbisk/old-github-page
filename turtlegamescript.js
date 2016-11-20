@@ -394,7 +394,7 @@ $(document).ready(function() {
       }
       if (gameover == false) {
         addAnimation();
-        $setTimeout(function() {
+        setTimeout(function() {
           $('.DayOtheWeek').empty();
           $('.DayOtheWeek').append("Wednesday");
           addPicNtext("<img src='http://66.media.tumblr.com/65fda358cc91a21e36d46f66330fc4aa/tumblr_o6j3ht8kSO1qjpd3ao1_1280.jpg'>",
