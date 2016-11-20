@@ -68,8 +68,13 @@ $(document).ready(function() {
     $('.screen').empty();
   }
   
-  function addAnimation( animation, text ) {
-    $('.screen').append("div class='animation'></div>");
+  function addAnimation() {
+    $('.screen').append("<div class='animation'></div>");
+    $('.screen').append("<div class='bigFont'>Later...</div>");
+    $('.animation').append("<img src=http://67.media.tumblr.com/b78d8f9732d2a5f66ee3eb534541c636/tumblr_n3e43xhu2v1snzbj4o1_400.gif>"); 
+    setTimeout(function() {
+      clearScreen();
+    }, 2000);
   }
   
   function addCallResponse( text, response ) {
@@ -243,10 +248,11 @@ $(document).ready(function() {
     }
     
     else if ( progression.length == 9 ) {
-      $('body').fadeOut(1000);
-      $('body').fadeIn(1000);
-      addPicNtext("<img src='http://www.findorff.com/wp-content/uploads/2014/04/beloit-1.jpg'>",
-                  "Classes for the day are over, thank goodness.\nIt was a long but eventful day.");
+      addAnimation();
+      setTimeout(function() {
+        addPicNtext("<img src='http://www.findorff.com/wp-content/uploads/2014/04/beloit-1.jpg'>",
+                    "Classes for the day are over, thank goodness.\nIt was a long but eventful day.");
+      }, 2000);
     }
     
     else if ( progression.length == 10 ) {
@@ -274,19 +280,21 @@ $(document).ready(function() {
     }
     
     else if ( progression.length == 12 ) {
-      $('body').fadeOut(1000);
-      $('body').fadeIn(1000);
-      addPicNtext("<img src='http://66.media.tumblr.com/65fda358cc91a21e36d46f66330fc4aa/tumblr_o6j3ht8kSO1qjpd3ao1_1280.jpg'>",
-                  "Whew, I'm pooped. Fist day of college: check.");
+      addAnimation();
+        setTimeout(function() {
+        addPicNtext("<img src='http://66.media.tumblr.com/65fda358cc91a21e36d46f66330fc4aa/tumblr_o6j3ht8kSO1qjpd3ao1_1280.jpg'>",
+                    "Whew, I'm pooped. Fist day of college: check.");
+      }, 2000);
     }
     
     else if ( progression.length == 13 ) {  
-      $('body').fadeOut(1000);
+      addAnimation();
+      setTimeout(function() {
       $('.DayOtheWeek').empty();
-      $('.DayOtheWeek').append("Tuesday");
-      $('body').fadeIn(1000);
-      addPicNtext("<img src='http://66.media.tumblr.com/65fda358cc91a21e36d46f66330fc4aa/tumblr_o6j3ht8kSO1qjpd3ao1_1280.jpg'>",
-                  "Ready for my second day! Today I've got sculpting and my FYI: The Wonder That is India.");
+        $('.DayOtheWeek').append("Tuesday");
+        addPicNtext("<img src='http://66.media.tumblr.com/65fda358cc91a21e36d46f66330fc4aa/tumblr_o6j3ht8kSO1qjpd3ao1_1280.jpg'>",
+                    "Ready for my second day! Today I've got sculpting and my FYI: The Wonder That is India.");
+      }, 2000);
     }
     
     else if ( progression.length == 14 ) {
@@ -368,11 +376,12 @@ $(document).ready(function() {
         energyUp();
       }
       if (gameover == false) {
-        $('body').fadeOut(1000);
-        $('body').fadeIn(1000);
-        var choices = ["Go to bed",
-                      "Stay up watching TurtleFlix with friends"];
-        addCallResponse("It's gotten pretty late. What should I do now?", choices);
+        addAnimation();
+        setTimeout(function() {
+          var choices = ["Go to bed",
+                        "Stay up watching TurtleFlix with friends"];
+          addCallResponse("It's gotten pretty late. What should I do now?", choices);
+        }, 2000);
       }
     }
     
@@ -384,12 +393,13 @@ $(document).ready(function() {
         energyDown();
       }
       if (gameover == false) {
-        $('body').fadeOut(1000);
-        $('.DayOtheWeek').empty();
-        $('.DayOtheWeek').append("Wednesday");
-        $('body').fadeIn(1000);
-        addPicNtext("<img src='http://66.media.tumblr.com/65fda358cc91a21e36d46f66330fc4aa/tumblr_o6j3ht8kSO1qjpd3ao1_1280.jpg'>",
-                   "Wednesday! What's in store today?");
+        addAnimation();
+        $setTimeout(function() {
+          $('.DayOtheWeek').empty();
+          $('.DayOtheWeek').append("Wednesday");
+          addPicNtext("<img src='http://66.media.tumblr.com/65fda358cc91a21e36d46f66330fc4aa/tumblr_o6j3ht8kSO1qjpd3ao1_1280.jpg'>",
+                     "Wednesday! What's in store today?");
+        }, 2000);
       }
     }
     
@@ -410,8 +420,8 @@ $(document).ready(function() {
         energyDown();
       }
       if (gameover == false) {
-        $('body').fadeOut(1000);
-        $('body').fadeIn(1000);
+        addAnimation();
+        $(document).delay(1000);
         var choices = ["Use the kitchen to make your own dinner!",
                       "Go to commons with friends",
                       "Stay in the room and study"];
@@ -465,12 +475,13 @@ $(document).ready(function() {
       } else {
         energy2Up();
       }
-      $('body').fadeOut(1000);
-      $('.DayOtheWeek').empty();
-      $('.DayOtheWeek').append("Thursday");
-      $('body').fadeIn(1000);
-      addPicNtext("<img src='http://66.media.tumblr.com/65fda358cc91a21e36d46f66330fc4aa/tumblr_o6j3ht8kSO1qjpd3ao1_1280.jpg'>",
-                 "Thursday. I wonder what'll happen today?");
+      addAnimation();
+      setTimeout(function() {
+        $('.DayOtheWeek').empty();
+        $('.DayOtheWeek').append("Thursday");
+        addPicNtext("<img src='http://66.media.tumblr.com/65fda358cc91a21e36d46f66330fc4aa/tumblr_o6j3ht8kSO1qjpd3ao1_1280.jpg'>",
+                   "Thursday. I wonder what'll happen today?");
+      }, 2000);
     }
     
     else if ( progression.length == 31 ) {
@@ -658,12 +669,13 @@ $(document).ready(function() {
     }
       
     else if ( progression.length == 47 ) {
-      $('body').fadeOut(1000);
-      $('.DayOtheWeek').empty();
-      $('.DayOtheWeek').append("Friday");
-      $('body').fadeIn(1000);
-      addPicNtext("<img src='http://66.media.tumblr.com/65fda358cc91a21e36d46f66330fc4aa/tumblr_o6j3ht8kSO1qjpd3ao1_1280.jpg'>",
-                 "It's Friday! Yes! I've almost made it through a whole week of classes at Beloit. It's been tiring, but I've met a lot of really nice turtles. None of them are like the turtles I used to hang out with at home, but I'm glad; it means I'm meeting really unique turtles and getting new perspectives. Besides, I'll get used to life here soon, and then everything will be much more relaxed. I'm already seeing Beloit Turtle College as my new home.");
+      addAnimation();
+      setTimeout(function() {
+        $('.DayOtheWeek').empty();
+        $('.DayOtheWeek').append("Friday");
+        addPicNtext("<img src='http://66.media.tumblr.com/65fda358cc91a21e36d46f66330fc4aa/tumblr_o6j3ht8kSO1qjpd3ao1_1280.jpg'>",
+                   "It's Friday! Yes! I've almost made it through a whole week of classes at Beloit. It's been tiring, but I've met a lot of really nice turtles. None of them are like the turtles I used to hang out with at home, but I'm glad; it means I'm meeting really unique turtles and getting new perspectives. Besides, I'll get used to life here soon, and then everything will be much more relaxed. I'm already seeing Beloit Turtle College as my new home.");
+      }, 2000);
     }
     
     else if ( progression.length == 48 ) {
@@ -720,13 +732,14 @@ $(document).ready(function() {
     }
       
     else if ( progression.length == 51 ) {
-      $('body').fadeOut(1000);
-      $('body').fadeIn(1000);
+      addAnimation();
+      setTimeout(function() {
       var choices = ["Go see some live student music at C-haus",
                     "Go party!",
                     "Chill at the wall",
                     "I'm exhausted! Time for a looong nap"];
       addCallResponse("Classes went well! Now what should I do?", choices);
+      }, 2000);
     }
       
     else if ( progression.length == 52 ) {
@@ -751,7 +764,7 @@ $(document).ready(function() {
     }
       
     else if ( progression.length == 53 ) {
-      $('.screen').append("<div class='bigFont'>Thanks for playing!<br><br>This game was created for the 2016 Beloit Being Here Festival.<br>Story by Rose Stahl and Cecilia Bisk<br>Programmed by Cecilia Bisk</div>");
+      $('.screen').append("<div class='bigFont'>Thanks for playing!<br><br>This game was created for the 2016 Beloit Being Here Festival.<br>Story by Rose Stahl and Cecilia Bisk<br>Programmed by Cecilia Bisk<br><br>typing effect: <a href=typed.js>typed.js</a></div><br><div>Works Cited: <a href='/works.html'>Click here</a></div>");
     }
     }
   }
