@@ -165,7 +165,7 @@ $(document).ready(function() {
     
     else if ( progression.length == 3 ) {
       addPicNtext("<img src='https://www.beloit.edu/reason/images/424590.jpg'>",
-                  "I'm finally in my first ever college class! I'm already used to this atmosphere from doing informal FYI classes during orientation, but now it's official!\nI'll remember this day for the rest of--\nWell, I'll probably forget it relatively soon but it is nonetheless a monumental occasion!");
+                  "I'm finally in my first ever college class! I'm already used to this atmosphere from doing informal FYI classes during orientation, but now it's official!\nI'll remember this day for the rest of--\nWell, I'll probably forget it relatively soon but it is nonetheless a monumentous occasion!");
     }
     
     else if ( progression.length == 4 ) {
