@@ -5,13 +5,18 @@
   <script src="//code.jquery.com/jquery-1.12.4.js"></script>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
+  <link rel="stylesheet" href="/puzzleStyle">
+  <script src="/constructPuzzle">
 </head>
 
 <body>
-  <div id='main'>
+  <div class='main'>
+    
     <form action="#">
- 
-      <fieldset>
+      <fieldset id='puzzleType'>
+        
+        <!--dropdown-->
         <label for="speed">Select a size</label>
         <select name="speed" id="speed">
         <option selected="selected">2x2</option>
@@ -20,12 +25,17 @@
         <option>6x6</option>
         <option>10x10</option>
         </select>
+        
+        <!--submit button-->
+        <input class="ui-button ui-widget ui-corner-all" type="submit" value="A submit button">
+      
       </fieldset>
     </form>
     
-    <div id='grid'>
+    <div class='grid'>
     
     </div>
+    
   </div>
   
 </body>
