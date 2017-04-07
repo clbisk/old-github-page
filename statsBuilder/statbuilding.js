@@ -22,7 +22,7 @@ function createSelect(place, id, label) {
 			<label for=` + id + `>` + label + `</label>
 			<select id=` + id + `></select>
 	`);
-	return $(place).$('label');
+	return $(place + ' select');
 }
 
 //helper function to fill a select with some values and text
