@@ -1,7 +1,15 @@
 //function to create seven selects in '#senior' with the
 //course options
 function seniorClasses() {
-	var sel1 = createSelect('#screen', 'first', "First Period:");
+	$('#screen').append(`
+			<form id='senior' class='classes'>
+				<fieldset>
+					<legend>Classes</legend>
+				</fieldset>
+			</form>
+	`);
+	
+	var sel1 = createSelect('#screen fieldset', 'first', "First Period:");
 	var classVals = ['math', 'art'];
 	var classText = ["Pre-calc", "Sketching"];
 	sel1.fillSelect(classVals, classText);
