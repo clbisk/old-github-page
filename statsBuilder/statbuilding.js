@@ -12,7 +12,7 @@ function seniorClasses() {
 	var sel1 = createSelect('#screen fieldset', 'first', "First Period:");
 	var classVals = ['math', 'art'];
 	var classText = ["Pre-calc", "Sketching"];
-	sel1.fillSelect(classVals, classText);
+	fillSelect(sel1, classVals, classText);
 }
 
 //helper function to create a label and select
@@ -26,9 +26,9 @@ function createSelect(place, id, label) {
 }
 
 //helper function to fill a select with some values and text
-function fillSelect(value, text) {
+function fillSelect(place, value, text) {
 	for (i = 0; i < value.length; i++) {
-		this.append(`
+		place.append(`
 				<option value=` + value[i] + `>` + text[i] + `</option>
 		`);
 	}
