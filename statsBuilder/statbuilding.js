@@ -10,8 +10,8 @@ function seniorClasses() {
 	`);
 	
 	var sel1 = createSelect('#screen fieldset', 'first', "First Period:");
-	var classVals = ['math', 'art'];
-	var classText = ["Pre-calc", "Sketching"];
+	var classVals = ['default', 'math', 'art', 'science', 'lit', 'cooking', 'history', 'music'];
+	var classText = ["Please Choose", "Pre-calc", "Sketching", "Chemistry", "Modern Literature", "Culinary Arts", "Acient Civilizations", "Chorus"];
 	fillSelect(sel1, classVals, classText);
 }
 
