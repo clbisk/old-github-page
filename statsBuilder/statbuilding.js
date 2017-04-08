@@ -8,21 +8,26 @@ function seniorClasses() {
 				</fieldset>
 			</form>
 	`);
-	
-	var sel1 = createSelect('#screen fieldset', 'first', "First Period:");
-	var classVals = ['default', 'math', 'art', 'science', 'lit', 'cooking', 'history', 'music'];
-	var classText = ["Please Choose", "Pre-calc", "Sketching", "Chemistry", "Modern Literature", "Culinary Arts", "Acient Civilizations", "Chorus"];
-	fillSelect(sel1, classVals, classText);
+	var labelVals = ['1', '2', '3', '4', '5', '6', '7'];
+	var labelText = ["First Period", "Second Period", "Third Period", "Fourth Period", "Fifth Period", "Sixth Period", "Seventh Period"];
+	for (i = 0; i < labelVals.length; i++) {
+		var sel = createSelect('#screen fieldset', labelVals[i], labelText[i]);
+		var classVals = ['default', 'math', 'art', 'science', 'lit', 'cooking', 'history', 'music'];
+		var classText = ["Please Choose", "Pre-calc", "Sketching", "Chemistry", "Modern Literature", "Culinary Arts", "Acient Civilizations", "Chorus"];
+		fillSelect(sel1, classVals, classText);
+	}
 }
 
 //helper function to create a label and select
 //with an id and label text inside specified object
 function createSelect(place, id, label) {
-	$(place).append(`
-			<label for=` + id + `>` + label + `</label>
-			<select id=` + id + `></select>
-	`);
-	return $(place + ' select');
+	for (i = 0; i < id.length; i++) {
+		$(place).append(`
+				<label for=` + id + `>` + label + `</label>
+				<select id=` + id + `></select>
+		`);
+		return $(place + ' select');
+	}
 }
 
 //helper function to fill a select with some values and text
