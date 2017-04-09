@@ -13,5 +13,11 @@ function dream() {
 //this is the one wherre you're chosing your high-school senior
 //year classes
 function seniorSelect() {
-	seniorClasses();
+	$('#screen').append(`
+			<form id='senior' class='classes'>
+				<fieldset>
+					<legend>Classes</legend>
+				</fieldset>
+			</form>
+	`);
 }
