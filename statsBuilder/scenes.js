@@ -10,7 +10,7 @@ function dream() {
 	`);
 }
 
-//this is the one wherre you're chosing your high-school senior
+//this is the one where you're chosing your high-school senior
 //year classes
 function seniorSelect() {
 	$('#screen').append(`
@@ -20,4 +20,5 @@ function seniorSelect() {
 				</fieldset>
 			</form>
 	`);
+	seniorClasses();
 }

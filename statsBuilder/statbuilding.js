@@ -28,6 +28,7 @@ function fillSelect(place, value, text) {
 				<option value=` + value[i] + `>` + text[i] + `</option>
 		`);
 	}
+	return $(place);
 }
 
 //function to gray out a selection that's already
