@@ -11,9 +11,12 @@ function seniorClasses() {
 	
 	//use up all the texts to make all the selects and options
 	for (var i = 0; i < labelVals.length; i++) {
-		var sel = createSelect('#senior', labelVals[i], labelText[i]);
+		var sel = createSelect('#senior div', labelVals[i], labelText[i]);
 	}
-	fillSelect('#senior', classVals, classText);
+	fillSelects('#senior', classVals, classText);
+	
+	//build jquery ui elements
+	$('#senior select').selectMenu();
 }
 
 //helper function to create a label and select
@@ -27,7 +30,7 @@ function createSelect(place, id, label) {
 }
 
 //helper function to fill all selects at a location with some values and text
-function fillSelect(place, value, text) {
+function fillSelects(place, value, text) {
 	for (var i = 0; i < value.length; i++) {
 		$(place + ' select').append(`
 				<option value=` + value[i] + `>` + text[i] + `</option>

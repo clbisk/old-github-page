@@ -17,8 +17,13 @@ function seniorSelect() {
 			<form>
 				<fieldset class='classes' id='senior'>
 					<legend>Classes</legend>
+					<div class='controlgroup-vertical'></div>
 				</fieldset>
 			</form>
 	`);
+	
+	//build jquery ui elements
+	$('.controlgroup-vertical').controlgroup({'direction': "vertical"});
+	
 	seniorClasses();
 }
