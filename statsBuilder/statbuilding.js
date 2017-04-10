@@ -11,9 +11,9 @@ function seniorClasses() {
 	
 	//use up all the texts to make all the selects and options
 	for (var i = 0; i < labelVals.length; i++) {
-		var sel = createSelect('#senior fieldset', labelVals[i], labelText[i]);
+		var sel = createSelect('#senior', labelVals[i], labelText[i]);
 	}
-	fillSelect('#senior fieldset', classVals, classText);
+	fillSelect('#senior', classVals, classText);
 }
 
 //helper function to create a label and select
@@ -39,12 +39,12 @@ function fillSelect(place, value, text) {
 //been selected
 	//$('selected thing').attr('disabled', 'disabled')
 $( ".selector" ).change(function() {
+	//get selected value
 	var value = $("#senior option:selected").val();
     if (value === '') return;
-    var theDiv = $(".is" + value);
     
     theDiv.slideDown().removeClass("hidden");
-    $("#theSelect option:selected").attr('disabled','disabled');
+    $("#senior option:selected").attr('disabled','disabled');
     $(this).val('');
 });
 
