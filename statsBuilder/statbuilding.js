@@ -3,7 +3,7 @@
 function seniorClasses() {
 	var labelVals = ['1', '2', '3', '4', '5', '6', '7'];
 	var labelText = ["First Period", "Second Period", "Third Period", "Fourth Period", "Fifth Period", "Sixth Period", "Seventh Period"];
-	for (i = 0; i < labelVals.length; i++) {
+	for (var i = 0; i < labelVals.length; i++) {
 		$('body').append("iteration " + i);
 		var sel = createSelect('#screen fieldset', labelVals[i], labelText[i]);
 		var classVals = ['default', 'math', 'art', 'science', 'lit', 'cooking', 'history', 'music'];
@@ -24,7 +24,7 @@ function createSelect(place, id, label) {
 
 //helper function to fill a select with some values and text
 function fillSelect(place, value, text) {
-	for (i = 0; i < value.length; i++) {
+	for (var i = 0; i < value.length; i++) {
 		place.append(`
 				<option value=` + value[i] + `>` + text[i] + `</option>
 		`);
@@ -35,3 +35,5 @@ function fillSelect(place, value, text) {
 //function to gray out a selection that's already
 //been selected
 	//$('selected thing').attr('disabled', 'disabled')
+$( ".selector" ).on( "selectmenuselect", function( event, ui ) {} );
+
