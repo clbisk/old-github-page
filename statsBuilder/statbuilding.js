@@ -16,7 +16,7 @@ function seniorClasses() {
 	fillSelects('#senior', classVals, classText);
 	
 	//build jquery ui elements
-	$('#senior select').selectmenu();
+	$('.selector').selectmenu();
 }
 
 //helper function to create a label and select
@@ -24,7 +24,7 @@ function seniorClasses() {
 function createSelect(place, id, label) {
 	$(place).append(`
 			<label for=` + id + `>` + label + `</label>
-			<select id=` + id + `></select>
+			<select class='selector' id=` + id + `></select>
 			<br>
 	`);
 }
@@ -40,14 +40,14 @@ function fillSelects(place, value, text) {
 
 //function to gray out a selection that's already
 //been selected
-$("#senior select").change(function() {
+$(".selector").change(function() {
 	//get selected value
-	var value = $("#senior option:selected").val();
+	var value = $(".selector option:selected").val();
     if (value === '') return;
     $('.screen').append(value + " is selected.");
     
     //disable options of that value
-    $("#senior option[value=" + value + "]").attr('disabled', true);
-    $("#senior select").selectmenu('refresh');
+    $(".selector option[value=" + value + "]").attr('disabled', true);
+    $(".selector").selectmenu('refresh');
 });
 
