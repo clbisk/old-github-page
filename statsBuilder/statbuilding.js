@@ -43,6 +43,7 @@ $( ".selector" ).change(function() {
     if (value === '') return;
     
     //disable options of that value
-    $(value).attr('disabled', 'disabled');
+    $("#senior option[value=" + value + "]").attr('disabled', 'disabled');
+    
 });
 
