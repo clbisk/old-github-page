@@ -43,7 +43,6 @@ $( ".selector" ).change(function() {
     if (value === '') return;
     
     theDiv.slideDown().removeClass("hidden");
-    $("#senior option:selected").attr('disabled','disabled');
-    $(this).val('');
+    $("#senior option:selected").attr('disabled', true);
 });
 
