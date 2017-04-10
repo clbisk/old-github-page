@@ -40,15 +40,13 @@ function fillSelects(place, value, text) {
 
 //function to gray out a selection that's already
 //been selected
-$(document).ready(function() {
-	$(".selector").change(function() {
-		//get selected value
-		var value = $(".selector option:selected").val();
-	    if (value === '') return;
-	    $('.screen').append(value + " is selected.");
-	    
-	    //disable options of that value
-	    $(".selector option[value=" + value + "]").attr('disabled', true);
-	    $(".selector").selectmenu('refresh');
-	});
+$(document).on('change', '.selector', function(){
+	//get selected value
+	var value = $(".selector option:selected").val();
+    if (value === '') return;
+    $('.screen').append(value + " is selected.");
+    
+    //disable options of that value
+    $(".selector option[value=" + value + "]").attr('disabled', true);
+    $(".selector").selectmenu('refresh');
 });
