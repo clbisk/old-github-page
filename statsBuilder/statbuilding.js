@@ -48,6 +48,6 @@ $("#senior" ).change(function() {
     
     //disable options of that value
     $("#senior option[value=" + value + "]").attr('disabled', true);
-    
+    $("#senior select").selectmenu('refresh');
 });
 
