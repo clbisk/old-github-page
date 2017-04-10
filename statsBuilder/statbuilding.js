@@ -11,9 +11,9 @@ function seniorClasses() {
 	
 	//use up all the texts to make all the selects and options
 	for (var i = 0; i < labelVals.length; i++) {
-		var sel = createSelect('fieldset', labelVals[i], labelText[i]);
+		var sel = createSelect('#senior', labelVals[i], labelText[i]);
 	}
-	fillSelect(sel, classVals, classText);
+	fillSelect('#senior', classVals, classText);
 }
 
 //helper function to create a label and select
