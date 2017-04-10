@@ -14,8 +14,8 @@ function dream() {
 //year classes
 function seniorSelect() {
 	$('#screen').append(`
-			<form id='senior'>
-				<fieldset class='classes'>
+			<form>
+				<fieldset class='classes' id='senior'>
 					<legend>Classes</legend>
 				</fieldset>
 			</form>
