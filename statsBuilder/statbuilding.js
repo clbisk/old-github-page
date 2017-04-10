@@ -5,7 +5,6 @@ function seniorClasses() {
 	var labelText = ["First Period", "Second Period", "Third Period", "Fourth Period", "Fifth Period", "Sixth Period", "Seventh Period"];
 	for (var i = 0; i < labelVals.length; i++) {
 		$('body').append("iteration " + i);
-		var sel = createSelect('#screen fieldset', labelVals[i], labelText[i]);
 		var classVals = ['default', 'math', 'art', 'science', 'lit', 'cooking', 'history', 'music'];
 		var classText = ["Please Choose", "Pre-calc", "Sketching", "Chemistry", "Modern Literature", "Culinary Arts", "Acient Civilizations", "Chorus"];
 		fillSelect(sel, classVals, classText);
@@ -18,6 +17,7 @@ function createSelect(place, id, label) {
 	$(place).append(`
 			<label for=` + id + `>` + label + `</label>
 			<select id=` + id + `></select>
+			<br>
 	`);
 	return $(place + ' select');
 }
