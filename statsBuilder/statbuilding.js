@@ -16,7 +16,7 @@ function seniorClasses() {
 	fillSelects('#senior', classVals, classText);
 	
 	//build jquery ui elements
-	$('#senior select').selectMenu();
+	$('#senior select').selectmenu();
 }
 
 //helper function to create a label and select
