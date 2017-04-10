@@ -37,7 +37,7 @@ function fillSelect(place, value, text) {
 
 //function to gray out a selection that's already
 //been selected
-$( ".selector" ).change(function() {
+$("#senior" ).change(function() {
 	//get selected value
 	var value = $("#senior option:selected").val();
     if (value === '') return;
