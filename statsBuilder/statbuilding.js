@@ -41,9 +41,10 @@ $( ".selector" ).change(function() {
 	//get selected value
 	var value = $("#senior option:selected").val();
     if (value === '') return;
+    $('.screen').append(value + " is selected.");
     
     //disable options of that value
-    $("#senior option[value=" + value + "]").attr('disabled', 'disabled');
+    $("#senior option[value=" + value + "]").attr('disabled', true);
     
 });
 
