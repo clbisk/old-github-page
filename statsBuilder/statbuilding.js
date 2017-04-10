@@ -19,7 +19,7 @@ function seniorClasses() {
 	$('.selector').selectmenu();
 	
 	//bind event listener to created selectors
-	$('.selector').on('change', menuchange());
+	$('.selector').on('change', menuchange);
 }
 
 //helper function to create a label and select
@@ -48,7 +48,7 @@ function menuchange() {
 	
 	//get selected value
 	var value = $(".selector option:selected").val();
-    if (value === '') return;
+    if (value === 'default') return;
     $('.screen').append(value + " is selected.");
     
     //disable options of that value
