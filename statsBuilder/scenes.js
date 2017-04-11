@@ -25,7 +25,7 @@ function seniorSelect() {
 	
 	//build jquery ui elements
 	$('.controlgroup-vertical').controlgroup({'direction': "vertical"});
-	$('.input').button();
+	$('input').button();
 	
 	seniorClasses();
 }

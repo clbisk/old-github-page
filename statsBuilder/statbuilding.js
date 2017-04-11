@@ -18,8 +18,7 @@ function seniorClasses() {
 	//build jquery ui elements
 	$('.selector').selectmenu();
 	
-	
-	
+	//bind event listener to created selectors
 }
 
 //helper function to create a label and select
