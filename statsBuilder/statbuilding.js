@@ -10,8 +10,9 @@ function seniorClasses() {
 	var classText = ["Please Choose", "Pre-calc", "Sketching", "Chemistry", "Modern Literature", "Culinary Arts", "Acient Civilizations", "Chorus"];
 	
 	//use up all the texts to make all the selects and options
+	prev = [];
 	for (var i = 0; i < labelVals.length; i++) {
-		var sel = createSelect('#senior div', labelVals[i], labelText[i]);
+		createSelect('#senior div', labelVals[i], labelText[i]);
 	}
 	fillSelects('#senior', classVals, classText);
 
@@ -41,13 +42,20 @@ function fillSelects(place, value, text) {
 //function to gray out a selection that's already
 //been selected
 function menuchange() {
-	alert('plea');
-	
-	//get selected value
+	//get selected value and its id
 	var value = $(this).val();
+	var id = $(this).attr('id');
+	
+	//reset previous selection
+	$(".selector option[value=" + prev[id] + "]").removeAttr('disabled');
+    
+    //store previous
+    prev[id] = $(this).val();
+    $('.selector').selectmenu('refresh');
+    	
+    //disable options of that value (but not default~)
     if (value === 'default') return;
     
-    //disable options of that value
     $(".selector option[value=" + value + "]").attr('disabled', true);
     $(".selector").selectmenu('refresh');
 }
