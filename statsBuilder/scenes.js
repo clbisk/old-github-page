@@ -14,7 +14,7 @@ function dream() {
 //year classes
 function seniorSelect() {
 	$('#screen').append(`
-			<form>
+			<form method="post">
 				<fieldset class='classes' id='senior'>
 					<legend>Classes</legend>
 					<div class='controlgroup-vertical'></div>

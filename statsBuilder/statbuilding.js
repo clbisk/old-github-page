@@ -19,7 +19,7 @@ function seniorClasses() {
 	$('.selector').selectmenu();
 	
 	//bind event listener to created selectors
-	$('.screen').on('change', '.selector', menuchange);
+	$('#screen').on('change', '.selector', menuchange);
 	$('.selector').selectmenu('refresh');
 }
 
