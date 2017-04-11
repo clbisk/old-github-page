@@ -19,6 +19,7 @@ function seniorClasses() {
 	$('.selector').selectmenu();
 	
 	//bind event listener to created selectors
+	$('.selector').on('change', menuchange);
 }
 
 //helper function to create a label and select
