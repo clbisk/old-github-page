@@ -18,7 +18,7 @@ function seniorSelect() {
 				<fieldset class='classes' id='senior'>
 					<legend>Classes</legend>
 					<div class='controlgroup-vertical'></div>
-					<input type="submit" value="submit">
+					<input type="submit" value="submit" class='controlgroup-vertical'>
 				</fieldset>
 			</form>
 	`);
