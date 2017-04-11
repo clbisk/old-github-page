@@ -44,9 +44,8 @@ function menuchange() {
 	alert('plea');
 	
 	//get selected value
-	var value = $(this + " option:selected").val();
+	var value = $(this).val();
     if (value === 'default') return;
-    $('.screen').append(value + " is selected.");
     
     //disable options of that value
     $(".selector option[value=" + value + "]").attr('disabled', true);
