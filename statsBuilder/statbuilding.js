@@ -59,3 +59,35 @@ function menuchange() {
     $(".selector option[value=" + value + "]").attr('disabled', true);
     $(".selector").selectmenu('refresh');
 }
+
+//when reset button is clicked, set all options back to default
+function reset() {
+	$('.selector').val('default');
+	$('.selector').change();
+}
+
+//when senior class form is submitted, store chosen classes
+	//then inform which classes were selected
+function seniorformsubmit() {
+	var classes = [];
+	$('#seniorform').on('submit', function() {
+		for (var i = 0; i < 7; i++) {
+			classes[i] = $('#' + (i + 1)).val();
+		}
+	});
+	
+	//get rid of form and display selected classes on screen
+	$('#screen').html(`<div id='schedule'></div>`);
+	for (var i = 0; i < 7; i++) {
+		$('#schedule').append(`
+				<div><div>
+				<br>
+		`);
+	}
+}
+
+
+
+
+
+

@@ -14,11 +14,12 @@ function dream() {
 //year classes
 function seniorSelect() {
 	$('#screen').append(`
-			<form method="post">
+			<form method="post" id='seniorform'>
 				<fieldset class='classes' id='senior'>
 					<legend>Classes</legend>
 					<div class='controlgroup-vertical'></div>
 					<input type="submit" value="submit" class='controlgroup-vertical'>
+					<button class='reset controlgroup-vertical'>reset</button>
 				</fieldset>
 			</form>
 	`);
@@ -26,6 +27,7 @@ function seniorSelect() {
 	//build jquery ui elements
 	$('.controlgroup-vertical').controlgroup({'direction': "vertical"});
 	$('input').button();
+	$('button').button();
 	
 	seniorClasses();
 }
