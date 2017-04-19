@@ -85,9 +85,3 @@ function seniorformsubmit() {
 		`);
 	}
 }
-
-
-
-
-
-
