@@ -1,3 +1,13 @@
+//at startup
+$(document).ready(function() {
+	//bind event listener to selectors and buttons
+	$('#screen').on('selectmenuchange', '.selector', menuchange);
+	$('#screen').on('click', '.reset', reset);
+	
+	//start first scene
+	seniorSelect();
+});
+
 //lays out some scenes that occur in the lifesim
 
 //this is the one where you're a li'l kid dreaming about your
@@ -23,6 +33,11 @@ function seniorSelect() {
 				</fieldset>
 			</form>
 	`);
+	
+	//attach submit listener
+	$('#screen').on('submit', '#seniorform', function() {
+		seniorformsubmit(event);
+	});
 	
 	//build jquery ui elements
 	$('.controlgroup-vertical').controlgroup({'direction': "vertical"});

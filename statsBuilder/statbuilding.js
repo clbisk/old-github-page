@@ -68,7 +68,8 @@ function reset() {
 
 //when senior class form is submitted, store chosen classes
 	//then inform which classes were selected
-function seniorformsubmit() {
+function seniorformsubmit(event) {
+	event.preventDefault();
 	var classes = [];
 	$('#seniorform').on('submit', function() {
 		for (var i = 0; i < 7; i++) {
