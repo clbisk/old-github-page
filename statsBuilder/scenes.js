@@ -29,7 +29,7 @@ function seniorSelect() {
 					<legend>Classes</legend>
 					<div class='controlgroup-vertical'></div>
 					<input type="submit" value="submit" class='controlgroup-vertical'>
-					<button class='reset controlgroup-vertical'>reset</button>
+					<button type="button" class='reset controlgroup-vertical'>reset</button>
 				</fieldset>
 			</form>
 	`);
