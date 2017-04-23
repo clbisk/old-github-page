@@ -63,14 +63,14 @@ function menuchange() {
 //when reset button is clicked, set all options back to default
 function reset() {
 	$('.selector').val('default');
-	$('.selector').change();
+	$(".selector").selectmenu('refresh');
 }
 
 //when senior class form is submitted, store chosen classes
 	//then inform which classes were selected
 function seniorformsubmit(event) {
 	event.preventDefault();
-	var classes = [];
+	classes = [];
 	$('#seniorform').on('submit', function() {
 		for (var i = 0; i < 7; i++) {
 			classes[i] = $('#' + (i + 1)).val();
@@ -78,10 +78,10 @@ function seniorformsubmit(event) {
 	});
 	
 	//get rid of form and display selected classes on screen
-	$('#screen').html(`<div id='schedule'></div>`);
+	$('#screen').html(`<div id='schedule'>Selected classes:<br></div>`);
 	for (var i = 0; i < 7; i++) {
 		$('#schedule').append(`
-				<div><div>
+				<div>Period ` + (i+1) + `: ` + classes[i] + `<div>
 				<br>
 		`);
 	}
