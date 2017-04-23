@@ -62,6 +62,7 @@ function menuchange() {
 
 //when reset button is clicked, set all options back to default
 function reset() {
+	$(".selector option").removeAttr('disabled');
 	$('.selector').val('default');
 	$(".selector").selectmenu('refresh');
 }
@@ -78,11 +79,10 @@ function seniorformsubmit(event) {
 	});
 	
 	//get rid of form and display selected classes on screen
-	$('#screen').html(`<div id='schedule'>Selected classes:<br></div>`);
+	$('#screen').html(`<div id='schedule'>Selected classes:<br><br></div>`);
 	for (var i = 0; i < 7; i++) {
 		$('#schedule').append(`
 				<div>Period ` + (i+1) + `: ` + classes[i] + `<div>
-				<br>
 		`);
 	}
 }
