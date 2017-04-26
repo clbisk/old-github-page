@@ -1,3 +1,14 @@
 .classes select {
 	<!--space it out a li'l pretty-->
 }
+
+#sidebar {
+	width: 150px;
+	background: #f4f6f9;
+	position: fixed;
+	height: 100%;
+	top: -10px;
+	left: 0px;
+	padding-top: 18px;
+	padding-left: 10px;
+}

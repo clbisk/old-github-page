@@ -1,25 +1,4 @@
-//function to create seven selects in '#senior' with the
-//course options
-function seniorClasses() {
-	//text and values for the selects
-	var labelVals = ['1', '2', '3', '4', '5', '6', '7'];
-	var labelText = ["First Period", "Second Period", "Third Period", "Fourth Period", "Fifth Period", "Sixth Period", "Seventh Period"];
-	
-	//text and values for the options
-	var classVals = ['default', 'math', 'art', 'science', 'lit', 'cooking', 'history', 'music'];
-	var classText = ["Please Choose", "Pre-calc", "Sketching", "Chemistry", "Modern Literature", "Culinary Arts", "Acient Civilizations", "Chorus"];
-	
-	//use up all the texts to make all the selects and options
-	prev = [];
-	for (var i = 0; i < labelVals.length; i++) {
-		createSelect('#senior div', labelVals[i], labelText[i]);
-	}
-	fillSelects('#senior', classVals, classText);
-
-	//build jquery ui elements
-	$('.selector').selectmenu();
-}
-
+/**General functions**/
 //helper function to create a label and select
 //with an id and label text inside specified object
 function createSelect(place, id, label) {
@@ -67,6 +46,29 @@ function reset() {
 	$(".selector").selectmenu('refresh');
 }
 
+/**Senior class forms**/
+//function to create seven selects in '#senior' with the
+//course options
+function seniorClasses() {
+	//text and values for the selects
+	var labelVals = ['1', '2', '3', '4', '5', '6', '7'];
+	var labelText = ["First Period", "Second Period", "Third Period", "Fourth Period", "Fifth Period", "Sixth Period", "Seventh Period"];
+	
+	//text and values for the options
+	var classVals = ['default', 'math', 'art', 'science', 'lit', 'cooking', 'history', 'music'];
+	var classText = ["Please Choose", "Pre-calc", "Sketching", "Chemistry", "Modern Literature", "Culinary Arts", "Acient Civilizations", "Chorus"];
+	
+	//use up all the texts to make all the selects and options
+	prev = [];
+	for (var i = 0; i < labelVals.length; i++) {
+		createSelect('#senior div', labelVals[i], labelText[i]);
+	}
+	fillSelects('#senior', classVals, classText);
+
+	//build jquery ui elements
+	$('.selector').selectmenu();
+}
+
 //when senior class form is submitted, store chosen classes
 	//then inform which classes were selected
 function seniorformsubmit(event) {
@@ -74,7 +76,7 @@ function seniorformsubmit(event) {
 	classes = [];
 	$('#seniorform').on('submit', function() {
 		for (var i = 0; i < 7; i++) {
-			classes[i] = $('#' + (i + 1) + "option:selected").val();
+			classes[i] = $('#' + (i + 1) + " option:selected").val();
 		}
 	});
 	

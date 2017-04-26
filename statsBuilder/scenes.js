@@ -1,21 +1,21 @@
 //at startup
 $(document).ready(function() {
-	//bind event listener to selectors and buttons
+	//bind general event listener to selectors and buttons
 	$('#screen').on('selectmenuchange', '.selector', menuchange);
 	$('#screen').on('click', '.reset', reset);
 	
-	//start first scene
-	seniorSelect();
+	//your character is born!!
+	var you = new Baby();
+	you.birth();
 });
 
-//lays out some scenes that occur in the lifesim
-
+/**lays out some scenes that occur in the lifesim**/
 //this is the one where you're a li'l kid dreaming about your
 //future and you chose a "life goal" which can be adjusted later
 function dream() {
 	$('.screen').append(`
 			Wooow you're having a dream
-			<div></div>
+			<br><br>
 			Good for youuu
 	`);
 }
@@ -23,7 +23,11 @@ function dream() {
 //this is the one where you're chosing your high-school senior
 //year classes
 function seniorSelect() {
-	$('#screen').append(`
+	$('#screen').html(`
+			Ooooooh boy it's your senior year of high-school
+			and it's time to pick them claaasses.
+			<br>
+			<br>
 			<form method="post" id='seniorform'>
 				<fieldset class='classes' id='senior'>
 					<legend>Classes</legend>
