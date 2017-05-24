@@ -4,9 +4,14 @@ $(document).ready(function() {
 	$('#screen').on('selectmenuchange', '.selector', menuchange);
 	$('#screen').on('click', '.reset', reset);
 	
+	seniorSelect();
+	
+	/**this will be the intro once I fix the form issues
+	 * 
 	//your character is born!!
 	var you = new Baby();
 	you.birth();
+	**/
 });
 
 /**lays out some scenes that occur in the lifesim**/
