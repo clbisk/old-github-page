@@ -10,7 +10,7 @@ $(document).ready(function() {
   	$(this).remove();
 		
 		//redirects to main game
-		window.location.replace("/maingame.html");
+		window.location.replace("maingame.html");
 	});
 	
 });
