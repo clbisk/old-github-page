@@ -71,7 +71,7 @@ $(document).ready(function() {
   function addAnimation() {
     $('.screen').append("<div class='animation'></div>");
     $('.screen').append("<div class='bigFont'>Later...</div>");
-    $('.animation').append("<img src=http://67.media.tumblr.com/b78d8f9732d2a5f66ee3eb534541c636/tumblr_n3e43xhu2v1snzbj4o1_400.gif>"); 
+    $('.animation').append("<img src=http://68.media.tumblr.com/tumblr_lpf70avoBM1qj73e2o1_500.gif>"); 
     setTimeout(function() {
       clearScreen();
     }, 2000);
