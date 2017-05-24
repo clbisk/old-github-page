@@ -765,7 +765,7 @@ $(document).ready(function() {
     }
       
     else if ( progression.length == 53 ) {
-      $('.screen').append("<div class='bigFont'>Thanks for playing!<br><br>This game was created for the 2016 Beloit Being Here Festival.<br>Story by Rose Stahl and Cecilia Bisk<br>Programmed by Cecilia Bisk<br><br>typing effect: <a href=typed.js>typed.js</a></div><br><div>Works Cited: <a href='/works.html'>Click here</a></div>");
+      $('.screen').append("<div class='bigFont'>Thanks for playing!<br><br>This game was created for the 2016 Beloit Being Here Festival.<br>Story by Rose Stahl and Cecilia Bisk<br>Programmed by Cecilia Bisk<br><br>typing effect: <a href=typed.js>typed.js</a></div><br><div>Works Cited: <a href='/TurtleProject/works.html'>Click here</a></div>");
     }
     }
   }
