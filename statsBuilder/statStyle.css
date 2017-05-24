@@ -6,9 +6,9 @@
 	width: 150px;
 	background: #f4f6f9;
 	position: fixed;
-	height: 100%;
-	top: -10px;
+	top: 0px;
 	left: 0px;
-	padding-top: 18px;
+	padding-top: 12px;
 	padding-left: 10px;
+	padding-bottom: 18px;
 }
