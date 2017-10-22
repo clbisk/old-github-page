@@ -55,7 +55,9 @@ Baby.prototype.birth = function () {
 	$("#actions button").on("click", doAction);
 	$("#dreamEvent").on("click", dream);
 	
-		
+	$("#screen").append(`
+		<div id="console">Happy birthday!</div>
+	`)
 };
 
 /**
@@ -64,7 +66,7 @@ Baby.prototype.birth = function () {
  * @param event - passed by .on()
  */
 function doAction( event ) {
-	var statUp = $(this).attr(class);
+	var statUp = $(this).attr("class");
 }
 
 /**
@@ -81,8 +83,9 @@ function firstSkill() {
 /**
  * @name dream
  * @description when you sleep you might dream!
- * @returns returns
+ * @param event - passed by .on()
  */
-function dream() {
+function dream( event ) {
+	var toDreamOrNotToDream = Math.random();
 	
 }
