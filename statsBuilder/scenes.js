@@ -12,7 +12,7 @@ $(document).ready(function() {
 /**lays out some scenes that occur in the lifesim**/
 //this is the one where you're a li'l kid dreaming about your
 //future and you chose a "life goal" which can be adjusted later
-function dream() {
+function dreamJob() {
 	$('.screen').append(`
 			Wooow you're having a dream
 			<br><br>

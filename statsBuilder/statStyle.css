@@ -17,5 +17,11 @@
 	position: fixed;
 	bottom: 0px;
 	width: 100%;
-	
+}
+
+#console {
+	width: 80%;
+	left: 10%;
+	background: gray;
+	padding: 4px;
 }

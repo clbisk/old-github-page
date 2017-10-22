@@ -12,9 +12,8 @@ function Baby() {
 
 /**
  * @name Baby.prototype.birth
- * @description description
+ * @description randomizes your stats a little and starts you off as a baby child
  * @function
- * @returns returns
  */
 Baby.prototype.birth = function () {
 	this.language = (Math.random() * 2) + 1;
@@ -44,19 +43,46 @@ Baby.prototype.birth = function () {
 		<div id="actions">
 			<button class='language'>make random noises</button>
 			<button class='coordination'>make fists</button>
-			<button>sleep</button>
+			
 		</div>
+		<div id="chanceEvents">
+			<button id='dreamEvent'>sleep</button>
+		</div>
+		
+		
 	`);
 	
 	$("#actions button").on("click", doAction);
+	$("#dreamEvent").on("click", dream);
+	
+		
 };
 
+/**
+ * @name doAction
+ * @description levels up a stat when you do the corresponding action
+ * @param event - passed by .on()
+ */
 function doAction( event ) {
 	var statUp = $(this).attr(class);
 }
 
+/**
+ * @name firstSkill
+ * @description adds the skill box when you do your first ever action
+ * @returns returns
+ */
 function firstSkill() {
 	$(document).append(`
 		<div id="skills"></div>
 	`);
+}
+
+/**
+ * @name dream
+ * @description when you sleep you might dream!
+ * @returns returns
+ */
+function dream() {
+	
 }
