@@ -13,7 +13,7 @@ $(document).ready(function() {
 //this is the one where you're a li'l kid dreaming about your
 //future and you chose a "life goal" which can be adjusted later
 function dreamJob() {
-	$('.screen').append(`
+	$('#screen').append(`
 			Wooow you're having a dream
 			<br><br>
 			Good for youuu

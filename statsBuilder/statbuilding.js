@@ -26,11 +26,14 @@ Baby.prototype.birth = function () {
 			<div id=imagination>Imagination: ` + Math.trunc(this.imagination) + `</div>
 			<div id=coordination>Coordination: ` + Math.trunc(this.coordination) + `</div>
 		</div>
+		
+		<br><br><br>
+		
 		<div id='needs'>
-			<div class='progressbar'>hunger</div>
-			<div class='progressbar'>energy</div>
-			<div class='progressbar'>hygene</div>
-			<div class='progressbar'>social</div>
+			<div>hunger</div>
+			<div>energy</div>
+			<div'>hygene</div>
+			<div'>social</div>
 		</div>
 	`);
 	
@@ -39,7 +42,7 @@ Baby.prototype.birth = function () {
 		value: 20
 	});
 	
-	$("#screen").append(`
+	$("#screen").html(`
 		<div id="actions">
 			<button class='language'>make random noises</button>
 			<button class='coordination'>make fists</button>
@@ -57,35 +60,45 @@ Baby.prototype.birth = function () {
 	
 	$("#screen").append(`
 		<div id="console">Happy birthday!</div>
-	`)
+	`);
 };
 
 /**
  * @name doAction
  * @description levels up a stat when you do the corresponding action
  * @param event - passed by .on()
+ * @function
  */
-function doAction( event ) {
+Baby.prototype.doAction = function( event ) {
 	var statUp = $(this).attr("class");
+	statUp++;
 }
 
 /**
  * @name firstSkill
  * @description adds the skill box when you do your first ever action
- * @returns returns
+ * @function
  */
-function firstSkill() {
+Baby.prototype.firstSkill = function( skill ) {
 	$(document).append(`
-		<div id="skills"></div>
+		<div id="skills">
+			<div>` + skill + `</div>
+		</div>
 	`);
-}
+	
+	$("#skills div").progressBar();
+};
 
 /**
  * @name dream
  * @description when you sleep you might dream!
  * @param event - passed by .on()
+ * @function
  */
-function dream( event ) {
-	var toDreamOrNotToDream = Math.random();
-	
+Baby.prototype.dream = function( event ) {
+	var toDreamOrNotToDream = Boolean(Math.random().round());
+	if (toDreamOrNotToDream) {
+		$("#console").html("You had a dream! It wasn't very memorable.");
+		this.imagination++;
+	}
 }
