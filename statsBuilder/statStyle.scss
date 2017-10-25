@@ -1,0 +1,96 @@
+$light-gray: #f7f7f7;
+$my-gray: #eee;
+$transparent-gray: rgba(247, 247, 247, 0.6);
+$nunito: 'Nunito', sans-serif;
+
+$sidebar-horizontal-padding: 10px;
+$sidebar-padding: (12px $sidebar-horizontal-padding 18px $sidebar-horizontal-padding);
+$sidebar-width: 150px;
+
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	display: flex;
+	font-family: $nunito;
+}
+
+#mainbox {
+	width: calc(100% - 2*8px);
+	margin: 8px;
+	height: 100%;
+	display: flex;
+}
+
+#sidebar {
+	width: 150px;
+	background: #f4f6f9;
+	top: 0px;
+	left: 0px;
+	//reminder to self: list goes clockwise
+	padding: $sidebar-padding;
+
+	.ui-progressbar {
+		height: 20px;
+	}
+	
+	.ui-progressbar-value {
+		background: #b1c8ed;
+	}
+}
+
+#screen {
+	left: 150px;
+	padding-left: 10px;
+	$not-screen-width: 2 * $sidebar-horizontal-padding + $sidebar-width + 2 * 8px;
+	width: calc(100% - #{$not-screen-width});
+	height: 100%;
+	
+	#console {
+		height: 8em;
+		background: $light-gray;
+		margin-top: 10px;
+		padding: 10px;
+	}
+}
+
+#skills {
+	display: flex;
+	flex-direction: column;
+	bottom: 0px;
+	position: fixed;
+	width: calc(100% - 2*8px);
+	
+	#handle {
+		width: 100%;
+		height: 10px;
+		
+		#skillsOpenCloseTab {
+			border-radius: 10px 10px 0 0;
+			left: calc(50% - 15px);
+			position: fixed;
+			width: 100px;
+			height: 10px;
+			background: $my-gray;
+			font-size: 10px;
+			text-align: center;
+		}
+	}
+
+	#hidableSkillsBar {
+		border-top: solid 2px $my-gray;
+		display: flex;
+		flex-direction: column;
+		background: $transparent-gray;
+		padding: 10px;
+		width: calc(100% - 2*10px);
+		
+		.progressbar-label {
+			width: 100%;
+		}
+		
+		.ui-progressbar {
+			width: 80%;
+		}
+	}
+}

@@ -1,3 +1,5 @@
+/*eslint-env jquery */
+
 //at startup
 $(document).ready(function() {
 	//bind general event listener to selectors and buttons
@@ -5,7 +7,7 @@ $(document).ready(function() {
 	$('#screen').on('click', '.reset', reset);
 	
 	//your character is born!!
-	var you = new Baby();
+	var you = new You();
 	you.birth();
 });
 
@@ -13,7 +15,7 @@ $(document).ready(function() {
 //this is the one where you're a li'l kid dreaming about your
 //future and you chose a "life goal" which can be adjusted later
 function dreamJob() {
-	$('#screen').append(`
+	$('#screen').html(`
 			Wooow you're having a dream
 			<br><br>
 			Good for youuu

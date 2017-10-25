@@ -1,31 +1,77 @@
-.classes select {
-	/**space it out a li'l pretty*/
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  font-family: "Nunito", sans-serif;
+}
+
+#mainbox {
+  width: calc(100% - 2*8px);
+  margin: 8px;
+  height: 100%;
+  display: flex;
 }
 
 #sidebar {
-	width: 150px;
-	background: #f4f6f9;
-	position: fixed;
-	top: 0px;
-	left: 0px;
-	padding-top: 12px;
-	padding-left: 10px;
-	padding-bottom: 18px;
+  width: 150px;
+  background: #f4f6f9;
+  top: 0px;
+  left: 0px;
+  padding: 12px 10px 18px 10px;
+}
+#sidebar .ui-progressbar {
+  height: 20px;
+}
+#sidebar .ui-progressbar-value {
+  background: #b1c8ed;
 }
 
 #screen {
-	left: 150px;
+  left: 150px;
+  padding-left: 10px;
+  width: calc(100% - 186px);
+  height: 100%;
+}
+#screen #console {
+  height: 8em;
+  background: #f7f7f7;
+  margin-top: 10px;
+  padding: 10px;
 }
 
 #skills {
-	position: fixed;
-	bottom: 0px;
-	width: 100%;
+  display: flex;
+  flex-direction: column;
+  bottom: 0px;
+  position: fixed;
+  width: calc(100% - 2*8px);
 }
-
-#console {
-	width: 80%;
-	left: 10%;
-	background: gray;
-	padding: 4px;
+#skills #handle {
+  width: 100%;
+  height: 10px;
+}
+#skills #handle #skillsOpenCloseTab {
+  border-radius: 10px 10px 0 0;
+  left: calc(50% - 15px);
+  position: fixed;
+  width: 100px;
+  height: 10px;
+  background: #eeeeee;
+  font-size: 10px;
+  text-align: center;
+}
+#skills #hidableSkillsBar {
+  border-top: solid 2px #eeeeee;
+  display: flex;
+  flex-direction: column;
+  background: rgba(247, 247, 247, 0.6);
+  padding: 10px;
+  width: calc(100% - 2*10px);
+}
+#skills #hidableSkillsBar .progressbar-label {
+  width: 100%;
+}
+#skills #hidableSkillsBar .ui-progressbar {
+  width: 80%;
 }
