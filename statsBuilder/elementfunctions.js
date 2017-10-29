@@ -17,10 +17,12 @@ function fillProgressbar( id, value, label ) {
 	var maxWidth = thisProgressbar.width();
 	var calculatedWidth = (value / thisMaxValue) * maxWidth;
 	
-	thisProgressbar.children().animate({width: calculatedWidth}, {duration: 'slow'});
-	thisProgressbar.progressbar("value", value);
+	//TODO: fix when the new progressbars get all confused
+	thisProgressbar.children().animate({width: calculatedWidth}, {duration: 'slow'}).promise().done(function() {
+		//make sure the animation is done before so it doesn't reverse the order and get all jumpy
+		thisProgressbar.progressbar("value", value);
+	});
 	
-	//TODO: change label number if there is one
 	if (label !== null) {
 		var labelText = label.html();
 		//where our label number starts

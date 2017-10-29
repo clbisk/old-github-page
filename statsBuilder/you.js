@@ -113,6 +113,7 @@ You.prototype.birth = function () {
  * @name firstSkill
  * @description adds the skill box when you do your first ever action
  * @function
+ * @param skill - the skill to add a progressbar for
  */
 You.prototype.firstSkill = function( skill ) {
 	this.hasSkills = true;
@@ -136,13 +137,30 @@ You.prototype.firstSkill = function( skill ) {
 		max: 5,
 		value: this[skill]
 	});
+};
+//TODO: make hidableSkillsBar hidable
+
+/**
+ * @name newSkill
+ * @description adds a new progressbar to the skills tab for a new skill discovered
+ * @function
+ * @param skill - the skill to add a progressbar for
+ */
+You.prototype.newSkill = function( skill ) {
+	$("#hidableSkillsBar").append(`
+		<div class="` + skill + `">
+			<div class='progressbar-label'>` + skill + ` (` + this[skill] + `/5)</div>
+			<div id="` + skill + `Progressbar" class='progressbar'></div>
+		</div>
+	`);
 	
-	this[skill]++;
-	fillProgressbar( skill + "Progressbar", this[skill], $("#hidableSkillsBar ." + skill + " .progressbar-label"));
+	$("#skills .progressbar").progressbar({
+		max: 5,
+		value: this[skill]
+	});
 };
 
-
-//functions responding to listeners
+//functions responding to listeners -- "this" becomes the event origin instead of You
 
 /**
  * @name doAction
@@ -150,11 +168,23 @@ You.prototype.firstSkill = function( skill ) {
  * @function
  */
 You.prototype.doAction = function() {
+	//TODO: when swtiching from one skill to another stuff gets weird
 	var classes = $(this).attr("class");
 	var statUp = classes.split(" ")[0];
+	
+	//build skills display, if necessary
 	if (!thisBoi.hasSkills) {
 		thisBoi.firstSkill(statUp);
+	} else if (! $("#hidableSkillsBar ." + statUp).length) {
+		thisBoi.newSkill(statUp);
 	}
+	
+	//TODO: disable the button for a hot minute to simulate the action being performed, maybe disable others if multitasking not possible
+	//increment the skill
+	thisBoi[statUp]++;
+	fillProgressbar( statUp + "Progressbar", thisBoi[statUp], $("#hidableSkillsBar ." + statUp + " .progressbar-label"));
+	
+	//TODO: what happens when bar is filled
 };
 
 /**
@@ -168,6 +198,7 @@ You.prototype.dream = function() {
 		$("#console").html("You had a dream! It wasn't very memorable.");
 		thisBoi.imagination++;
 	}
+	//TODO: finish this better
 };
 
 /**
@@ -193,4 +224,5 @@ You.prototype.triggerParent = function() {
 			thisBoi.skills[key] = 20;
 		}
 	});
+	//TODO: finish
 };
