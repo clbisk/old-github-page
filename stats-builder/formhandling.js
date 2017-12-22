@@ -1,3 +1,5 @@
+/*eslint-env jquery */
+
 /**General functions**/
 //helper function to create a label and select
 //with an id and label text inside specified object

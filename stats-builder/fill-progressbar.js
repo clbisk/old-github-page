@@ -1,12 +1,19 @@
 /*eslint-env jquery */
 
+function fillProgressbar(action) {
+	//skill should be of type Skill
+	if (action instanceof Action) {
+		var skills = action.skills;
+	}
+}
+
 /**
- * @name fillProgressbar
- * @description fills an outlined rectangle from left to right over time
+ * @name fillProgressbarClassic
+ * @description old way to fill an outlined rectangle from left to right over time
  * @param id - the progressbar's id
  * @param value - the value to fill up to
  */
-function fillProgressbar( id, value, label ) {
+function fillProgressbarClassic( id, value, label ) {
 	var thisProgressbar = $("#" + id);
 	
 	var thisMaxValue = thisProgressbar.progressbar("option", "max");

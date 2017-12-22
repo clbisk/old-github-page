@@ -1,23 +1,18 @@
 /*eslint-env jquery */
 
 /**
- * @name time
- * @description how long your character has been alive
- */
-var time;
-
-/**
  * @name thisBoi
- * @description keeps track of you after initialization
+ * @description keeps track of you after initialization for when events happen
  */
 var thisBoi;
 
 /**
- * @name Baby
- * @description Prototype for when you such a li'l baby child
+ * @name You
+ * @description Prototype for keeping track of player data and messing with the UI
  * @class
  */
 function You() {
+	this.time;
 	this.language;
 	this.imagination;
 	this.coordination;
@@ -29,7 +24,7 @@ function You() {
 
 /**
  * @name birth
- * @description randomizes your stats a little and starts you off as a baby child
+ * @description randomizes your stats a little and starts you off as a baby child (basically the tutorial)
  * @function
  */
 You.prototype.birth = function () {
@@ -42,14 +37,14 @@ You.prototype.birth = function () {
 	this.needs["hygene"] = 18;
 	this.needs["social"] = 18;
 	
-	//initialize skills randomly
-	this.language = Math.round((Math.random() * 2) + 1);
-	this.imagination = Math.round((Math.random() * 2) + 1);
-	this.coordination = Math.round((Math.random() * 2) + 1);
+	//initialize skills at zero
+	this.language = 0;
+	this.imagination = 0;
+	this.coordination = 0;
 	this.hasSkills = false;
 	
 	//when you're just born, you haven't been alive for any time
-	time = 0;
+	this.time = 0;
 
 	//fill in the sidebar with stuff
 	//TODO: change needs bar so that when hovered over the value/maxvalue is shown
@@ -97,95 +92,47 @@ You.prototype.birth = function () {
 			<button id='parentEvent'>cry</button>
 		</div>
 	`);
-	//initialize the buttons
+	//initialize the first buttons
 	$("button").button();
-	$("#actions button").on("click", this.doAction);
+	$("#actions button").on("click", doAction(this));
 	$("#dreamEvent").on("click", this.dream);
 	$("#parentEvent").on("click", this.callParent);
 	
-	//tell the player happy birthday!
+	//wish the player happy birthday!
 	$("#screen").append(`
 		<div id="console">Happy birthday!</div>
 	`);
 };
 
 /**
- * @name firstSkill
- * @description adds the skill box when you do your first ever action
+ * @name You.prototype.growToChild
+ * @description starts the REAL GAME
  * @function
- * @param skill - the skill to add a progressbar for
+ * @returns returns
  */
-You.prototype.firstSkill = function( skill ) {
-	this.hasSkills = true;
-	
-	//TODO: make sure the skill bar goes all the way from left to right
-	$(document.body).append(`
-		<div id="skills">
-			<div id="handle">
-				<div id="skillsOpenCloseTab">skills</div>
-			</div>
-			<div id="hidableSkillsBar">
-				<div class="` + skill + `">
-					<div class='progressbar-label'>` + skill + ` (` + this[skill] + `/5)</div>
-					<div id="` + skill + `Progressbar" class='progressbar'></div>
-				</div>
-			</div>
-		</div>
-	`);
-	
-	$("#skills .progressbar").progressbar({
-		max: 5,
-		value: this[skill]
-	});
+You.prototype.growToChild = function() {
+	//initialize new skills at random levels
+	this.active = pointsAtLevel(Math.round((Math.random() * 2) + 1));
+	if (this.logic === undefined)
+		this.logic = pointsAtLevel(Math.round((Math.random() * 2) + 1));
+		
+	//transfer baby skills to their grown-up versions
+	this.creativity = this.imagniation;
+	this.active += this.coordination;
 };
-//TODO: make hidableSkillsBar hidable
 
 /**
- * @name newSkill
- * @description adds a new progressbar to the skills tab for a new skill discovered
+ * @name You.prototype.incSkill
+ * @description get better at a skill
  * @function
- * @param skill - the skill to add a progressbar for
+ * @param statUp - the skill to get better at
+ * @param amount - how much better you get
  */
-You.prototype.newSkill = function( skill ) {
-	$("#hidableSkillsBar").append(`
-		<div class="` + skill + `">
-			<div class='progressbar-label'>` + skill + ` (` + this[skill] + `/5)</div>
-			<div id="` + skill + `Progressbar" class='progressbar'></div>
-		</div>
-	`);
-	
-	$("#skills .progressbar").progressbar({
-		max: 5,
-		value: this[skill]
-	});
+You.prototype.incSkill = function( statUp, amount ) {
+	this[statUp] += amount;
 };
 
 //functions responding to listeners -- "this" becomes the event origin instead of You
-
-/**
- * @name doAction
- * @description levels up a stat when you do the corresponding action
- * @function
- */
-You.prototype.doAction = function() {
-	//TODO: when swtiching from one skill to another stuff gets weird
-	var classes = $(this).attr("class");
-	var statUp = classes.split(" ")[0];
-	
-	//build skills display, if necessary
-	if (!thisBoi.hasSkills) {
-		thisBoi.firstSkill(statUp);
-	} else if (! $("#hidableSkillsBar ." + statUp).length) {
-		thisBoi.newSkill(statUp);
-	}
-	
-	//TODO: disable the button for a hot minute to simulate the action being performed, maybe disable others if multitasking not possible
-	//increment the skill
-	thisBoi[statUp]++;
-	fillProgressbar( statUp + "Progressbar", thisBoi[statUp], $("#hidableSkillsBar ." + statUp + " .progressbar-label"));
-	
-	//TODO: what happens when bar is filled
-};
 
 /**
  * @name dream
@@ -193,10 +140,12 @@ You.prototype.doAction = function() {
  * @function
  */
 You.prototype.dream = function() {
+	console.log("You had a li'l dream");
+	
 	var toDreamOrNotToDream = Boolean(Math.round(Math.random()));
 	if (toDreamOrNotToDream) {
 		$("#console").html("You had a dream! It wasn't very memorable.");
-		thisBoi.imagination++;
+		thisBoi.incSkill("imagination");
 	}
 	//TODO: finish this better
 };
@@ -206,7 +155,8 @@ You.prototype.dream = function() {
  * @description when you cry, a parent will come over and check on your needs
  * @function
  */
-You.prototype.triggerParent = function() {
+You.prototype.callParent = function() {
+	console.log("You're crying");
 	
 	//one of the parents rushes over
 	var parent = "mom";
@@ -224,5 +174,4 @@ You.prototype.triggerParent = function() {
 			thisBoi.skills[key] = 20;
 		}
 	});
-	//TODO: finish
 };

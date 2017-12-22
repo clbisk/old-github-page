@@ -1,5 +1,46 @@
+//fonts
 $handwriting: 'Pacifico', cursive;
+$nunito: 'Nunito', sans-serif;
 
-#calculator {
-	font-family: $handwriting
+//colors
+$SS-S: rgb(255, 175, 56);
+$A: rgb(209, 58, 126);
+$B: rgb(96, 37, 37);
+$C: rgb(58, 128, 168);
+
+.big-handwriting {
+	font-family: $handwriting;
+	font-size: 1.5em;
+}
+
+#item-name {
+	font-family: $handwriting;
+}
+
+fieldset {
+	font-family: $nunito;
+	
+	.SS, .S {
+		color: $SS-S;
+	}
+	
+	.A {
+		color: $A;
+	}
+	
+	.B {
+		color: $B;
+	}
+	
+	.C {
+		color: $C;
+	}
+}
+
+#attr > legend {
+	@extend .big-handwriting;
+}
+
+.attribute > fieldset {
+	width: calc(50% - 2 * (2 + 2 + 12));
 }

@@ -1,0 +1,16 @@
+skill name,			enter condition,			exit condition,			temporary buff,	skills improved
+make noises,		t==0,						levelOf(language)==2,	null,			language+=1
+babble,				levelOf(language)==2,		levelOf(language)==4,	null,			language+=2
+mimic words,		levelOf(language)==4,		null,					null,			language+=5
+make fists,			t==0,						null,					null,			coordination+=1
+kick,				levelOf(coordination)==1,	null,					null,			coordination+=2
+wave arms,			levelOf(coordination)==1,	levelOf(language)==2,	null,			coordination+=2
+clap,				levelOf(coordination)==2,	null,					null,			coordination+=3, music+=1
+play with mobile,	levelOf(coordination)==3,	levelOf(language)==4,	null,			coordination+=4
+chew on blocks,		levelOf(coordination)==4,	null,					null,			coordination+=3
+play with blocks,	levelOf(coordination)==4,	null,					null,			coordination+=5
+
+
+
+do heavy makeup,	null,						null,					null,			makeup+++
+do natural makeup,	null,						null,					charisma+1 5s,	makeup+, charisma+
