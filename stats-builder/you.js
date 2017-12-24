@@ -125,11 +125,26 @@ You.prototype.growToChild = function() {
  * @name You.prototype.incSkill
  * @description get better at a skill
  * @function
- * @param statUp - the skill to get better at
- * @param amount - how much better you get
+ * @param statUp - the skill to get better at formatted as "skill+=amount"
  */
-You.prototype.incSkill = function( statUp, amount ) {
-	this[statUp] += amount;
+You.prototype.incSkill = function( statUp ) {
+	var skill = statUp.split("+")[0];
+	var amount = statUp.split("=")[1];
+	
+	this[skill] += amount;
+};
+
+/**
+ * @name You.prototype.decNeed
+ * @description get more needy in some way
+ * @function
+ * @param statUp - the need to worsen formatted as "need-=amount"
+ */
+You.prototype.decNeed = function( statDown ) {
+	var need = statDown.split("-")[0];
+	var amount = statDown.split("=")[1];
+	
+	this[need] -= amount;
 };
 
 //functions responding to listeners -- "this" becomes the event origin instead of You
@@ -154,7 +169,7 @@ You.prototype.doAction = function() {
 	//TODO: disable the button for a hot minute to simulate the action being performed, maybe disable others if multitasking not possible
 	//increment the skill
 	thisBoi[statUp]++;
-	fillProgressbar( statUp + "Progressbar", thisBoi[statUp], $("#hidableSkillsBar ." + statUp + " .progressbar-label"));
+	fillProgressbarClassic( statUp + "Progressbar", thisBoi[statUp], $("#hidableSkillsBar ." + statUp + " .progressbar-label"));
 	
 	//TODO: what happens when bar is filled
 };

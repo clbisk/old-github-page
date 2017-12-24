@@ -18,19 +18,30 @@ actions.push(
  * @param unlockReq - when this action should be unlocked
  * @param removeReq - when this action becomes redundant
  * @param buff - any temporary buff that might follow doing this action
- * @param skills - a list of skills to be improved/needs to be decremented
+ * @param skills - a list of skills to be improved
+ * @param needs - a list of needs to be decremented
  */
-function Action(name, unlockReq, removeReq, buff, ...skills) {
+function Action(name, unlockReq, removeReq, buff, skills, needs) {
 	this.removeReq = removeReq;
 	this.unlockReq = unlockReq;
 	this.name = name;
 	this.buff = buff;
-	this.skills = skills;
+	
+	//brackets means there's many
+	if (skills.charAt(0) === '{')
+		this.skills = skills;
+	else
+		this.skill = skills;
+	
+	if (needs.charAt(0) === '{')
+		this.needs = needs;
+	else
+		this.need = needs;
 }
 
 /**
  * @name updateUI
- * @description adds actions that have been unlocked when unlocked and removes redundant skills when they are redundant
+ * @description adds actions that have been unlocked when unlocked and removes redundant actions when they are redundant
  * @function
  * @param you - keeps track of you
  */
@@ -53,6 +64,8 @@ function updateUI(you) {
 			if (action.removeReq)
 				$("#actions").remove("#" + action.name);
 
+		} else {
+			console.error("Uh oh! There was a non-Action in the action list");
 		}
 	}
 }
@@ -61,64 +74,43 @@ function updateUI(you) {
  * @name doAction
  * @description levels up a stat when you do the corresponding action
  * @function
- * @param you - who does the action
+ * @param event - mmmmm event data
  */
 function doAction( event ) {
 	var you = event.data.you;
 	var action = event.data.action;
 	
-	console.log("you " + action.name);
-	
-	//TODO: do action	
-}
-
-/**
- * @name firstSkill
- * @description adds the skill box when you do your first ever action
- * @function
- * @param skill - the skill to add a progressbar for
- */
-function firstSkill( skill ) {
-	this.hasSkills = true;
-	
-	//TODO: make sure the skill bar goes all the way from left to right
-	$(document.body).append(`
-		<div id="skills">
-			<div id="handle">
-				<div id="skillsOpenCloseTab">skills</div>
-			</div>
-			<div id="hidableSkillsBar">
-				<div class="` + skill + `">
-					<div class='progressbar-label'>` + skill + ` (` + this[skill] + `/5)</div>
-					<div id="` + skill + `Progressbar" class='progressbar'></div>
-				</div>
-			</div>
-		</div>
-	`);
-	
-	$("#skills .progressbar").progressbar({
-		max: 5,
-		value: this[skill]
-	});
-	//TODO: make hidableSkillsBar hidable
-}
-
-/**
- * @name newSkill
- * @description adds a new progressbar to the skills tab for a new skill discovered
- * @function
- * @param skill - the skill to add a progressbar for
- */
-function newSkill( skill ) {
-	$("#hidableSkillsBar").append(`
-		<div class="` + skill + `">
-			<div class='progressbar-label'>` + skill + ` (` + this[skill] + `/5)</div>
-			<div id="` + skill + `Progressbar" class='progressbar'></div>
-		</div>
-	`);
-	
-	$("#skills .progressbar").progressbar({
-		max: 5,
-		value: this[skill]
-	});
+	//make sure action is of type Action
+	if (action instanceof Action) {
+		console.log("you " + action.name);
+		
+		//deal with skill if there is one
+		if (action.skill !== null && action.skill !== undefined) {
+			you.incSkill(action.skill);		//increment skill in You
+			fillProgressbar(you, action.skill);	//show change in ui
+		}
+		//deal with skills if there are many
+		else {
+			for (const skill of action.skills) {
+				you.incSkill(skill);	//increment skill in You
+				fillProgressbar(you, skill);	//show change in ui
+			}
+		}
+		
+		//deal with need if there is one
+		if (action.need !== null && action.need !== undefined) {
+			you.decNeed(action.need);	//decrement need in You
+			//TODO: how oh no			//show change in ui
+		}
+		//deal with needs if there are many
+		else {
+			for (const need of action.needs) {
+				you.decNeed(need);	//decrement need in You
+				//TODO: how oh no	//show change in ui
+			}
+		}
+		
+		//TODO: deal with buffs
+		
+	} else { console.error("Oh no! " + action + " is not type Action");	}
 }
