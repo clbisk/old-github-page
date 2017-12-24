@@ -94,7 +94,7 @@ You.prototype.birth = function () {
 	`);
 	//initialize the first buttons
 	$("button").button();
-	$("#actions button").on("click", doAction(this));
+	$("#actions button").on("click", this.doAction);
 	$("#dreamEvent").on("click", this.dream);
 	$("#parentEvent").on("click", this.callParent);
 	
@@ -133,6 +133,82 @@ You.prototype.incSkill = function( statUp, amount ) {
 };
 
 //functions responding to listeners -- "this" becomes the event origin instead of You
+
+/**
+ * @name doAction
+ * @description levels up a stat when you do the corresponding action
+ * @function
+ */
+You.prototype.doAction = function() {
+	//TODO: when swtiching from one skill to another stuff gets weird
+	var classes = $(this).attr("class");
+	var statUp = classes.split(" ")[0];
+	
+	//build skills display, if necessary
+	if (!thisBoi.hasSkills) {
+		thisBoi.firstSkill(statUp);
+	} else if (! $("#hidableSkillsBar ." + statUp).length) {
+		thisBoi.newSkill(statUp);
+	}
+	
+	//TODO: disable the button for a hot minute to simulate the action being performed, maybe disable others if multitasking not possible
+	//increment the skill
+	thisBoi[statUp]++;
+	fillProgressbar( statUp + "Progressbar", thisBoi[statUp], $("#hidableSkillsBar ." + statUp + " .progressbar-label"));
+	
+	//TODO: what happens when bar is filled
+};
+
+/**
+ * @name You.prototype.firstSkill
+ * @description adds the skill box when you do your first ever action
+ * @function
+ * @param skill - the skill to add a progressbar for
+ */
+You.prototype.firstSkill = function( skill ) {
+	this.hasSkills = true;
+	
+	//TODO: make sure the skill bar goes all the way from left to right
+	$(document.body).append(`
+		<div id="skills">
+			<div id="handle">
+				<div id="skillsOpenCloseTab">skills</div>
+			</div>
+			<div id="hidableSkillsBar">
+				<div class="` + skill + `">
+					<div class='progressbar-label'>` + skill + ` (` + this[skill] + `/5)</div>
+					<div id="` + skill + `Progressbar" class='progressbar'></div>
+				</div>
+			</div>
+		</div>
+	`);
+	
+	$("#skills .progressbar").progressbar({
+		max: 5,
+		value: this[skill]
+	});
+	//TODO: make hidableSkillsBar hidable
+}
+
+/**
+ * @name You.prototype.newSkill
+ * @description adds a new progressbar to the skills tab for a new skill discovered
+ * @function
+ * @param skill - the skill to add a progressbar for
+ */
+You.prototype.newSkill = function( skill ) {
+	$("#hidableSkillsBar").append(`
+		<div class="` + skill + `">
+			<div class='progressbar-label'>` + skill + ` (` + this[skill] + `/5)</div>
+			<div id="` + skill + `Progressbar" class='progressbar'></div>
+		</div>
+	`);
+	
+	$("#skills .progressbar").progressbar({
+		max: 5,
+		value: this[skill]
+	});
+}
 
 /**
  * @name dream

@@ -26,18 +26,17 @@ function Action(name, unlockReq, removeReq, buff, ...skills) {
 	this.name = name;
 	this.buff = buff;
 	this.skills = skills;
-	for (var skill of this.skills) {
-		console.log(skill);
-	}
 }
 
 /**
  * @name updateUI
  * @description adds actions that have been unlocked when unlocked and removes redundant skills when they are redundant
+ * @function
+ * @param you - keeps track of you
  */
-function updateUI() {
-	for (const action of actions) {
-		//make sure i is of type action
+function updateUI(you) {
+	for (var action of actions) {
+		//make sure action is of type Action
 		if (action instanceof Action) {
 			//add anything that has add requirement satisfied
 			if (action.unlockReq) {
@@ -46,6 +45,7 @@ function updateUI() {
 						<button id='` + action.name + `'>` + action.name + `</button>
 					`);
 					$("#" + action.name).button();
+					$("#" + action.name).on("click", {you: you, action: action}, doAction);
 				}
 			}
 			
@@ -58,14 +58,18 @@ function updateUI() {
 }
 
 /**
- * @name incSkill
- * @description description
+ * @name doAction
+ * @description levels up a stat when you do the corresponding action
  * @function
- * @param statUp
- * @returns returns
+ * @param you - who does the action
  */
-function incSkill( statUp ) {
+function doAction( event ) {
+	var you = event.data.you;
+	var action = event.data.action;
 	
+	console.log("you " + action.name);
+	
+	//TODO: do action	
 }
 
 /**
@@ -118,39 +122,3 @@ function newSkill( skill ) {
 		value: this[skill]
 	});
 }
-
-/**
- * @name doAction
- * @description levels up a stat when you do the corresponding action
- * @function
- * @param doer - who does the action
- */
-function doAction( doer ) {
-	//TODO: when swtiching from one skill to another stuff gets weird
-	var classes = $(this).attr("class");
-	var statUp = classes.split(" ")[0];
-	
-	console.log("You practiced " + statUp);
-	
-	//build skills display, if necessary
-	if (!this.hasSkills) {
-		firstSkill(statUp);
-	} else if (! $("#hidableSkillsBar ." + statUp).length) {
-		newSkill(statUp);
-	}
-	
-	//increment the skill
-	this[statUp]++;
-	fillProgressbar( statUp + "Progressbar", thisBoi[statUp], $("#hidableSkillsBar ." + statUp + " .progressbar-label"));
-	//TODO: what happens when bar is filled
-	
-	//check that doer is a You
-	if (doer instanceof You) {
-		doer.incSkill(statUp);
-		updateUI();
-	} else {
-		console.error(doer + " cannot do actions, " + doer + " is a " + Object.getPrototypeOf(doer));
-	}
-	
-	//TODO: disable the button for a hot minute to simulate the action being performed, maybe disable others if multitasking not possible	
-};

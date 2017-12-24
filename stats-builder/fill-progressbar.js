@@ -4,6 +4,9 @@ function fillProgressbar(action) {
 	//skill should be of type Skill
 	if (action instanceof Action) {
 		var skills = action.skills;
+	
+	} else {
+		console.error(action + " is not type Action");
 	}
 }
 

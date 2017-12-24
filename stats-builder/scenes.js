@@ -9,7 +9,7 @@ $(document).ready(function() {
 	//your character is born!!
 	var you = new You();
 	you.birth();
-	updateUI();
+	updateUI(you);
 });
 
 /**lays out some scenes that occur in the lifesim**/
