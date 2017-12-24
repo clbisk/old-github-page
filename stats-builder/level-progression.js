@@ -1,4 +1,4 @@
-	//keeps track of universal progression pace -- how points are gained depends on the skill
+//keeps track of universal progression pace -- how points are gained depends on the skill
 var levelUpPoints = {};
 
 levelUpPoints[0] = 0;

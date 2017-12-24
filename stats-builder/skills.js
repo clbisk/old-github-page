@@ -7,7 +7,8 @@
 var actions = [];
 
 actions.push(
-	new Action("poop", "t==0", "levelOf(poop)==1", "null", "poop+=1", "clean-=1")
+	new Action("poop", "t==0", "levelOf(poop)==1", "null", "pooping+=1", "clean-=1"),
+	new Action("make noises","t==0","						levelOf(language)==2","	null","			language+=1","					null")
 );
 //TODO: read from file
 
@@ -22,21 +23,21 @@ actions.push(
  * @param needs - a list of needs to be decremented
  */
 function Action(name, unlockReq, removeReq, buff, skills, needs) {
-	this.removeReq = removeReq;
-	this.unlockReq = unlockReq;
 	this.name = name;
-	this.buff = buff;
+	this.removeReq = removeReq.trim();
+	this.unlockReq = unlockReq.trim();
+	this.buff = buff.trim();
 	
 	//brackets means there's many
 	if (skills.charAt(0) === '{')
-		this.skills = skills;
+		this.skills = skills.trim();
 	else
-		this.skill = skills;
+		this.skill = skills.trim();
 	
 	if (needs.charAt(0) === '{')
-		this.needs = needs;
+		this.needs = needs.trim();
 	else
-		this.need = needs;
+		this.need = needs.trim();
 }
 
 /**
@@ -52,11 +53,12 @@ function updateUI(you) {
 			//add anything that has add requirement satisfied
 			if (action.unlockReq) {
 				if (!$("#" + action.name).length) {
+					var nameID = action.name.replace(/\s/g, '');
 					$("#actions").append(`
-						<button id='` + action.name + `'>` + action.name + `</button>
+						<button id='` + nameID + `'>` + action.name + `</button>
 					`);
-					$("#" + action.name).button();
-					$("#" + action.name).on("click", {you: you, action: action}, doAction);
+					$("#" + nameID).button();
+					$("#" + nameID).on("click", {you: you, action: action}, doAction);
 				}
 			}
 			

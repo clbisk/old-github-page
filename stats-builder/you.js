@@ -129,9 +129,12 @@ You.prototype.growToChild = function() {
  */
 You.prototype.incSkill = function( statUp ) {
 	var skill = statUp.split("+")[0];
-	var amount = statUp.split("=")[1];
+	var amount = parseInt(statUp.split("=")[1], 10);
 	
-	this[skill] += amount;
+	if (this[skill] === null || this[skill] === undefined)
+		this[skill] = amount;
+	else
+		this[skill] += amount;
 };
 
 /**

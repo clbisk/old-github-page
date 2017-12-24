@@ -14,7 +14,29 @@ function fillProgressbar( you, statUp ) {
 		newSkill(you, skill);
 	}
 	
-	//TODO: fill progressbar
+	var value = you[skill];
+	var thisProgressbar = $("#skills #" + skill + "Progressbar");
+
+	var thisMaxValue = thisProgressbar.progressbar("option", "max");
+	if(thisMaxValue === null) {
+		//this is not a progressbar
+		console.error(thisProgressbar + " isn't a progressbarrrrrr");
+	}
+	var maxWidth = thisProgressbar.width();
+	var calculatedWidth = (value / thisMaxValue) * maxWidth;
+	
+	//TODO: fix when the new progressbars get all confused
+	thisProgressbar.children().animate({width: calculatedWidth}, {duration: 'slow'}).promise().done(function() {
+		//make sure the animation is done before so it doesn't reverse the order and get all jumpy
+		thisProgressbar.progressbar("value", value);
+	});
+	
+	var label =  $("#hidableSkillsBar ." + skill + " .progressbar-label");
+	var labelText = label.html();
+	//where our label number starts
+	var labelNumberPos = labelText.lastIndexOf(" ") + 1;
+	
+	label.html(labelText.substring(0, labelNumberPos) + value + "/" + thisMaxValue);
 }
 
 /**
@@ -43,7 +65,7 @@ function firstSkill( you, skill ) {
 	
 	$("#skills .progressbar").progressbar({
 		max: 5,
-		value: you[skill]
+		value: 0.00000001
 	});
 	//TODO: make hidableSkillsBar hidable
 }
@@ -64,7 +86,7 @@ function newSkill( you, skill ) {
 	
 	$("#skills .progressbar").progressbar({
 		max: 5,
-		value: you[skill]
+		value: 0.000000001
 	});
 }
 
