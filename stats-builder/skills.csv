@@ -1,16 +1,21 @@
 skill name,			enter condition,			exit condition,			temporary buff,	skills improved, 				needs specifically affected
-make noises,		t==0,						levelOf(language)==2,	null,			language+=1,					null
-babble,				levelOf(language)==2,		levelOf(language)==4,	null,			language+=2,					null
-mimic words,		levelOf(language)==4,		null,					null,			language+=5,					null
-make fists,			t==0,						null,					null,			coordination+=1,				null
-kick,				levelOf(coordination)==1,	null,					null,			coordination+=2,				null
-wave arms,			levelOf(coordination)==1,	levelOf(language)==2,	null,			coordination+=2,				null
-clap,				levelOf(coordination)==2,	null,					null,			{coordination+=3, music+=1},	null
-play with mobile,	levelOf(coordination)==3,	levelOf(language)==4,	null,			coordination+=4,				null
-chew on blocks,		levelOf(coordination)==4,	null,					null,			coordination+=3,				null
-play with blocks,	levelOf(coordination)==4,	null,					null,			coordination+=5,				null
+make noises,		t===0,						levelOf(language)===2,	null,			language+=1,					null
+babble,				levelOf(language)===2,		levelOf(language)===4,	null,			language+=2,					null
+mimic words,		levelOf(language)===4,		null,					null,			language+=5,					null
+make fists,			t===0,						null,					null,			coordination+=1,				null
+kick,				levelOf(coordination)===1,	null,					null,			coordination+=2,				null
+wave arms,			levelOf(coordination)===1,	levelOf(language)===2,	null,			coordination+=2,				null
+clap,				levelOf(coordination)===2,	null,					null,			{coordination+=3, music+=1},	null
+play with mobile,	levelOf(coordination)===3,	levelOf(language)===4,	null,			coordination+=4,				null
+chew on blocks,		levelOf(coordination)===4,	null,					null,			coordination+=3,				null
+play with blocks,	levelOf(coordination)===4,	null,					null,			coordination+=5,				null
 
 
 
 do heavy makeup,	null,						null,					null,			makeup+++,						null
 do natural makeup,	null,						null,					charisma+1 5s,	{makeup+, charisma+},			null
+
+
+
+cook
+chop vegetables

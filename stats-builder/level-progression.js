@@ -18,7 +18,7 @@ function levelOf(skill) {
 	while (skill >= levelUpPoints[levelCounter])
 		levelCounter++;
 	
-	return levelCounter;
+	return levelCounter-1;
 }
 
 /**

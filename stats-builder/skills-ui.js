@@ -1,8 +1,52 @@
 /*eslint-env jquery */
 
+/**
+ * @name updateUI
+ * @description adds actions that have been unlocked when unlocked and removes redundant actions when they are redundant
+ * @function
+ * @param you - keeps track of you
+ */
+function updateUI(you) {
+	for (var action of actions) {
+		if (action instanceof Action) {
+			//add anything that has add requirement satisfied
+			if (eval(action.unlockReq)) {
+				if (!$("#" + action.name.replace(/\s/g, '')).length) {
+					var nameID = action.name.replace(/\s/g, '');
+					$("#actions").append(`
+						<button id='` + nameID + `'>` + action.name + `</button>
+					`);
+					$("#" + nameID).button();
+					$("#" + nameID).on("click", {you: you, action: action}, doAction);
+					
+					console.log("didn't find " + action.name + ", added " + action.name);
+				}
+			}
+			
+			//remove anything that has remove requirement satisfied
+			if (eval(action.removeReq)) {
+				removeAction(action);
+			}
+
+		} else {
+			console.error("Uh oh! There was a non-Action in the action list");
+		}
+	}
+}
+
+/**
+ * @name removeAction
+ * @description removes a clickable action from the UI when redundant
+ * @param you
+ * @param action - action to be removed
+ */
+function removeAction( action ) {
+	console.log("trying to remove " + action.name + " at " + $("." + action.name));
+	$("#" + action.name).remove();
+}
+
 function fillProgressbar( you, statUp ) {
 	var skill = statUp.split("+")[0];
-	var amount = statUp.split("=")[1];
 	
 	//build skills display, if necessary
 	if (!you.hasSkills) {
@@ -10,7 +54,7 @@ function fillProgressbar( you, statUp ) {
 	}
 	
 	//add a new progressbar, if necessary
-	else if (! $("#hidableSkillsBar ." + skill).length) {
+	else if (!$("#hidableSkillsBar ." + skill + " .ui-progressbar").length) {
 		newSkill(you, skill);
 	}
 	
@@ -48,10 +92,9 @@ function fillProgressbar( you, statUp ) {
 function firstSkill( you, skill ) {
 	you.hasSkills = true;
 	
-	//TODO: make sure the skill bar goes all the way from left to right
 	$(document.body).append(`
 		<div id="skills">
-			<div id="handle">
+			<div id="handle"> 
 				<div id="skillsOpenCloseTab">skills</div>
 			</div>
 			<div id="hidableSkillsBar">
@@ -80,11 +123,13 @@ function newSkill( you, skill ) {
 	$("#hidableSkillsBar").append(`
 		<div class="` + skill + `">
 			<div class='progressbar-label'>` + skill + ` (` + you[skill] + `/5)</div>
-			<div id="` + skill + `Progressbar" class='progressbar'></div>
+			<div id="` + skill + `Progressbar" class='progressbar'></div> 
 		</div>
 	`);
 	
-	$("#skills .progressbar").progressbar({
+	//skill.replace(/\s/g, '')
+	
+	$("#skills #" + skill + "Progressbar").progressbar({
 		max: 5,
 		value: 0.000000001
 	});

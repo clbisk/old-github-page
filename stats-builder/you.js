@@ -133,8 +133,9 @@ You.prototype.incSkill = function( statUp ) {
 	
 	if (this[skill] === null || this[skill] === undefined)
 		this[skill] = amount;
-	else
+	else {
 		this[skill] += amount;
+	}
 };
 
 /**
@@ -186,7 +187,6 @@ You.prototype.doAction = function() {
 You.prototype.firstSkill = function( skill ) {
 	this.hasSkills = true;
 	
-	//TODO: make sure the skill bar goes all the way from left to right
 	$(document.body).append(`
 		<div id="skills">
 			<div id="handle">
@@ -206,7 +206,7 @@ You.prototype.firstSkill = function( skill ) {
 		value: this[skill]
 	});
 	//TODO: make hidableSkillsBar hidable
-}
+};
 
 /**
  * @name You.prototype.newSkill
@@ -226,7 +226,7 @@ You.prototype.newSkill = function( skill ) {
 		max: 5,
 		value: this[skill]
 	});
-}
+};
 
 /**
  * @name dream
@@ -241,7 +241,6 @@ You.prototype.dream = function() {
 		$("#console").html("You had a dream! It wasn't very memorable.");
 		thisBoi.incSkill("imagination");
 	}
-	//TODO: finish this better
 };
 
 /**

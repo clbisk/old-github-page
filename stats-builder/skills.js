@@ -7,14 +7,15 @@
 var actions = [];
 
 actions.push(
-	new Action("poop", "t==0", "levelOf(poop)==1", "null", "pooping+=1", "clean-=1"),
-	new Action("make noises","t==0","						levelOf(language)==2","	null","			language+=1","					null")
+	new Action("poop", "you.time===0", "levelOf(thisBoi.pooping)===1", "null", "pooping+=1", "clean-=1"),
+	new Action("make noises","you.time===0","						levelOf(language)===2","	null","			language+=1","					null"),
+	new Action("super poop", "levelOf(thisBoi.pooping)===1", "null", "pooping+=1", "null", "null")
 );
 //TODO: read from file
 
 /**
  * @name action
- * @description creates a new action that might be unlocked
+ * @description an action that might be unlocked
  * @param name - what this action is called in the ui
  * @param unlockReq - when this action should be unlocked
  * @param removeReq - when this action becomes redundant
@@ -29,54 +30,22 @@ function Action(name, unlockReq, removeReq, buff, skills, needs) {
 	this.buff = buff.trim();
 	
 	//brackets means there's many
-	if (skills.charAt(0) === '{')
+	if (skills !== null && skills.charAt(0) === '{')
 		this.skills = skills.trim();
 	else
 		this.skill = skills.trim();
 	
-	if (needs.charAt(0) === '{')
+	if (needs !== null && needs.charAt(0) === '{')
 		this.needs = needs.trim();
 	else
 		this.need = needs.trim();
 }
 
 /**
- * @name updateUI
- * @description adds actions that have been unlocked when unlocked and removes redundant actions when they are redundant
- * @function
- * @param you - keeps track of you
- */
-function updateUI(you) {
-	for (var action of actions) {
-		//make sure action is of type Action
-		if (action instanceof Action) {
-			//add anything that has add requirement satisfied
-			if (action.unlockReq) {
-				if (!$("#" + action.name).length) {
-					var nameID = action.name.replace(/\s/g, '');
-					$("#actions").append(`
-						<button id='` + nameID + `'>` + action.name + `</button>
-					`);
-					$("#" + nameID).button();
-					$("#" + nameID).on("click", {you: you, action: action}, doAction);
-				}
-			}
-			
-			//remove anything that has remove requirement satisfied
-			if (action.removeReq)
-				$("#actions").remove("#" + action.name);
-
-		} else {
-			console.error("Uh oh! There was a non-Action in the action list");
-		}
-	}
-}
-
-/**
  * @name doAction
  * @description levels up a stat when you do the corresponding action
  * @function
- * @param event - mmmmm event data
+ * @param event - event data holding performer of action (you) and the action being done
  */
 function doAction( event ) {
 	var you = event.data.you;
@@ -113,6 +82,8 @@ function doAction( event ) {
 		}
 		
 		//TODO: deal with buffs
+		
+		updateUI(you);
 		
 	} else { console.error("Oh no! " + action + " is not type Action");	}
 }
