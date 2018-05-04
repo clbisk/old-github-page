@@ -7,9 +7,9 @@
 var actions = [];
 
 actions.push(
-	new Action("poop", "you.time===0", "levelOf(thisBoi.pooping)===1", "null", "pooping+=1", "clean-=1"),
-	new Action("make noises","you.time===0","						levelOf(language)===2","	null","			language+=1","					null"),
-	new Action("super poop", "levelOf(thisBoi.pooping)===1", "null", "pooping+=1", "null", "null")
+	new Action("poop", "thisBoi.time===0", "levelOf(thisBoi.pooping)===1", "null", "pooping+=1", "clean-=1"),
+	new Action("make noises","thisBoi.time===0","						levelOf(language)===2","	null","			language+=1","					null"),
+	new Action("super poop", "levelOf(thisBoi.pooping)===1", "null", "null", "pooping+=1", "null")
 );
 //TODO: read from file
 
@@ -53,7 +53,7 @@ function doAction( event ) {
 	
 	//make sure action is of type Action
 	if (action instanceof Action) {
-		console.log("you " + action.name);
+		you.uiConsole.log("You " + action.name + ".");
 		
 		//deal with skill if there is one
 		if (action.skill !== null && action.skill !== undefined) {
@@ -83,6 +83,7 @@ function doAction( event ) {
 		
 		//TODO: deal with buffs
 		
+		you.time += 1;
 		updateUI(you);
 		
 	} else { console.error("Oh no! " + action + " is not type Action");	}

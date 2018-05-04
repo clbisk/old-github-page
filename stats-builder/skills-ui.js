@@ -1,6 +1,12 @@
 /*eslint-env jquery */
 
 /**
+ * @name actionsOnScreen
+ * @description array holding all of the actions that are currently clickable
+ */
+var actionsOnScreen = [];
+
+/**
  * @name updateUI
  * @description adds actions that have been unlocked when unlocked and removes redundant actions when they are redundant
  * @function
@@ -11,7 +17,10 @@ function updateUI(you) {
 		if (action instanceof Action) {
 			//add anything that has add requirement satisfied
 			if (eval(action.unlockReq)) {
+				//if not already found
 				if (!$("#" + action.name.replace(/\s/g, '')).length) {
+					actionsOnScreen.push(action);
+					
 					var nameID = action.name.replace(/\s/g, '');
 					$("#actions").append(`
 						<button id='` + nameID + `'>` + action.name + `</button>
@@ -22,14 +31,14 @@ function updateUI(you) {
 					console.log("didn't find " + action.name + ", added " + action.name);
 				}
 			}
-			
-			//remove anything that has remove requirement satisfied
-			if (eval(action.removeReq)) {
-				removeAction(action);
-			}
-
-		} else {
+		} else
 			console.error("Uh oh! There was a non-Action in the action list");
+	}
+	
+	for (var actionOnScreen of actionsOnScreen) {
+		//remove anything that has remove requirement satisfied
+		if (eval(actionOnScreen.removeReq)) {
+			removeAction(actionOnScreen);
 		}
 	}
 }
@@ -41,8 +50,11 @@ function updateUI(you) {
  * @param action - action to be removed
  */
 function removeAction( action ) {
-	console.log("trying to remove " + action.name + " at " + $("." + action.name));
+	console.log("removing " + action.name);
 	$("#" + action.name).remove();
+	
+	var loc = actionsOnScreen.indexOf(action);
+	actionsOnScreen.splice(loc, 1);
 }
 
 function fillProgressbar( you, statUp ) {
@@ -58,29 +70,57 @@ function fillProgressbar( you, statUp ) {
 		newSkill(you, skill);
 	}
 	
-	var value = you[skill];
+	var points = you[skill];
+	var level = levelOf(you[skill]);
 	var thisProgressbar = $("#skills #" + skill + "Progressbar");
 
-	var thisMaxValue = thisProgressbar.progressbar("option", "max");
-	if(thisMaxValue === null) {
-		//this is not a progressbar
-		console.error(thisProgressbar + " isn't a progressbarrrrrr");
+	//points over previously attained level
+	var value = points - pointsAtLevel(level);
+	//points needed to get next level
+	var thisMaxValue = pointsAtLevel(level+1) - pointsAtLevel(level);
+	
+	var levelingUp = false;
+	//if a new level was just reached, needs to show bar being filled before resetting
+	if (value === 0) {
+		levelingUp = true;
+		var nextMaxValue = thisMaxValue;
+		thisMaxValue = pointsAtLevel(level) - pointsAtLevel(level-1);
+		value = pointsAtLevel(level) - pointsAtLevel(level-1);
 	}
+	
 	var maxWidth = thisProgressbar.width();
 	var calculatedWidth = (value / thisMaxValue) * maxWidth;
 	
+	var label =  $("#hidableSkillsBar ." + skill + " .progressbar-label");
+	label.html(skill + " " + value + "/" + thisMaxValue + " [level " + level + "]");
+
+	var duration;
+	if (level < 1)
+		duration = 'slow';
+	else if (level < 2)
+		duration = 'medium';
+	else
+		duration = 'fast';
+	
 	//TODO: fix when the new progressbars get all confused
-	thisProgressbar.children().animate({width: calculatedWidth}, {duration: 'slow'}).promise().done(function() {
+	thisProgressbar.children().animate({width: calculatedWidth}, {duration: duration}).promise().done(function() {
 		//make sure the animation is done before so it doesn't reverse the order and get all jumpy
 		thisProgressbar.progressbar("value", value);
+	}).promise().done(function() {
+		if (levelingUp) {
+			thisProgressbar.remove();
+			$("#hidableSkillsBar ." + skill).append(`
+					<div id="` + skill + `Progressbar" class='progressbar'></div>
+			`);
+			
+			$("#skills #" + skill + "Progressbar").progressbar({
+				max: nextMaxValue,
+				value: 0.000000001
+			});
+			
+			label.html(skill + " " + 0 + "/" + nextMaxValue + " [level " + level + "]");
+		}
 	});
-	
-	var label =  $("#hidableSkillsBar ." + skill + " .progressbar-label");
-	var labelText = label.html();
-	//where our label number starts
-	var labelNumberPos = labelText.lastIndexOf(" ") + 1;
-	
-	label.html(labelText.substring(0, labelNumberPos) + value + "/" + thisMaxValue);
 }
 
 /**

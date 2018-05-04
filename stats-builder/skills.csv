@@ -14,8 +14,3 @@ play with blocks,	levelOf(coordination)===4,	null,					null,			coordination+=5,	
 
 do heavy makeup,	null,						null,					null,			makeup+++,						null
 do natural makeup,	null,						null,					charisma+1 5s,	{makeup+, charisma+},			null
-
-
-
-cook
-chop vegetables

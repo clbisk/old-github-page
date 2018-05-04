@@ -6,10 +6,14 @@ $(document).ready(function() {
 	$('#screen').on('selectmenuchange', '.selector', menuchange);
 	$('#screen').on('click', '.reset', reset);
 	
+	//initialize the ui console
+	var uiConsole = new UiConsole();
+	
 	//your character is born!!
-	var you = new You();
+	var you = new You(uiConsole);
 	you.birth();
 	updateUI(you);
+	uiConsole.construct();
 });
 
 /**lays out some scenes that occur in the lifesim**/

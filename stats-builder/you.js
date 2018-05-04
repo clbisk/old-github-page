@@ -8,10 +8,12 @@ var thisBoi;
 
 /**
  * @name You
- * @description Prototype for keeping track of player data and messing with the UI
+ * @description Prototype for keeping track of player data
  * @class
  */
-function You() {
+function You( console ) {
+	this.uiConsole = console;
+	
 	this.time;
 	this.language;
 	this.imagination;
@@ -97,11 +99,6 @@ You.prototype.birth = function () {
 	$("#actions button").on("click", this.doAction);
 	$("#dreamEvent").on("click", this.dream);
 	$("#parentEvent").on("click", this.callParent);
-	
-	//wish the player happy birthday!
-	$("#screen").append(`
-		<div id="console">Happy birthday!</div>
-	`);
 };
 
 /**

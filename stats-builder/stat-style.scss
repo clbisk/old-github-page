@@ -94,3 +94,13 @@ body {
 		}
 	}
 }
+
+.progressbar {
+	display: block;
+    border: 1px solid #c5c5c5;
+    border-radius: 3px;
+    background: #ffffff;
+    height: 2em;
+    text-align: left;
+    overflow: hidden;
+}
