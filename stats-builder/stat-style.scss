@@ -59,7 +59,7 @@ body {
 	flex-direction: column;
 	bottom: 0px;
 	position: fixed;
-	width: calc(100% - 2*8px);
+	width: 100%;
 	
 	#handle {
 		width: 100%;
@@ -86,11 +86,18 @@ body {
 		width: calc(100% - 2*10px);
 		
 		.progressbar-label {
-			width: 100%;
+			display: inline-block;
+			width: calc(50% - 10px);
+		}
+		
+		.level-label {
+			display: inline-block;
+			width: calc(50% - 10px);
+			text-align: right;
 		}
 		
 		.ui-progressbar {
-			width: 80%;
+			width: calc(100% - 2px);
 		}
 	}
 }

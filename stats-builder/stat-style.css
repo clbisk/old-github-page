@@ -45,7 +45,7 @@ body {
   flex-direction: column;
   bottom: 0px;
   position: fixed;
-  width: calc(100% - 2*8px);
+  width: 100%;
 }
 #skills #handle {
   width: 100%;
@@ -57,12 +57,12 @@ body {
   position: fixed;
   width: 100px;
   height: 10px;
-  background: #eeeeee;
+  background: #eee;
   font-size: 10px;
   text-align: center;
 }
 #skills #hidableSkillsBar {
-  border-top: solid 2px #eeeeee;
+  border-top: solid 2px #eee;
   display: flex;
   flex-direction: column;
   background: rgba(247, 247, 247, 0.6);
@@ -70,18 +70,24 @@ body {
   width: calc(100% - 2*10px);
 }
 #skills #hidableSkillsBar .progressbar-label {
-  width: 100%;
+  display: inline-block;
+  width: calc(50% - 10px);
+}
+#skills #hidableSkillsBar .level-label {
+  display: inline-block;
+  width: calc(50% - 10px);
+  text-align: right;
 }
 #skills #hidableSkillsBar .ui-progressbar {
-  width: 80%;
+  width: calc(100% - 2px);
 }
 
 .progressbar {
-	display: block;
-    border: 1px solid #c5c5c5;
-    border-radius: 3px;
-    background: #ffffff;
-    height: 2em;
-    text-align: left;
-    overflow: hidden;
+  display: block;
+  border: 1px solid #c5c5c5;
+  border-radius: 3px;
+  background: #ffffff;
+  height: 2em;
+  text-align: left;
+  overflow: hidden;
 }

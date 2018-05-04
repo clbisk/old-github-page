@@ -92,7 +92,7 @@ function fillProgressbar( you, statUp ) {
 	var calculatedWidth = (value / thisMaxValue) * maxWidth;
 	
 	var label =  $("#hidableSkillsBar ." + skill + " .progressbar-label");
-	label.html(skill + " " + value + "/" + thisMaxValue + " [level " + level + "]");
+	label.html(skill + " " + value + "/" + thisMaxValue);
 
 	var duration;
 	if (level < 1)
@@ -118,7 +118,11 @@ function fillProgressbar( you, statUp ) {
 				value: 0.000000001
 			});
 			
-			label.html(skill + " " + 0 + "/" + nextMaxValue + " [level " + level + "]");
+			you.uiConsole.add("You leveled up " + skill + "!");
+			
+			label.html(skill + " " + 0 + "/" + nextMaxValue);
+			var levelLabel =  $("#hidableSkillsBar ." + skill + " .level-label");
+			levelLabel.html("level " + level);
 		}
 	});
 }
@@ -140,6 +144,7 @@ function firstSkill( you, skill ) {
 			<div id="hidableSkillsBar">
 				<div class="` + skill + `">
 					<div class='progressbar-label'>` + skill + ` (` + you[skill] + `/5)</div>
+					<div class='level-label'></div>
 					<div id="` + skill + `Progressbar" class='progressbar'></div>
 				</div>
 			</div>
@@ -163,6 +168,7 @@ function newSkill( you, skill ) {
 	$("#hidableSkillsBar").append(`
 		<div class="` + skill + `">
 			<div class='progressbar-label'>` + skill + ` (` + you[skill] + `/5)</div>
+			<div class='level-label'></div>
 			<div id="` + skill + `Progressbar" class='progressbar'></div> 
 		</div>
 	`);
