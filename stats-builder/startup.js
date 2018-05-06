@@ -53,10 +53,10 @@ function readActions() {
 function storeActions(response, actions) {
 	return new Promise((resolve, reject) => {
 		var actionsData = JSON.parse(response);
-		for (var action in actionsData) {
+		for (var actionKey in actionsData) {
 			//make sure the key/value wasn't inherited
-			if (actionsData.hasOwnProperty(action)) {
-				actions.push(action);
+			if (actionsData.hasOwnProperty(actionKey)) {
+				actions.push(actionsData[actionKey]);
 			}
 		}
 		return resolve("succuessfuly stored actions");

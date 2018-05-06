@@ -11,7 +11,7 @@
 function updateUI(you, actions, actionsOnScreen) {
 	for (var action of actions) {
 		//add anything that has add requirement satisfied
-		if (eval(action.unlockReq)) {
+		if (eval(action.unlockReq.field) === action.unlockReq.value) {
 			//if not already found
 			if (!$("#" + action.name.replace(/\s/g, '')).length) {
 				actionsOnScreen.push(action);
@@ -33,8 +33,10 @@ function updateUI(you, actions, actionsOnScreen) {
 	
 	for (var actionOnScreen of actionsOnScreen) {
 		//remove anything that has remove requirement satisfied
-		if (eval(actionOnScreen.removeReq)) {
-			removeAction(actionOnScreen);
+		if (actionsOnScreen.removeReq) {	//not all actions have a removeReq (yet)
+			if (eval(actionOnScreen.removeReq.field) ===  actionsOnScreen.removeReq.value) {
+				removeAction(actionOnScreen);
+			}
 		}
 	}
 }
@@ -63,7 +65,7 @@ function removeAction( action, actionsOnScreen ) {
  * @param statUp - stat for progressbar to be filled
  */
 function fillProgressbar( you, statUp ) {
-	var skill = statUp.split("+")[0];
+	var skill = statUp.skill;
 	
 	//build skills display, if necessary
 	if (!you.hasSkills) {

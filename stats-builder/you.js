@@ -119,12 +119,9 @@ You.prototype.growToChild = function() {
  * @name You.prototype.incSkill
  * @description get better at a skill
  * @function
- * @param statUp - the skill to get better at formatted as "skill+=amount"
+ * @param statUp - the skill to get better at
  */
-You.prototype.incSkill = function( statUp ) {
-	var skill = statUp.split("+")[0];
-	var amount = parseInt(statUp.split("=")[1], 10);
-	
+You.prototype.incSkill = function( skill, amount ) {
 	if (this[skill] === null || this[skill] === undefined)
 		this[skill] = amount;
 	else {
@@ -136,12 +133,9 @@ You.prototype.incSkill = function( statUp ) {
  * @name You.prototype.decNeed
  * @description get more needy in some way
  * @function
- * @param statUp - the need to worsen formatted as "need-=amount"
+ * @param statUp - the need to worsen
  */
-You.prototype.decNeed = function( statDown ) {
-	var need = statDown.split("-")[0];
-	var amount = statDown.split("=")[1];
-	
+You.prototype.decNeed = function( need, amount ) {
 	this[need] -= amount;
 };
 
