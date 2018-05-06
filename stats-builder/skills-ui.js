@@ -1,38 +1,34 @@
 /*eslint-env jquery */
 
 /**
- * @name actionsOnScreen
- * @description array holding all of the actions that are currently clickable
- */
-var actionsOnScreen = [];
-
-/**
  * @name updateUI
  * @description adds actions that have been unlocked when unlocked and removes redundant actions when they are redundant
  * @function
  * @param you - keeps track of you
+ * @param actions - keeps track of all possible actions
+ * @param actionsOnScreen - keeps track of currently clickable actions
  */
-function updateUI(you) {
+function updateUI(you, actions, actionsOnScreen) {
 	for (var action of actions) {
-		if (action instanceof Action) {
-			//add anything that has add requirement satisfied
-			if (eval(action.unlockReq)) {
-				//if not already found
-				if (!$("#" + action.name.replace(/\s/g, '')).length) {
-					actionsOnScreen.push(action);
-					
-					var nameID = action.name.replace(/\s/g, '');
-					$("#actions").append(`
-						<button id='` + nameID + `'>` + action.name + `</button>
-					`);
-					$("#" + nameID).button();
-					$("#" + nameID).on("click", {you: you, action: action}, doAction);
-					
-					console.log("didn't find " + action.name + ", added " + action.name);
-				}
+		//add anything that has add requirement satisfied
+		if (eval(action.unlockReq)) {
+			//if not already found
+			if (!$("#" + action.name.replace(/\s/g, '')).length) {
+				actionsOnScreen.push(action);
+				
+				var nameID = action.name.replace(/\s/g, '');
+				$("#actions").append(`
+					<button id='` + nameID + `'>` + action.name + `</button>
+				`);
+				
+				$("#" + nameID).button();
+				$("#" + nameID).on("click", {you: you, action: action, actions: actions, actionsOnScreen: actionsOnScreen}, doAction);
+				
+				you.uiConsole.add("You learned how to " + action.name + ".");
+				
+				$("#" + nameID).effect("highlight", "slow");
 			}
-		} else
-			console.error("Uh oh! There was a non-Action in the action list");
+		}
 	}
 	
 	for (var actionOnScreen of actionsOnScreen) {
@@ -48,15 +44,24 @@ function updateUI(you) {
  * @description removes a clickable action from the UI when redundant
  * @param you
  * @param action - action to be removed
+ * @param actionsOnScreen - all the actions on the screen atm
  */
-function removeAction( action ) {
+function removeAction( action, actionsOnScreen ) {
 	console.log("removing " + action.name);
-	$("#" + action.name).remove();
+	$("#" + action.name).effect("fade", "slow").promise().done(function() {
+		$("#" + action.name).remove();
+	});
 	
 	var loc = actionsOnScreen.indexOf(action);
 	actionsOnScreen.splice(loc, 1);
 }
 
+/**
+ * @name fillProgressbar
+ * @description fills progressbar from left to right over time
+ * @param you
+ * @param statUp - stat for progressbar to be filled
+ */
 function fillProgressbar( you, statUp ) {
 	var skill = statUp.split("+")[0];
 	
@@ -79,10 +84,10 @@ function fillProgressbar( you, statUp ) {
 	//points needed to get next level
 	var thisMaxValue = pointsAtLevel(level+1) - pointsAtLevel(level);
 	
-	var levelingUp = false;
+	var isLevelingUp = false;
 	//if a new level was just reached, needs to show bar being filled before resetting
 	if (value === 0) {
-		levelingUp = true;
+		isLevelingUp = true;
 		var nextMaxValue = thisMaxValue;
 		thisMaxValue = pointsAtLevel(level) - pointsAtLevel(level-1);
 		value = pointsAtLevel(level) - pointsAtLevel(level-1);
@@ -102,12 +107,11 @@ function fillProgressbar( you, statUp ) {
 	else
 		duration = 'fast';
 	
-	//TODO: fix when the new progressbars get all confused
 	thisProgressbar.children().animate({width: calculatedWidth}, {duration: duration}).promise().done(function() {
 		//make sure the animation is done before so it doesn't reverse the order and get all jumpy
 		thisProgressbar.progressbar("value", value);
 	}).promise().done(function() {
-		if (levelingUp) {
+		if (isLevelingUp) {
 			thisProgressbar.remove();
 			$("#hidableSkillsBar ." + skill).append(`
 					<div id="` + skill + `Progressbar" class='progressbar'></div>
@@ -172,8 +176,6 @@ function newSkill( you, skill ) {
 			<div id="` + skill + `Progressbar" class='progressbar'></div> 
 		</div>
 	`);
-	
-	//skill.replace(/\s/g, '')
 	
 	$("#skills #" + skill + "Progressbar").progressbar({
 		max: 5,

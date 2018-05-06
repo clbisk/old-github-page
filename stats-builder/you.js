@@ -81,10 +81,7 @@ You.prototype.birth = function () {
 	
 	//fill the main ui with stuff
 	$("#screen").html(`
-		<div id="actions">
-			<button class='language'>make random noises</button>
-			<button class='coordination'>make fists</button>	
-		</div>
+		<div id="actions"></div>
 		
 		<div id="chanceEvents">
 			<button id='dreamEvent'>sleep</button>

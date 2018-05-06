@@ -1,0 +1,145 @@
+{
+	"coo": {
+		"name": "coo",
+		"unlockReq": {
+			"field": "thisBoi.time",
+			"value": 0
+		},
+
+		"removeReq": {
+			"field": "levelOf(thisBoi.language)",
+			"value": 2
+		},
+
+		"skills": [{ "skill": "language", "amount": 1 }],
+		"needs": null,
+		"buffs": null
+	},
+	
+	"babble": {
+		"name": "babble",
+		"unlockReq": {
+			"field": "levelOf(thisBoi.language)",
+			"value": 2
+		},
+		
+		"buffs": null,
+		"skills": [{ "skill": "language", "amount": 2 }],
+		"needs": null
+	},
+	
+	"mimicWords": {
+		"name": "mimic words",
+		"unlockReq": {
+			"field": "levelOf(thisBoi.language)",
+			"value": 4
+		},
+		
+		"removeReq": null,
+		"buffs": null,		
+		"skills": [{ "skill": "language", "amount": 5 }],
+		"needs": null
+	},
+	
+	"makeFists": {
+		"name": "make fists",
+		"unlockReq": {
+			"field": "thisBoi.time",
+			"value": 0
+		},
+		
+		"removeReq": null,
+		"buffs": null,		
+		"skills": [{ "skill": "coordination", "amount": 1 }],
+		"needs": null
+	},
+	
+	"kick": {
+		"name": "kick",
+		"unlockReq": {
+			"field": "levelOf(thisBoi.coordination)",
+			"value": 1
+		},
+		
+		"removeReq": null,
+		"buffs": null,		
+		"skills": [{ "skill": "coordination", "amount": 2 }],
+		"needs": null
+	},
+	
+	"waveArms": {
+		"name": "wave arms",
+		"unlockReq": {
+			"field": "levelOf(thisBoi.coordination)",
+			"value": 1
+		},
+		
+		"removeReq": {
+			"field": "levelOf(thisBoi.language)",
+			"value": 2
+		},
+		
+		"buffs": null,		
+		"skills": [{ "skill": "coordination", "amount": 2 }],
+		"needs": null
+	},
+
+	"clap": {
+		"name": "clap",
+		"unlockReq": {
+			"field": "levelOf(thisBoi.coordination)",
+			"value": 2
+		},
+		
+		"removeReq": null,
+		"buffs": null,		
+		"skills": [
+			{ "skill": "coordination", "amount": 3 },
+			{ "skill": "music", "amount": 1 }
+		],
+		"needs": null
+	},
+	
+	"playWithMobile": {
+		"name": "play with mobile",
+		"unlockReq": {
+			"field": "levelOf(thisBoi.coordination)",
+			"value": 3
+		},
+		
+		"removeReq": {
+			"field": "levelOf(thisBoi.language)",
+			"value": 4
+		},
+		
+		"buffs": null,		
+		"skills": [{ "skill": "coordination", "amount": 4 }],
+		"needs": null
+	},
+	
+	"chewOnBlocks": {
+		"name": "chew on blocks",
+		"unlockReq": {
+			"field": "levelOf(thisBoi.coordination)",
+			"value": 4
+		},
+		
+		"removeReq": null,
+		"buffs": null,		
+		"skills": [{ "skill": "coordination", "amount": 3 }],
+		"needs": null
+	},
+	
+	"playWithBlocks": {
+		"name": "play with blocks",
+		"unlockReq": {
+			"field": "levelOf(thisBoi.coordination)",
+			"value": 4
+		},
+		
+		"removeReq": null,
+		"buffs": null,		
+		"skills": [{ "skill": "coordination", "amount": 5 }],
+		"needs": null
+	}
+}

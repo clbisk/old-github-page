@@ -1,22 +1,8 @@
 /*eslint-env jquery */
 
-//at startup
-$(document).ready(function() {
-	//bind general event listener to selectors and buttons
-	$('#screen').on('selectmenuchange', '.selector', menuchange);
-	$('#screen').on('click', '.reset', reset);
-	
-	//initialize the ui console
-	var uiConsole = new UiConsole();
-	
-	//your character is born!!
-	var you = new You(uiConsole);
-	you.birth();
-	updateUI(you);
-	uiConsole.construct();
-});
 
 /**lays out some scenes that occur in the lifesim**/
+
 //this is the one where you're a li'l kid dreaming about your
 //future and you chose a "life goal" which can be adjusted later
 function dreamJob() {
