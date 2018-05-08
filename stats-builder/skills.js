@@ -23,9 +23,11 @@ function doAction( event ) {
 	}
 	
 	//deal with needs
-	for (const need of action.needs) {
-		you.decNeed(need);	//decrement need in You
-		//TODO: how oh no	//show change in ui
+	if (actions.needs) {	//not every action has needs
+		for (const need of action.needs) {
+			you.decNeed(need);	//decrement need in You
+			//TODO: how oh no	//show change in ui
+		}
 	}
 	
 	//TODO: deal with buffs

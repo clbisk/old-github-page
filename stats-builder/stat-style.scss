@@ -104,10 +104,15 @@ body {
 
 .progressbar {
 	display: block;
-    border: 1px solid #c5c5c5;
+	border: 1px solid #c5c5c5;
     border-radius: 3px;
     background: #ffffff;
     height: 2em;
     text-align: left;
-    overflow: hidden;
+	overflow: hidden;
+	.progressbar-value {
+		background: #b1c8ed;
+ 		margin: -1px;
+		height: 100%;
+	}
 }

@@ -52,9 +52,7 @@ You.prototype.birth = function () {
 	//TODO: change needs bar so that when hovered over the value/maxvalue is shown
 	$("#sidebar").append(`
 		<div id='stats'>
-			<div id=language>Language: ` + Math.trunc(this.language) + `</div>
-			<div id=imagination>Imagination: ` + Math.trunc(this.imagination) + `</div>
-			<div id=coordination>Coordination: ` + Math.trunc(this.coordination) + `</div>
+			<div>time: ` + this.time + `</div>
 		</div>
 		
 		<br>

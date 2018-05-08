@@ -23,6 +23,11 @@
 			"value": 2
 		},
 		
+		"removeReq": {
+			"field": "levelOf(thisBoi.language)",
+			"value": 4
+		},
+		
 		"buffs": null,
 		"skills": [{ "skill": "language", "amount": 2 }],
 		"needs": null
@@ -81,7 +86,8 @@
 		
 		"buffs": null,		
 		"skills": [{ "skill": "coordination", "amount": 2 }],
-		"needs": null
+		"needs": null,
+		"consoleText": "wave your arms"
 	},
 
 	"clap": {
@@ -115,6 +121,20 @@
 		"buffs": null,		
 		"skills": [{ "skill": "coordination", "amount": 4 }],
 		"needs": null
+	},
+	
+	"stareAtMobile": {
+		"name": "stare at mobile",
+		"unlockReq": {
+			"field": "levelOf(thisBoi.coordination)",
+			"value": 3
+		},
+		
+		"removeReq": null,
+		"buffs": null,		
+		"skills": [{ "skill": "imagination", "amount": 2 }],
+		"needs": null,
+		"consoleText": "stare at your mobile. It has a cool unicorn and a pretty rad duck"
 	},
 	
 	"chewOnBlocks": {

@@ -33,9 +33,9 @@ function updateUI(you, actions, actionsOnScreen) {
 	
 	for (var actionOnScreen of actionsOnScreen) {
 		//remove anything that has remove requirement satisfied
-		if (actionsOnScreen.removeReq) {	//not all actions have a removeReq (yet)
-			if (eval(actionOnScreen.removeReq.field) ===  actionsOnScreen.removeReq.value) {
-				removeAction(actionOnScreen);
+		if (actionOnScreen.removeReq) {	//not all actions have a removeReq (yet)
+			if (eval(actionOnScreen.removeReq.field) ===  actionOnScreen.removeReq.value) {
+				removeAction(actionOnScreen, actionsOnScreen);
 			}
 		}
 	}

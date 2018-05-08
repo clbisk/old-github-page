@@ -91,3 +91,8 @@ body {
   text-align: left;
   overflow: hidden;
 }
+.progressbar .progressbar-value {
+  background: #b1c8ed;
+  margin: -1px;
+  height: 100%;
+}

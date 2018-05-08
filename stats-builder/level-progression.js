@@ -5,6 +5,8 @@ levelUpPoints[0] = 0;
 levelUpPoints[1] = 5;
 levelUpPoints[2] = 15;
 levelUpPoints[3] = 50;
+levelUpPoints[4] = 150;
+levelUpPoints[5] = 300;
 
 /**
  * @name levelOf
