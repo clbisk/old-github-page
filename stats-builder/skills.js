@@ -13,13 +13,14 @@ function doAction( event ) {
 	var action = event.data.action;
 	var actions = event.data.actions;
 	var actionsOnScreen = event.data.actionsOnScreen;
+	var skillsUI = event.data.skillsUI;
 	
 	you.uiConsole.log("You " + action.name + ".");
 	
 	//deal with skills
 	for (const skillObj of action.skills) {
 		you.incSkill(skillObj.skill, skillObj.amount);	//increment skill in You
-		fillProgressbar(you, skillObj);	//show change in ui
+		skillsUI.fillProgressbar(you, skillObj);	//show change in ui
 	}
 	
 	//deal with needs
@@ -32,6 +33,6 @@ function doAction( event ) {
 	
 	//TODO: deal with buffs
 	
-	you.time += 1;
-	updateUI(you, actions, actionsOnScreen);
+	you.time += action.time;
+	skillsUI.updateUI(you, actions, actionsOnScreen);
 }

@@ -7,6 +7,12 @@ $(document).ready(function() {
 	var actionsOnScreen = [];
 	
 	/**
+	 * @name progressbars
+	 * @description array holding all the progressbars in use
+	 */
+	var progressbars = [];
+	
+	/**
 	 * @name actions
 	 * @description array holding all of the actions in the game
 	 */
@@ -14,11 +20,8 @@ $(document).ready(function() {
 	
 	readActions()
 		.then((response) => {storeActions(response, actions);})
-		.then((response) => {startup(actions, actionsOnScreen);})
+		.then((response) => {startup(progressbars, actions, actionsOnScreen);})
 		.catch((failure) => {console.log("failed with status " + failure);});
-	
-//	readActions(storeActions, actions);
-//	startup(actions, actionsOnScreen);
 });
 
 /**
@@ -36,7 +39,7 @@ function readActions() {
 //				handleData(this, actions);
 //			}
 //		};
-		xmlhttp.open("GET", "/skills.json");
+		xmlhttp.open("GET", "/get-good/skills.json");
 		xmlhttp.onload = () => resolve(xmlhttp.responseText);
 		xmlhttp.onerror = () => reject(xmlhttp.statusText);
 		xmlhttp.send();
@@ -69,17 +72,21 @@ function storeActions(response, actions) {
  * @param actions
  * @param actionsOnScreen
  */
-function startup(actions, actionsOnScreen) {
+function startup(progressbars, actions, actionsOnScreen) {
 	//bind general event listener to selectors and buttons
 	$('#screen').on('selectmenuchange', '.selector', menuchange);
 	$('#screen').on('click', '.reset', reset);
 	
 	//initialize the ui console
+	
+	
+	//intialize ui
 	var uiConsole = new UiConsole();
+	var skillsUI = new SkillsUI(you, actions, actionsOnScreen, progressbars);
 		
 	//your character is born!!
 	var you = new You(uiConsole);
 	you.birth();	
-	updateUI(you, actions, actionsOnScreen);
+	skillsUI.updateUI(you, actions, actionsOnScreen);
 	uiConsole.construct();
 }

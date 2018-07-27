@@ -3,7 +3,6 @@
 /**
  * @name UiConsole
  * @description Prototype for the on-screen console
- * @class
  */
 function UiConsole() {
 	this.text = "";

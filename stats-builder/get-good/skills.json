@@ -13,7 +13,8 @@
 
 		"skills": [{ "skill": "language", "amount": 1 }],
 		"needs": null,
-		"buffs": null
+		"buffs": null,
+		"time": 1
 	},
 	
 	"babble": {
@@ -30,7 +31,8 @@
 		
 		"buffs": null,
 		"skills": [{ "skill": "language", "amount": 2 }],
-		"needs": null
+		"needs": null,
+		"time": 1
 	},
 	
 	"mimicWords": {
@@ -43,7 +45,8 @@
 		"removeReq": null,
 		"buffs": null,		
 		"skills": [{ "skill": "language", "amount": 5 }],
-		"needs": null
+		"needs": null,
+		"time": 1
 	},
 	
 	"makeFists": {
@@ -56,7 +59,8 @@
 		"removeReq": null,
 		"buffs": null,		
 		"skills": [{ "skill": "coordination", "amount": 1 }],
-		"needs": null
+		"needs": null,
+		"time": 1
 	},
 	
 	"kick": {
@@ -69,7 +73,8 @@
 		"removeReq": null,
 		"buffs": null,		
 		"skills": [{ "skill": "coordination", "amount": 2 }],
-		"needs": null
+		"needs": null,
+		"time": 1
 	},
 	
 	"waveArms": {
@@ -87,7 +92,8 @@
 		"buffs": null,		
 		"skills": [{ "skill": "coordination", "amount": 2 }],
 		"needs": null,
-		"consoleText": "wave your arms"
+		"consoleText": "wave your arms",
+		"time": 1
 	},
 
 	"clap": {
@@ -103,7 +109,8 @@
 			{ "skill": "coordination", "amount": 3 },
 			{ "skill": "music", "amount": 1 }
 		],
-		"needs": null
+		"needs": null,
+		"time": 1
 	},
 	
 	"playWithMobile": {
@@ -120,7 +127,8 @@
 		
 		"buffs": null,		
 		"skills": [{ "skill": "coordination", "amount": 4 }],
-		"needs": null
+		"needs": null,
+		"time": 1
 	},
 	
 	"stareAtMobile": {
@@ -134,7 +142,8 @@
 		"buffs": null,		
 		"skills": [{ "skill": "imagination", "amount": 2 }],
 		"needs": null,
-		"consoleText": "stare at your mobile. It has a cool unicorn and a pretty rad duck"
+		"consoleText": "stare at your mobile. It has a cool unicorn and a pretty rad duck",
+		"time": 1
 	},
 	
 	"chewOnBlocks": {
@@ -147,7 +156,8 @@
 		"removeReq": null,
 		"buffs": null,		
 		"skills": [{ "skill": "coordination", "amount": 3 }],
-		"needs": null
+		"needs": null,
+		"time": 1
 	},
 	
 	"playWithBlocks": {
@@ -160,6 +170,7 @@
 		"removeReq": null,
 		"buffs": null,		
 		"skills": [{ "skill": "coordination", "amount": 5 }],
-		"needs": null
+		"needs": null,
+		"time": 1
 	}
 }

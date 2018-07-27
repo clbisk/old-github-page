@@ -1,6 +1,21 @@
 /*eslint-env jquery */
 
 /**
+ * @name SkillsUI
+ * @description works most of the ui
+ * @param you
+ * @param actions
+ * @param actionsOnScreen
+ * @param progressbars
+ */
+function SkillsUI (you, actions, actionsOnScreen, progressbars) {
+	this.watching = you;
+	this.possible = actions;
+	this.canAction = actionsOnScreen;
+	this.progressbars = progressbars;
+}
+
+/**
  * @name updateUI
  * @description adds actions that have been unlocked when unlocked and removes redundant actions when they are redundant
  * @function
@@ -8,7 +23,7 @@
  * @param actions - keeps track of all possible actions
  * @param actionsOnScreen - keeps track of currently clickable actions
  */
-function updateUI(you, actions, actionsOnScreen) {
+SkillsUI.prototype.updateUI = function(you, actions, actionsOnScreen) {
 	for (var action of actions) {
 		//add anything that has add requirement satisfied
 		if (eval(action.unlockReq.field) === action.unlockReq.value) {
@@ -22,7 +37,7 @@ function updateUI(you, actions, actionsOnScreen) {
 				`);
 				
 				$("#" + nameID).button();
-				$("#" + nameID).on("click", {you: you, action: action, actions: actions, actionsOnScreen: actionsOnScreen}, doAction);
+				$("#" + nameID).on("click", {you: you, skillsUI: this, action: action, actions: actions, actionsOnScreen: actionsOnScreen}, doAction);
 				
 				you.uiConsole.add("You learned how to " + action.name + ".");
 				
@@ -39,24 +54,9 @@ function updateUI(you, actions, actionsOnScreen) {
 			}
 		}
 	}
-}
-
-/**
- * @name removeAction
- * @description removes a clickable action from the UI when redundant
- * @param you
- * @param action - action to be removed
- * @param actionsOnScreen - all the actions on the screen atm
- */
-function removeAction( action, actionsOnScreen ) {
-	console.log("removing " + action.name);
-	$("#" + action.name).effect("fade", "slow").promise().done(function() {
-		$("#" + action.name).remove();
-	});
 	
-	var loc = actionsOnScreen.indexOf(action);
-	actionsOnScreen.splice(loc, 1);
-}
+	$("#sidebar #stats").html("time: " + you.time);
+};
 
 /**
  * @name fillProgressbar
@@ -64,12 +64,12 @@ function removeAction( action, actionsOnScreen ) {
  * @param you
  * @param statUp - stat for progressbar to be filled
  */
-function fillProgressbar( you, statUp ) {
+SkillsUI.prototype.fillProgressbar = function( you, statUp ) {
 	var skill = statUp.skill;
 	
 	//build skills display, if necessary
 	if (!you.hasSkills) {
-		firstSkill(you, skill);
+		this.firstSkill(you, skill);
 	}
 	
 	//add a new progressbar, if necessary
@@ -131,7 +131,7 @@ function fillProgressbar( you, statUp ) {
 			levelLabel.html("level " + level);
 		}
 	});
-}
+};
 
 /**
  * @name firstSkill
@@ -139,7 +139,7 @@ function fillProgressbar( you, statUp ) {
  * @function
  * @param skill - the skill to add a progressbar for
  */
-function firstSkill( you, skill ) {
+SkillsUI.prototype.firstSkill = function( you, skill ) {
 	you.hasSkills = true;
 	
 	$(document.body).append(`
@@ -157,12 +157,34 @@ function firstSkill( you, skill ) {
 		</div>
 	`);
 	
-	$("#skills .progressbar").progressbar({
-		max: 5,
-		value: 0.00000001
+//	$("#skills .progressbar").progressbar({
+//		max: 5,
+//		value: 0.00000001
+//	});
+	
+	this.progressbars.push(new Progressbar("#skills #" + skill + "Progressbar", 0, 5));
+};
+
+/**
+ * @name removeAction
+ * @description removes a clickable action from the UI when redundant
+ * @param you
+ * @param action - action to be removed
+ * @param actionsOnScreen - all the actions on the screen atm
+ */
+function removeAction( action, actionsOnScreen ) {
+	console.log("removing " + action.name);
+	$("#" + action.name).effect("fade", "slow").promise().done(function() {
+		$("#" + action.name).remove();
 	});
-	//TODO: make hidableSkillsBar hidable
+	
+	var loc = actionsOnScreen.indexOf(action);
+	actionsOnScreen.splice(loc, 1);
 }
+
+
+	
+//TODO: make hidableSkillsBar hidable
 
 /**
  * @name newSkill
@@ -179,10 +201,12 @@ function newSkill( you, skill ) {
 		</div>
 	`);
 	
-	$("#skills #" + skill + "Progressbar").progressbar({
-		max: 5,
-		value: 0.000000001
-	});
+//	$("#skills #" + skill + "Progressbar").progressbar({
+//		max: 5,
+//		value: 0.000000001
+//	});
+
+	progressbars.push(new Progressbar("#skills #" + skill + "Progressbar", 0, 5));
 }
 
 /**
