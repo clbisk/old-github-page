@@ -1,12 +1,12 @@
 /**
  * @name Progressbar
  * @description progressbars are used to keep track of leveling and timed activities
- * @param skill - the skill this progressbar is attached to
+ * @param skillName - the name of the skill this progressbar is attached to
  * @param value
  * @param max
  */
-function Progressbar(skill, value, max) {
-	this.skill = skill;
+function Progressbar(skillName, value, max) {
+	this.skillName = skillName;
 	this.max = max;
 	this.value = value;
 }
