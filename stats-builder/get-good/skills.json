@@ -11,7 +11,7 @@
 			"value": 2
 		},
 
-		"skills": [{ "skill": "language", "amount": 1 }],
+		"skills": [{ "skillName": "language", "amount": 1 }],
 		"needs": null,
 		"buffs": null,
 		"time": 1
@@ -30,7 +30,7 @@
 		},
 		
 		"buffs": null,
-		"skills": [{ "skill": "language", "amount": 2 }],
+		"skills": [{ "skillName": "language", "amount": 2 }],
 		"needs": null,
 		"time": 1
 	},
@@ -44,7 +44,7 @@
 		
 		"removeReq": null,
 		"buffs": null,		
-		"skills": [{ "skill": "language", "amount": 5 }],
+		"skills": [{ "skillName": "language", "amount": 5 }],
 		"needs": null,
 		"time": 1
 	},
@@ -58,7 +58,7 @@
 		
 		"removeReq": null,
 		"buffs": null,		
-		"skills": [{ "skill": "coordination", "amount": 1 }],
+		"skills": [{ "skillName": "coordination", "amount": 1 }],
 		"needs": null,
 		"time": 1
 	},
@@ -72,7 +72,7 @@
 		
 		"removeReq": null,
 		"buffs": null,		
-		"skills": [{ "skill": "coordination", "amount": 2 }],
+		"skills": [{ "skillName": "coordination", "amount": 2 }],
 		"needs": null,
 		"time": 1
 	},
@@ -90,7 +90,7 @@
 		},
 		
 		"buffs": null,		
-		"skills": [{ "skill": "coordination", "amount": 2 }],
+		"skills": [{ "skillName": "coordination", "amount": 2 }],
 		"needs": null,
 		"consoleText": "wave your arms",
 		"time": 1
@@ -106,8 +106,8 @@
 		"removeReq": null,
 		"buffs": null,		
 		"skills": [
-			{ "skill": "coordination", "amount": 3 },
-			{ "skill": "music", "amount": 1 }
+			{ "skillName": "coordination", "amount": 3 },
+			{ "skillName": "music", "amount": 1 }
 		],
 		"needs": null,
 		"time": 1
@@ -126,7 +126,7 @@
 		},
 		
 		"buffs": null,		
-		"skills": [{ "skill": "coordination", "amount": 4 }],
+		"skills": [{ "skillName": "coordination", "amount": 4 }],
 		"needs": null,
 		"time": 1
 	},
@@ -140,7 +140,7 @@
 		
 		"removeReq": null,
 		"buffs": null,		
-		"skills": [{ "skill": "imagination", "amount": 2 }],
+		"skills": [{ "skillName": "imagination", "amount": 2 }],
 		"needs": null,
 		"consoleText": "stare at your mobile. It has a cool unicorn and a pretty rad duck",
 		"time": 1
@@ -155,7 +155,7 @@
 		
 		"removeReq": null,
 		"buffs": null,		
-		"skills": [{ "skill": "coordination", "amount": 3 }],
+		"skills": [{ "skillName": "coordination", "amount": 3 }],
 		"needs": null,
 		"time": 1
 	},
@@ -169,7 +169,7 @@
 		
 		"removeReq": null,
 		"buffs": null,		
-		"skills": [{ "skill": "coordination", "amount": 5 }],
+		"skills": [{ "skillName": "coordination", "amount": 5 }],
 		"needs": null,
 		"time": 1
 	}

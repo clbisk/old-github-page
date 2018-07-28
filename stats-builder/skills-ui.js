@@ -50,7 +50,7 @@ SkillsUI.prototype.updateUI = function(you, actions, actionsOnScreen) {
 		//remove anything that has remove requirement satisfied
 		if (actionOnScreen.removeReq) {	//not all actions have a removeReq (yet)
 			if (eval(actionOnScreen.removeReq.field) ===  actionOnScreen.removeReq.value) {
-				removeAction(actionOnScreen, actionsOnScreen);
+				this.removeAction(actionOnScreen, actionsOnScreen);
 			}
 		}
 	}
@@ -62,96 +62,97 @@ SkillsUI.prototype.updateUI = function(you, actions, actionsOnScreen) {
  * @name fillProgressbar
  * @description fills progressbar from left to right over time
  * @param you
- * @param statUp - stat for progressbar to be filled
+ * @param skillUp - skill object corresponding to progressbar to be filled
  */
-SkillsUI.prototype.fillProgressbar = function( you, statUp ) {
-	var skill = statUp.skill;
+SkillsUI.prototype.fillProgressbar = function( you, skillUp ) {
+	var skillName = skillUp.skillName;
 	
 	//build skills display, if necessary
 	if (!you.hasSkills) {
-		this.firstSkill(you, skill);
+		this.firstSkill(you, skillUp);
 	}
 	
 	//add a new progressbar, if necessary
-	else if (!$("#hidableSkillsBar ." + skill + " .ui-progressbar").length) {
-		newSkill(you, skill);
+	else if (!$("#hidableSkillsBar ." + skillName).length) {
+		this.newSkill(you, skillUp);
 	}
-	
-	var points = you[skill];
-	var level = levelOf(you[skill]);
-	var thisProgressbar = $("#skills #" + skill + "Progressbar");
-
-	//points over previously attained level
-	var value = points - pointsAtLevel(level);
-	//points needed to get next level
-	var thisMaxValue = pointsAtLevel(level+1) - pointsAtLevel(level);
-	
-	var isLevelingUp = false;
-	//if a new level was just reached, needs to show bar being filled before resetting
-	if (value === 0) {
-		isLevelingUp = true;
-		var nextMaxValue = thisMaxValue;
-		thisMaxValue = pointsAtLevel(level) - pointsAtLevel(level-1);
-		value = pointsAtLevel(level) - pointsAtLevel(level-1);
-	}
-	
-	var maxWidth = thisProgressbar.width();
-	var calculatedWidth = (value / thisMaxValue) * maxWidth;
-	
-	var label =  $("#hidableSkillsBar ." + skill + " .progressbar-label");
-	label.html(skill + " " + value + "/" + thisMaxValue);
-
-	var duration;
-	if (level < 1)
-		duration = 'slow';
-	else if (level < 2)
-		duration = 'medium';
-	else
-		duration = 'fast';
-	
-	thisProgressbar.children().animate({width: calculatedWidth}, {duration: duration}).promise().done(function() {
-		//make sure the animation is done before so it doesn't reverse the order and get all jumpy
-		thisProgressbar.progressbar("value", value);
-	}).promise().done(function() {
-		if (isLevelingUp) {
-			thisProgressbar.remove();
-			$("#hidableSkillsBar ." + skill).append(`
-					<div id="` + skill + `Progressbar" class='progressbar'></div>
-			`);
-			
-			$("#skills #" + skill + "Progressbar").progressbar({
-				max: nextMaxValue,
-				value: 0.000000001
-			});
-			
-			you.uiConsole.add("You leveled up " + skill + "!");
-			
-			label.html(skill + " " + 0 + "/" + nextMaxValue);
-			var levelLabel =  $("#hidableSkillsBar ." + skill + " .level-label");
-			levelLabel.html("level " + level);
-		}
-	});
+		
+//	var points = you[skill];
+//	var level = levelOf(you[skill]);
+//	var thisProgressbar = $("#skills #" + skill + "Progressbar");
+//
+//	//points over previously attained level
+//	var value = points - pointsAtLevel(level);
+//	//points needed to get next level
+//	var thisMaxValue = pointsAtLevel(level+1) - pointsAtLevel(level);
+//	
+//	var isLevelingUp = false;
+//	//if a new level was just reached, needs to show bar being filled before resetting
+//	if (value === 0) {
+//		isLevelingUp = true;
+//		var nextMaxValue = thisMaxValue;
+//		thisMaxValue = pointsAtLevel(level) - pointsAtLevel(level-1);
+//		value = pointsAtLevel(level) - pointsAtLevel(level-1);
+//	}
+//	
+//	var maxWidth = thisProgressbar.width();
+//	var calculatedWidth = (value / thisMaxValue) * maxWidth;
+//	
+//	var label =  $("#hidableSkillsBar ." + skill + " .progressbar-label");
+//	label.html(skill + " " + value + "/" + thisMaxValue);
+//
+//	var duration;
+//	if (level < 1)
+//		duration = 'slow';
+//	else if (level < 2)
+//		duration = 'medium';
+//	else
+//		duration = 'fast';
+//	
+//	thisProgressbar.children().animate({width: calculatedWidth}, {duration: duration}).promise().done(function() {
+//		//make sure the animation is done before so it doesn't reverse the order and get all jumpy
+//		thisProgressbar.progressbar("value", value);
+//	}).promise().done(function() {
+//		if (isLevelingUp) {
+//			thisProgressbar.remove();
+//			$("#hidableSkillsBar ." + skill).append(`
+//					<div id="` + skill + `Progressbar" class='progressbar'></div>
+//			`);
+//			
+//			$("#skills #" + skill + "Progressbar").progressbar({
+//				max: nextMaxValue,
+//				value: 0.000000001
+//			});
+//			
+//			you.uiConsole.add("You leveled up " + skill + "!");
+//			
+//			label.html(skill + " " + 0 + "/" + nextMaxValue);
+//			var levelLabel =  $("#hidableSkillsBar ." + skill + " .level-label");
+//			levelLabel.html("level " + level);
+//		}
+//	});
 };
 
 /**
  * @name firstSkill
  * @description adds the skill box when you do your first ever action
  * @function
- * @param skill - the skill to add a progressbar for
+ * @param skillUp - the skill object to add a progressbar for
  */
-SkillsUI.prototype.firstSkill = function( you, skill ) {
+SkillsUI.prototype.firstSkill = function( you, skillUp ) {
 	you.hasSkills = true;
 	
+	var skillName = skillUp.skillName;
 	$(document.body).append(`
 		<div id="skills">
 			<div id="handle"> 
 				<div id="skillsOpenCloseTab">skills</div>
 			</div>
 			<div id="hidableSkillsBar">
-				<div class="` + skill + `">
-					<div class='progressbar-label'>` + skill + ` (` + you[skill] + `/5)</div>
+				<div class="` + skillName + `">
+					<div class='progressbar-label'>` + skillName + ` (` + you[skillName] + `/5)</div>
 					<div class='level-label'></div>
-					<div id="` + skill + `Progressbar" class='progressbar'></div>
+					<div id="` + skillName + `Progressbar" class='progressbar'></div>
 				</div>
 			</div>
 		</div>
@@ -162,7 +163,31 @@ SkillsUI.prototype.firstSkill = function( you, skill ) {
 //		value: 0.00000001
 //	});
 	
-	this.progressbars.push(new Progressbar("#skills #" + skill + "Progressbar", 0, 5));
+	this.progressbars.push(new Progressbar(skillName, 0, 5));
+};
+
+/**
+ * @name newSkill
+ * @description adds a new progressbar to the skills tab for a new skill discovered
+ * @function
+ * @param skill - the skill object to add a progressbar for
+ */
+SkillsUI.prototype.newSkill = function( you, skill ) {
+	var skillName = skill.skillName;
+	$("#hidableSkillsBar").append(`
+		<div class="` + skillName + `">
+			<div class='progressbar-label'>` + skillName + ` (` + you[skillName] + `/5)</div>
+			<div class='level-label'></div>
+			<div id="` + skillName + `Progressbar" class='progressbar'></div> 
+		</div>
+	`);
+	
+//	$("#skills #" + skill + "Progressbar").progressbar({
+//		max: 5,
+//		value: 0.000000001
+//	});
+
+	this.progressbars.push(new Progressbar(skillName, 0, 5));
 };
 
 /**
@@ -172,7 +197,7 @@ SkillsUI.prototype.firstSkill = function( you, skill ) {
  * @param action - action to be removed
  * @param actionsOnScreen - all the actions on the screen atm
  */
-function removeAction( action, actionsOnScreen ) {
+SkillsUI.prototype.removeAction = function( action, actionsOnScreen ) {
 	console.log("removing " + action.name);
 	$("#" + action.name).effect("fade", "slow").promise().done(function() {
 		$("#" + action.name).remove();
@@ -180,34 +205,9 @@ function removeAction( action, actionsOnScreen ) {
 	
 	var loc = actionsOnScreen.indexOf(action);
 	actionsOnScreen.splice(loc, 1);
-}
+};
 
-
-	
 //TODO: make hidableSkillsBar hidable
-
-/**
- * @name newSkill
- * @description adds a new progressbar to the skills tab for a new skill discovered
- * @function
- * @param skill - the skill to add a progressbar for
- */
-function newSkill( you, skill ) {
-	$("#hidableSkillsBar").append(`
-		<div class="` + skill + `">
-			<div class='progressbar-label'>` + skill + ` (` + you[skill] + `/5)</div>
-			<div class='level-label'></div>
-			<div id="` + skill + `Progressbar" class='progressbar'></div> 
-		</div>
-	`);
-	
-//	$("#skills #" + skill + "Progressbar").progressbar({
-//		max: 5,
-//		value: 0.000000001
-//	});
-
-	progressbars.push(new Progressbar("#skills #" + skill + "Progressbar", 0, 5));
-}
 
 /**
  * @name fillProgressbarClassic
