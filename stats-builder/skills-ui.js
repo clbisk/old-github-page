@@ -38,6 +38,8 @@ SkillsUI.prototype.updateUI = function(you, actions, actionsOnScreen) {
 				
 				$("#" + nameID).button();
 				$("#" + nameID).on("click", {you: you, skillsUI: this, action: action, actions: actions, actionsOnScreen: actionsOnScreen}, doAction);
+				$("#" + nameID).on("mouseenter", {you: you, action: action}, this.showSkillStats);
+				$("#" + nameID).on("mouseleave", {you: you, action: action}, this.hideSkillStats);
 				
 				you.uiConsole.add("You learned how to " + action.name + ".");
 				
@@ -49,13 +51,44 @@ SkillsUI.prototype.updateUI = function(you, actions, actionsOnScreen) {
 	for (var actionOnScreen of actionsOnScreen) {
 		//remove anything that has remove requirement satisfied
 		if (actionOnScreen.removeReq) {	//not all actions have a removeReq (yet)
-			if (eval(actionOnScreen.removeReq.field) ===  actionOnScreen.removeReq.value) {
+			if (eval(actionOnScreen.removeReq.field) === actionOnScreen.removeReq.value) {
 				this.removeAction(actionOnScreen, actionsOnScreen);
 			}
 		}
 	}
 	
 	$("#sidebar #stats").html("time: " + you.time);
+};
+
+SkillsUI.prototype.showSkillStats = function( event ) {
+	var you = event.data.you;
+	var uniqueID = event.data.action.name.replace(/\s/g, '-') + "-skills-stat-box";
+	
+	$("#actions").append(`
+		<div class='skills-stat-box' id=` + uniqueID + `>
+			<!--a new little box below and slightly to the right of this action button that shows the level of its corresponding skill-->
+		</div>
+	`);
+	
+	for (var skill in event.data.action.skills) {
+		if (event.data.action.skills.hasOwnProperty(skill)) {	//check it's not an inherited boi
+			var skillName = event.data.action.skills[skill].skillName;
+			if (you[skillName] === 0 || !you[skillName]) {
+				$("#" + uniqueID).append(`
+					<div>???: not learned</div>
+				`);
+			} else {
+				$("#" + uniqueID).append(`
+					<div>` + skillName + `: ` + levelOf(you[skillName]) + `</div>
+				`);
+			}
+		}
+	}
+};
+
+SkillsUI.prototype.hideSkillStats = function( event ) {
+	var uniqueID = event.data.action.name.replace(/\s/g, '-') + "-skills-stat-box";
+	$("#" + uniqueID).remove();
 };
 
 /**
@@ -90,9 +123,6 @@ SkillsUI.prototype.fillProgressbar = function( you, skillObj ) {
 	//if a new level was just reached, needs to show bar being filled before resetting
 	if (pointsOverPrevLevel === 0) {
 		isLevelingUp = true;
-		var nextMaxValue = pointsToNextLevel;
-		pointsToNextLevel = pointsAtLevel(curLevel) - pointsAtLevel(curLevel-1);
-		pointsOverPrevLevel = pointsAtLevel(curLevel) - pointsAtLevel(curLevel-1);
 	}
 	
 	var maxWidth = thisProgressbar.width();
@@ -114,7 +144,7 @@ SkillsUI.prototype.fillProgressbar = function( you, skillObj ) {
 	if (isLevelingUp) {
 		you.uiConsole.add("You leveled up " + skillName + "!");
 		
-		label.html(skillName + " " + 0 + "/" + nextMaxValue);
+		label.html(skillName + " " + 0 + "/" + pointsToNextLevel);
 		var levelLabel =  $("#hidableSkillsBar ." + skillName + " .level-label");
 		levelLabel.html("level " + curLevel);
 	}
@@ -140,7 +170,7 @@ SkillsUI.prototype.firstSkill = function( you, skillUp ) {
 					<div class='progressbar-label'>` + skillName + ` (` + you[skillName] + `/5)</div>
 					<div class='level-label'></div>
 					<div id="` + skillName + `Progressbar" class='progressbar'>
-						<div id="` + skillName + `ProgressbarValue"></div>
+						<div id="` + skillName + `ProgressbarValue" class='progressbar-value'></div>
 					</div>
 				</div>
 			</div>
@@ -167,7 +197,7 @@ SkillsUI.prototype.newSkill = function( you, skill ) {
 			<div class='progressbar-label'>` + skillName + ` (` + you[skillName] + `/5)</div>
 			<div class='level-label'></div>
 			<div id="` + skillName + `Progressbar" class='progressbar'>
-				<div id="` + skillName + `ProgressbarValue"></div>
+				<div id="` + skillName + `ProgressbarValue" class='progressbar-value'></div>
 			</div> 
 		</div>
 	`);
@@ -197,35 +227,3 @@ SkillsUI.prototype.removeAction = function( action, actionsOnScreen ) {
 };
 
 //TODO: make hidableSkillsBar hidable
-
-/**
- * @name fillProgressbarClassic
- * @description old way to fill an outlined rectangle from left to right over time
- * @param id - the progressbar's id
- * @param value - the value to fill up to
- */
-function fillProgressbarClassic( id, value, label ) {
-	var thisProgressbar = $("#" + id);
-	
-	var thisMaxValue = thisProgressbar.progressbar("option", "max");
-	if(thisMaxValue === null) {
-		//this is not a progressbar
-		console.error("This isn't a progressbarrrrrr");
-	}
-	var maxWidth = thisProgressbar.width();
-	var calculatedWidth = (value / thisMaxValue) * maxWidth;
-	
-	//TODO: fix when the new progressbars get all confused
-	thisProgressbar.children().animate({width: calculatedWidth}, {duration: 'slow'}).promise().done(function() {
-		//make sure the animation is done before so it doesn't reverse the order and get all jumpy
-		thisProgressbar.progressbar("value", value);
-	});
-	
-	if (label !== null) {
-		var labelText = label.html();
-		//where our label number starts
-		var labelNumberPos = labelText.lastIndexOf(" ") + 1;
-		
-		label.html(labelText.substring(0, labelNumberPos) + value + "/" + thisMaxValue);
-	}
-}

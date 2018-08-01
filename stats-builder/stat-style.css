@@ -92,7 +92,16 @@ body {
   overflow: hidden;
 }
 .progressbar .progressbar-value {
+  width: 0px;
   background: #b1c8ed;
   margin: -1px;
   height: 100%;
+}
+
+.skills-stat-box {
+	border: 1px solid #d6d7d8;
+    border-radius: 3px;
+    background: #ffffff;   
+    position: absolute;
+    z-index: 1;
 }
