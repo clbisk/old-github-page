@@ -20,7 +20,7 @@ function doAction( event ) {
 	//deal with skills
 	for (const skillObj of action.skills) {
 		you.incSkill(skillObj.skillName, skillObj.amount);	//increment skill in You
-		skillsUI.fillProgressbar(you, skillObj);	//show change in ui
+		Progressbar.prototype.fillProgressbar(you, skillObj);	//show change in ui
 	}
 	
 	//deal with needs

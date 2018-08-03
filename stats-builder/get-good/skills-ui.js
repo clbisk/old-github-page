@@ -8,11 +8,10 @@
  * @param actionsOnScreen
  * @param progressbars
  */
-function SkillsUI (you, actions, actionsOnScreen, progressbars) {
+function SkillsUI (you, actions, actionsOnScreen) {
 	this.watching = you;
 	this.possible = actions;
 	this.canAction = actionsOnScreen;
-	this.progressbars = progressbars;
 }
 
 /**
@@ -97,65 +96,6 @@ SkillsUI.prototype.hideSkillStats = function( event ) {
 };
 
 /**
- * @name fillProgressbar
- * @description fills progressbar from left to right over time
- * @param you
- * @param skillObj - skill object with name and amount corresponding to progressbar to be filled
- */
-SkillsUI.prototype.fillProgressbar = function( you, skillObj ) {
-	var skillName = skillObj.skillName;
-	
-	//build skills display, if necessary
-	if (!you.hasSkills) {
-		this.firstSkill(you, skillObj);
-	}
-	
-	//add a new progressbar, if necessary
-	else if (!$("#hidableSkillsBar ." + skillName).length) {
-		this.newSkill(you, skillObj);
-	}
-	
-	var curPoints = you[skillName];
-	var curLevel = levelOf(you[skillName]);
-	var thisProgressbar = $("#skills #" + skillName + "Progressbar");
-
-	//points between previous level and next level
-	var pointsOverPrevLevel = curPoints - pointsAtLevel(curLevel);
-	//points needed to get next level (max for the progressbar)
-	var pointsToNextLevel = pointsAtLevel(curLevel+1) - pointsAtLevel(curLevel);
-	
-	var isLevelingUp = false;
-	//if a new level was just reached, needs to show bar being filled before resetting
-	if (pointsOverPrevLevel === 0) {
-		isLevelingUp = true;
-	}
-	
-	var maxWidth = thisProgressbar.width();
-	var calculatedWidth = (pointsOverPrevLevel / pointsToNextLevel) * maxWidth;
-	
-	var label =  $("#hidableSkillsBar ." + skillName + " .progressbar-label");
-	label.html(skillName + " " + pointsOverPrevLevel + "/" + pointsToNextLevel);
-
-	var duration;
-	if (curLevel < 1)
-		duration = 'slow';
-	else if (curLevel < 2)
-		duration = 'medium';
-	else
-		duration = 'fast';
-	
-	thisProgressbar.children().animate({width: calculatedWidth}, {duration: duration});
-	thisProgressbar.data(skillName).setValue(curPoints);
-	if (isLevelingUp) {
-		you.uiConsole.add("You leveled up " + skillName + "!");
-		
-		label.html(skillName + " " + 0 + "/" + pointsToNextLevel);
-		var levelLabel =  $("#hidableSkillsBar ." + skillName + " .level-label");
-		levelLabel.html("level " + curLevel);
-	}
-};
-
-/**
  * @name firstSkill
  * @description adds the skill box when you do your first ever action
  * @function
@@ -185,8 +125,6 @@ SkillsUI.prototype.firstSkill = function( you, skillUp ) {
 	var newProgressbar = new Progressbar(skillName, 0, 5);
 	//associates the newly made progressbar with the physical div
 	$("#skills #" + skillName + "Progressbar").data(skillName, newProgressbar);
-	//stores the newly made progressbar
-	this.progressbars.push(newProgressbar);
 };
 
 /**
@@ -210,8 +148,6 @@ SkillsUI.prototype.newSkill = function( you, skill ) {
 	var newProgressbar = new Progressbar(skillName, 0, 5);
 	//associates the newly made progressbar with the physical div
 	$("#skills #" + skillName + "Progressbar").data(skillName, newProgressbar);
-	//stores the newly made progressbar
-	this.progressbars.push(newProgressbar);
 };
 
 /**

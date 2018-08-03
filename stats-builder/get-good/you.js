@@ -112,31 +112,6 @@ You.prototype.decNeed = function( need, amount ) {
 //functions responding to listeners -- "this" becomes the event origin instead of You
 
 /**
- * @name doAction
- * @description levels up a stat when you do the corresponding action
- * @function
- */
-You.prototype.doAction = function() {
-	//TODO: when swtiching from one skill to another stuff gets weird
-	var classes = $(this).attr("class");
-	var statUp = classes.split(" ")[0];
-	
-	//build skills display, if necessary
-	if (!thisBoi.hasSkills) {
-		thisBoi.firstSkill(statUp);
-	} else if (! $("#hidableSkillsBar ." + statUp).length) {
-		thisBoi.newSkill(statUp);
-	}
-	
-	//TODO: disable the button for a hot minute to simulate the action being performed, maybe disable others if multitasking not possible
-	//increment the skill
-	thisBoi[statUp]++;
-	fillProgressbarClassic( statUp + "Progressbar", thisBoi[statUp], $("#hidableSkillsBar ." + statUp + " .progressbar-label"));
-	
-	//TODO: what happens when bar is filled
-};
-
-/**
  * @name You.prototype.firstSkill
  * @description adds the skill box when you do your first ever action
  * @function
