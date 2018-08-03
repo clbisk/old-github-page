@@ -5,9 +5,9 @@
 //with an id and label text inside specified object
 function createSelect(place, id, label) {
 	$(place).append(`
-			<label for=` + id + `>` + label + `</label>
-			<select class='selector' id=` + id + `></select>
-			<br>
+		<label for=` + id + `>` + label + `</label>
+		<select class='selector' id=` + id + `></select>
+		<br>
 	`);
 }
 

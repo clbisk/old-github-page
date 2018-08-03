@@ -23,7 +23,7 @@ function SkillsUI (you, actions, actionsOnScreen, progressbars) {
  * @param actions - keeps track of all possible actions
  * @param actionsOnScreen - keeps track of currently clickable actions
  */
-SkillsUI.prototype.updateUI = function(you, actions, actionsOnScreen) {
+SkillsUI.prototype.updateUI = function(actions, actionsOnScreen) {
 	for (var action of actions) {
 		//add anything that has add requirement satisfied
 		if (eval(action.unlockReq.field) === action.unlockReq.value) {
@@ -37,11 +37,12 @@ SkillsUI.prototype.updateUI = function(you, actions, actionsOnScreen) {
 				`);
 				
 				$("#" + nameID).button();
-				$("#" + nameID).on("click", {you: you, skillsUI: this, action: action, actions: actions, actionsOnScreen: actionsOnScreen}, doAction);
-				$("#" + nameID).on("mouseenter", {you: you, action: action}, this.showSkillStats);
-				$("#" + nameID).on("mouseleave", {you: you, action: action}, this.hideSkillStats);
+				$("#" + nameID).data(action);
+				$("#" + nameID).on("click", {you: this.watching, skillsUI: this, action: action, actions: actions, actionsOnScreen: actionsOnScreen}, doAction);
+				$("#" + nameID).on("mouseenter", {you: this.watching, action: action, caller: "#" + nameID}, this.showSkillStats);
+				$("#" + nameID).on("mouseleave", {action: action}, this.hideSkillStats);
 				
-				you.uiConsole.add("You learned how to " + action.name + ".");
+				this.watching.uiConsole.add("You learned how to " + action.name + ".");
 				
 				$("#" + nameID).effect("highlight", "slow");
 			}
@@ -57,18 +58,22 @@ SkillsUI.prototype.updateUI = function(you, actions, actionsOnScreen) {
 		}
 	}
 	
-	$("#sidebar #stats").html("time: " + you.time);
+	$("#sidebar #stats").html("time: " + this.watching.time);
 };
 
 SkillsUI.prototype.showSkillStats = function( event ) {
 	var you = event.data.you;
 	var uniqueID = event.data.action.name.replace(/\s/g, '-') + "-skills-stat-box";
+	var thisButton = $(event.data.caller)[0];
+	var buttonCoordinates = thisButton.getBoundingClientRect();
 	
 	$("#actions").append(`
 		<div class='skills-stat-box' id=` + uniqueID + `>
 			<!--a new little box below and slightly to the right of this action button that shows the level of its corresponding skill-->
 		</div>
 	`);
+	
+	$("#" + uniqueID).css("left", buttonCoordinates.left);
 	
 	for (var skill in event.data.action.skills) {
 		if (event.data.action.skills.hasOwnProperty(skill)) {	//check it's not an inherited boi

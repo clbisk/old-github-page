@@ -34,5 +34,5 @@ function doAction( event ) {
 	//TODO: deal with buffs
 	
 	you.time += action.time;
-	skillsUI.updateUI(you, actions, actionsOnScreen);
+	skillsUI.updateUI(actions, actionsOnScreen);
 }

@@ -39,7 +39,7 @@ function readActions() {
 //				handleData(this, actions);
 //			}
 //		};
-		xmlhttp.open("GET", "/get-good/skills.json");
+		xmlhttp.open("GET", "/skills.json");
 		xmlhttp.onload = () => resolve(xmlhttp.responseText);
 		xmlhttp.onerror = () => reject(xmlhttp.statusText);
 		xmlhttp.send();
@@ -77,16 +77,15 @@ function startup(progressbars, actions, actionsOnScreen) {
 	$('#screen').on('selectmenuchange', '.selector', menuchange);
 	$('#screen').on('click', '.reset', reset);
 	
-	//initialize the ui console
-	
-	
 	//intialize ui
 	var uiConsole = new UiConsole();
-	var skillsUI = new SkillsUI(you, actions, actionsOnScreen, progressbars);
-		
-	//your character is born!!
 	var you = new You(uiConsole);
+	var skillsUI = new SkillsUI(you, actions, actionsOnScreen, progressbars);
+	var needsUI = new NeedsUI(you);
+	
+	//your character is born!!
 	you.birth();	
-	skillsUI.updateUI(you, actions, actionsOnScreen);
+	skillsUI.updateUI(actions, actionsOnScreen);
+	needsUI.construct();
 	uiConsole.construct();
 }

@@ -47,35 +47,6 @@ You.prototype.birth = function () {
 	
 	//when you're just born, you haven't been alive for any time
 	this.time = 0;
-
-	//fill in the sidebar with stuff
-	//TODO: change needs bar so that when hovered over the value/maxvalue is shown
-	$("#sidebar").append(`
-		<div id='stats'>
-			<div>time: ` + this.time + `</div>
-		</div>
-		
-		<br>
-		 
-		<div id='needs'>
-			<div class='progressbar-label'>hunger</div>
-			<div class='progressbar' id='hunger'></div>
-			
-			<div class='progressbar-label'>energy</div>
-			<div class='progressbar' id='energy'></div>
-			
-			<div class='progressbar-label'>hygene</div>
-			<div class='progressbar' id='hygene'></div>
-			
-			<div class='progressbar-label'>social</div>
-			<div class='progressbar' id='social'></div>
-		</div>
-	`);
-	//initialize the progressbars in the sidebar
-	$("#needs .progressbar").progressbar({
-		max: 20,
-		value: 18
-	});
 	
 	//fill the main ui with stuff
 	$("#screen").html(`
@@ -89,6 +60,7 @@ You.prototype.birth = function () {
 			<button id='parentEvent'>cry</button>
 		</div>
 	`);
+	
 	//initialize the first buttons
 	$("button").button();
 	$("#actions button").on("click", this.doAction);
