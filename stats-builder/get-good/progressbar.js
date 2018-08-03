@@ -4,29 +4,69 @@
  * @name Progressbar
  * @description progressbars are used to keep track of leveling and timed activities
  * @param data - the name of the data this progressbar is attached to
- * @param value
- * @param max
+ * @param value - current value of the progressbar
+ * @param max - maximum possible value for progressbar
  */
-function Progressbar(data, value, max) {
+function Progressbar( data, value, max ) {
 	this.data = data;
 	this.max = max;
 	this.value = value;
+	this.level = 0;
 }
 
+/**
+ * @name Progressbar.prototype.getMax
+ * @function
+ * @returns current max
+ */
 Progressbar.prototype.getMax = function() {
 	return this.max;
 };
 
-Progressbar.prototype.setMax = function (newMax) {
+/**
+ * @name Progressbar.prototype.setMax
+ * @function
+ * @param newMax
+ */
+Progressbar.prototype.setMax = function( newMax ) {
 	this.max = newMax;
 };
 
+/**
+ * @name Progressbar.prototype.getValue
+ * @function
+ * @returns current value
+ */
 Progressbar.prototype.getValue = function() {
 	return this.value;
 };
 
-Progressbar.prototype.setValue = function (newValue) {
+/**
+ * @name Progressbar.prototype.setValue
+ * @function
+ * @param newValue
+ */
+Progressbar.prototype.setValue = function( newValue ) {
 	this.value = newValue;
+};
+
+/**
+ * @name Progressbar.prototype.level
+ * @description increases the level of a progressbar by one
+ * @function
+ */
+Progressbar.prototype.level = function () {
+	this.level++;
+};
+
+/**
+ * @name Progressbar.prototype.levelTo
+ * @description sets the level of a progressbar to a specific value
+ * @function
+ * @param newLevel - value of level progressbar will be set to
+ */
+Progressbar.prototype.levelTo = function( newLevel ) {
+	this.level = newLevel;
 };
 
 /**
@@ -57,10 +97,10 @@ Progressbar.prototype.fillProgressbar = function( you, skillObj ) {
 	//points needed to get next level (max for the progressbar)
 	var pointsToNextLevel = pointsAtLevel(curLevel+1) - pointsAtLevel(curLevel);
 	
-	var isLevelingUp = false;
+	var levelingUp = false;
 	//if a new level was just reached, needs to show bar being filled before resetting
 	if (pointsOverPrevLevel === 0) {
-		isLevelingUp = true;
+		levelingUp = true;
 	}
 	
 	var maxWidth = thisProgressbar.width();
@@ -77,13 +117,14 @@ Progressbar.prototype.fillProgressbar = function( you, skillObj ) {
 	else
 		duration = 'fast';
 	
-	thisProgressbar.children().animate({width: calculatedWidth}, {duration: duration});
-	thisProgressbar.data(skillName).setValue(curPoints);
-	if (isLevelingUp) {
+	if (levelingUp) {
 		you.uiConsole.add("You leveled up " + skillName + "!");
 		
-		label.html(skillName + " " + 0 + "/" + pointsToNextLevel);
 		var levelLabel =  $("#hidableSkillsBar ." + skillName + " .level-label");
 		levelLabel.html("level " + curLevel);
+		
+		thisProgressbar.children().animate({width: maxWidth}, {duration: duration});
 	}
+	thisProgressbar.children().animate({width: calculatedWidth}, {duration: duration});
+	thisProgressbar.data(skillName).setValue(curPoints);
 };

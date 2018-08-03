@@ -33,7 +33,7 @@ function readActions() {
 //				handleData(this, actions);
 //			}
 //		};
-		xmlhttp.open("GET", "/skills.json");
+		xmlhttp.open("GET", "/actions.json");
 		xmlhttp.onload = () => resolve(xmlhttp.responseText);
 		xmlhttp.onerror = () => reject(xmlhttp.statusText);
 		xmlhttp.send();

@@ -5,8 +5,6 @@
  * @description levels up a stat when you do the corresponding action
  * @function
  * @param event - event data holding performer of action (you) and the action being done
- * @param actions
- * @param actionsOnScreen
  */
 function doAction( event ) {
 	var you = event.data.you;
@@ -15,7 +13,7 @@ function doAction( event ) {
 	var actionsOnScreen = event.data.actionsOnScreen;
 	var skillsUI = event.data.skillsUI;
 	
-	you.uiConsole.log("You " + action.name + ".");
+	you.uiConsole.describeAction(action);
 	
 	//deal with skills
 	for (const skillObj of action.skills) {
