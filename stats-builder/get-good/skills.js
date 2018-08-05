@@ -18,6 +18,17 @@ function doAction( event ) {
 	//deal with skills
 	for (const skillObj of action.skills) {
 		you.incSkill(skillObj.skillName, skillObj.amount);	//increment skill in You
+		
+		//build skills display, if necessary
+		if (!you.hasSkills) {
+			SkillsUI.prototype.firstSkill(you, skillObj);
+		}
+		
+		//add a new progressbar, if necessary
+		else if (!$("#hidableSkillsBar ." + skillObj.skillName).length) {
+			SkillsUI.prototype.newSkill(you, skillObj);
+		}
+		
 		Progressbar.prototype.fillProgressbar(you, skillObj);	//show change in ui
 	}
 	

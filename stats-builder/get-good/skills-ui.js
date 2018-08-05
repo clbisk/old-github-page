@@ -122,9 +122,10 @@ SkillsUI.prototype.firstSkill = function( you, skillUp ) {
 		</div>
 	`);
 
-	var newProgressbar = new Progressbar(skillName, 0, 5);
+	var selector = $("#skills #" + skillName + "Progressbar");
+	var newProgressbar = new Progressbar(skillName, selector, 0, 5);
 	//associates the newly made progressbar with the physical div
-	$("#skills #" + skillName + "Progressbar").data(skillName, newProgressbar);
+	$(selector).data(skillName + "Progressbar", newProgressbar);
 };
 
 /**
@@ -145,9 +146,10 @@ SkillsUI.prototype.newSkill = function( you, skill ) {
 		</div>
 	`);
 	
-	var newProgressbar = new Progressbar(skillName, 0, 5);
+	var selector = $("#skills #" + skillName + "Progressbar");
+	var newProgressbar = new Progressbar(skillName, selector, 0, 5);
 	//associates the newly made progressbar with the physical div
-	$("#skills #" + skillName + "Progressbar").data(skillName, newProgressbar);
+	$(selector).data(skillName + "Progressbar", newProgressbar);
 };
 
 /**

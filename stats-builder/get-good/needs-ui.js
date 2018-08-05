@@ -33,13 +33,13 @@ NeedsUI.prototype.construct = function() {
 	`);
 	
 	//initialize the progressbars in the sidebar
-	var hungerProgressbar = new Progressbar("hunger", 18, 20);
+	var hungerProgressbar = new Progressbar("hunger", "#needs #hungerProgressbar", 18, 20);
 	$("#hunger").data("progressbar", hungerProgressbar);
-	var energyProgressbar = new Progressbar("energy", 18, 20);
+	var energyProgressbar = new Progressbar("energy", "#needs #energyProgressbar", 18, 20);
 	$("#energy").data("progressbar", energyProgressbar);
-	var hygeneProgressbar = new Progressbar("hygene", 18, 20);
+	var hygeneProgressbar = new Progressbar("hygene", "#needs #hygeneProgressbar", 18, 20);
 	$("#hygene").data("progressbar", hygeneProgressbar);
-	var socialProgressbar = new Progressbar("social", 18, 20);
+	var socialProgressbar = new Progressbar("social", "#needs #socialProgressbar", 18, 20);
 	$("#social").data("progressbar", socialProgressbar);
 };
 
