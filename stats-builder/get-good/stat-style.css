@@ -98,6 +98,13 @@ body {
   height: 100%;
 }
 
+#needs {
+	font-size: 15px;
+}
+#needs .progressbar {
+	height: 1.25em;
+}
+
 .skills-stat-box {
 	border: 1px solid #d6d7d8;
     border-radius: 3px;

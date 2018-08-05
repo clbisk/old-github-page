@@ -60,6 +60,12 @@ SkillsUI.prototype.updateUI = function(actions, actionsOnScreen) {
 	$("#sidebar #stats").html("time: " + this.watching.time);
 };
 
+/**
+ * @name SkillsUI.prototype.showSkillStats
+ * @description shows a little box under the action button with levels of all corresponding skills
+ * @function
+ * @param event - passes along you and the action button that called this method
+ */
 SkillsUI.prototype.showSkillStats = function( event ) {
 	var you = event.data.you;
 	var uniqueID = event.data.action.name.replace(/\s/g, '-') + "-skills-stat-box";
@@ -67,9 +73,7 @@ SkillsUI.prototype.showSkillStats = function( event ) {
 	var buttonCoordinates = thisButton.getBoundingClientRect();
 	
 	$("#actions").append(`
-		<div class='skills-stat-box' id=` + uniqueID + `>
-			<!--a new little box below and slightly to the right of this action button that shows the level of its corresponding skill-->
-		</div>
+		<div class='skills-stat-box' id=` + uniqueID + `></div>
 	`);
 	
 	$("#" + uniqueID).css("left", buttonCoordinates.left);
@@ -90,6 +94,12 @@ SkillsUI.prototype.showSkillStats = function( event ) {
 	}
 };
 
+/**
+ * @name SkillsUI.prototype.hideSkillStats
+ * @description hides the little levels box (called when the cursor leaves the button)
+ * @function
+ * @param event - holds the action button that calls this method
+ */
 SkillsUI.prototype.hideSkillStats = function( event ) {
 	var uniqueID = event.data.action.name.replace(/\s/g, '-') + "-skills-stat-box";
 	$("#" + uniqueID).remove();
@@ -112,7 +122,7 @@ SkillsUI.prototype.firstSkill = function( you, skillUp ) {
 			</div>
 			<div id="hidableSkillsBar">
 				<div class="` + skillName + `">
-					<div class='progressbar-label'>` + skillName + ` (` + you[skillName] + `/5)</div>
+					<div id='` + skillName  + `ProgressbarLabel' class='progressbar-label'>` + skillName + ` (` + you[skillName] + `/5)</div>
 					<div class='level-label'></div>
 					<div id="` + skillName + `Progressbar" class='progressbar'>
 						<div id="` + skillName + `ProgressbarValue" class='progressbar-value'></div>
@@ -122,10 +132,10 @@ SkillsUI.prototype.firstSkill = function( you, skillUp ) {
 		</div>
 	`);
 
-	var selector = $("#skills #" + skillName + "Progressbar");
-	var newProgressbar = new Progressbar(skillName, selector, 0, 5);
+	var selector = "#skills #" + skillName + "Progressbar";
+	var newProgressbar = new Progressbar(you, skillName, selector, 0, 5, true, true);
 	//associates the newly made progressbar with the physical div
-	$(selector).data(skillName + "Progressbar", newProgressbar);
+	$(selector).data("Progressbar", newProgressbar);
 };
 
 /**
@@ -138,7 +148,7 @@ SkillsUI.prototype.newSkill = function( you, skill ) {
 	var skillName = skill.skillName;
 	$("#hidableSkillsBar").append(`
 		<div class="` + skillName + `">
-			<div class='progressbar-label'>` + skillName + ` (` + you[skillName] + `/5)</div>
+			<div id='` + skillName  + `ProgressbarLabel' class='progressbar-label'>` + skillName + ` (` + you[skillName] + `/5)</div>
 			<div class='level-label'></div>
 			<div id="` + skillName + `Progressbar" class='progressbar'>
 				<div id="` + skillName + `ProgressbarValue" class='progressbar-value'></div>
@@ -146,10 +156,10 @@ SkillsUI.prototype.newSkill = function( you, skill ) {
 		</div>
 	`);
 	
-	var selector = $("#skills #" + skillName + "Progressbar");
-	var newProgressbar = new Progressbar(skillName, selector, 0, 5);
+	var selector = "#skills #" + skillName + "Progressbar";
+	var newProgressbar = new Progressbar(you, skillName, selector, 0, 5, true, true);
 	//associates the newly made progressbar with the physical div
-	$(selector).data(skillName + "Progressbar", newProgressbar);
+	$(selector).data("Progressbar", newProgressbar);
 };
 
 /**
@@ -167,6 +177,9 @@ SkillsUI.prototype.removeAction = function( action, actionsOnScreen ) {
 	
 	var loc = actionsOnScreen.indexOf(action);
 	actionsOnScreen.splice(loc, 1);
+	
+	//also needs to remove skill box if present
+	$("#" + action.name.replace(/\s/g, '-') + "-skills-stat-box").remove();
 };
 
 //TODO: make hidableSkillsBar hidable

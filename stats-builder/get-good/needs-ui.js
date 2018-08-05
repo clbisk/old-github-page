@@ -2,6 +2,7 @@
 
 function NeedsUI(you) {
 	this.watching = you;
+	this.needs = you.needs;
 }
 
 /**
@@ -16,31 +17,31 @@ NeedsUI.prototype.construct = function() {
 		</div>
 		
 		<br>
-		 
-		<div id='needs'>
-			<div class='progressbar-label'>hunger</div>
-			<div class='progressbar' id='hunger'></div>
-			
-			<div class='progressbar-label'>energy</div>
-			<div class='progressbar' id='energy'></div>
-			
-			<div class='progressbar-label'>hygene</div>
-			<div class='progressbar' id='hygene'></div>
-			
-			<div class='progressbar-label'>social</div>
-			<div class='progressbar' id='social'></div>
+		<div id='needs'></div>
+	`);
+};
+
+/**
+ * @name newNeed
+ * @description adds a new need to the needs sidebar if necessary
+ * @function
+ * @param need - the name of need to add a progressbar for
+ */
+NeedsUI.prototype.newNeed = function( you, need ) {
+	$("#needs").append(`
+		<div class="` + need + `">
+			<div class='progressbar-label'>` + need + `</div>
+			<div class='level-label'></div>
+			<div id="` + need + `Progressbar" class='progressbar'>
+				<div id="` + need + `ProgressbarValue" class='progressbar-value'></div>
+			</div> 
 		</div>
 	`);
 	
-	//initialize the progressbars in the sidebar
-	var hungerProgressbar = new Progressbar("hunger", "#needs #hungerProgressbar", 18, 20);
-	$("#hunger").data("progressbar", hungerProgressbar);
-	var energyProgressbar = new Progressbar("energy", "#needs #energyProgressbar", 18, 20);
-	$("#energy").data("progressbar", energyProgressbar);
-	var hygeneProgressbar = new Progressbar("hygene", "#needs #hygeneProgressbar", 18, 20);
-	$("#hygene").data("progressbar", hygeneProgressbar);
-	var socialProgressbar = new Progressbar("social", "#needs #socialProgressbar", 18, 20);
-	$("#social").data("progressbar", socialProgressbar);
+	var selector = "#needs #" + need + "Progressbar";
+	var newProgressbar = new Progressbar(you, need, selector, 0, 20, false, false);
+	//associates the newly made progressbar with the physical div
+	$(selector).data("Progressbar", newProgressbar);
 };
 
 /**
@@ -49,8 +50,12 @@ NeedsUI.prototype.construct = function() {
  * @function
  */
 NeedsUI.prototype.updateUI = function() {
-	$("#hunger").data().setValue(this.watching["hunger"]);
-	$("#hygene").data().setValue(this.watching["hygene"]);
-	$("#energy").data().setValue(this.watching["energy"]);
-	$("#social").data().setValue(this.watching["social"]);
+	this.needs = this.watching.needs;
+	
+	for (var need in this.needs) {
+		if (!$("#needs #" + need + "Progressbar").length)
+			this.newNeed(this.watching, need);
+		
+		$("#" + need + "Progressbar").data("Progressbar").setValue(this.watching.needs[need]);
+	}
 };

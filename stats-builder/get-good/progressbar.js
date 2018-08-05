@@ -7,13 +7,19 @@
  * @param selector - a unique selector for the html element attached to this progressbar
  * @param value - current value of the progressbar
  * @param max - maximum possible value for progressbar
+ * @param hasLevels - certain progressbars will reset after leveling, but others don't have this behavior
+ * @param hasLabel - determines whether the progressbar will have to change a label when values change
  */
-function Progressbar( data, selector, value, max ) {
+function Progressbar( you, data, selector, value, max, hasLevels, hasLabel ) {
+	this.watching = you;
 	this.data = data;
 	this.selector = selector;
 	this.max = max;
 	this.value = value;
-	this.level = 0;
+	this.hasLevels = hasLevels;
+	if (hasLevels)
+		this.level = 0;
+	this.hasLabel = hasLabel;
 }
 
 /**
@@ -50,6 +56,106 @@ Progressbar.prototype.getValue = function() {
  */
 Progressbar.prototype.setValue = function( newValue ) {
 	this.value = newValue;
+	
+	var dataName = this.data;
+	var thisProgressbarElement = $(this.selector);	
+	var curPoints = this.value;
+	var maxWidth = thisProgressbarElement.width();
+	var calculatedWidth;
+	if (this.hasLabel)
+		var label =  $("#" + dataName + "ProgressbarLabel");
+
+	if (this.hasLevels) {
+		var curLevel = levelOf(this.watching[dataName]);
+		
+		//points between previous level and next level
+		var pointsOverPrevLevel = curPoints - pointsAtLevel(curLevel);
+		//points needed to get next level (max for the progressbar)
+		var pointsToNextLevel = pointsAtLevel(curLevel+1) - pointsAtLevel(curLevel);
+		calculatedWidth = (pointsOverPrevLevel / pointsToNextLevel) * maxWidth;
+		
+		if (this.hasLabel) {
+			label.html(dataName + " " + pointsOverPrevLevel + "/" + pointsToNextLevel);
+		}
+		
+		var duration;
+		if (curLevel < 1)
+			duration = 'slow';
+		else if (curLevel < 2)
+			duration = 'medium';
+		else
+			duration = 'fast';
+		
+		//if a new level was just reached, needs to show bar being filled before resetting
+		if (pointsOverPrevLevel === 0 || this.level !== curLevel) {
+			this.levelUp();
+		}
+		
+		thisProgressbarElement.children().animate({width: calculatedWidth}, {duration: duration});
+	} else {
+		calculatedWidth = (curPoints / this.max) * maxWidth;
+		
+		if (this.hasLabel) {
+			label.html(dataName + " " + curPoints + "/" + this.max);
+		}
+		
+		thisProgressbarElement.children().animate({width: calculatedWidth}, 'fast');
+	}
+};
+
+/**
+ * @name Progressbar.prototype.incValue
+ * @description increases the value of a progressbar by some number
+ * @function
+ * @param amountUp - number to increase progressbar by
+ */
+Progressbar.prototype.incValue = function( amountUp ) {
+	this.value += amountUp;
+	
+	var dataName = this.data;
+	var thisProgressbarElement = $(this.selector);	
+	var curPoints = this.value;
+	var maxWidth = thisProgressbarElement.width();
+	var calculatedWidth;
+	if (this.hasLabel)
+		var label =  $("#" + dataName + "ProgressbarLabel");
+
+	if (this.hasLevels) {
+		var curLevel = levelOf(this.watching[dataName]);
+		
+		//points between previous level and next level
+		var pointsOverPrevLevel = curPoints - pointsAtLevel(curLevel);
+		//points needed to get next level (max for the progressbar)
+		var pointsToNextLevel = pointsAtLevel(curLevel+1) - pointsAtLevel(curLevel);
+		calculatedWidth = (pointsOverPrevLevel / pointsToNextLevel) * maxWidth;
+		
+		if (this.hasLabel) {
+			label.html(dataName + " " + pointsOverPrevLevel + "/" + pointsToNextLevel);
+		}
+		
+		var duration;
+		if (curLevel < 1)
+			duration = 'slow';
+		else if (curLevel < 2)
+			duration = 'medium';
+		else
+			duration = 'fast';
+		
+		//if a new level was just reached, needs to show bar being filled before resetting
+		if (pointsOverPrevLevel === 0 || this.level !== curLevel) {
+			this.levelUp();
+		}
+		
+		thisProgressbarElement.children().animate({width: calculatedWidth}, {duration: duration});
+	} else {
+		calculatedWidth = (curPoints / this.max) * maxWidth;
+		
+		if (this.hasLabel) {
+			label.html(dataName + " " + curPoints + "/" + this.max);
+		}
+		
+		thisProgressbarElement.children().animate({width: calculatedWidth}, 'fast');
+	}
 };
 
 /**
@@ -63,6 +169,8 @@ Progressbar.prototype.levelUp = function () {
 	var levelLabel =  $("#hidableSkillsBar ." + this.data + " .level-label");
 	levelLabel.html("level " + this.level);
 	
+	var maxWidth = $(this.selector).width();
+	
 	var duration;
 	if (this.level < 1)
 		duration = 'slow';
@@ -71,7 +179,7 @@ Progressbar.prototype.levelUp = function () {
 	else
 		duration = 'fast';
 	
-	$(this.selector).children().animate({width: this.max}, {duration: duration});
+	$(this.selector).children().animate({width: maxWidth}, {duration: duration});
 };
 
 /**
@@ -86,6 +194,8 @@ Progressbar.prototype.levelTo = function( newLevel ) {
 	var levelLabel =  $("#hidableSkillsBar ." + this.data + " .level-label");
 	levelLabel.html("level " + this.level);
 	
+	var maxWidth = $(this.selector).width();
+	
 	var duration;
 	if (this.level < 1)
 		duration = 'slow';
@@ -94,7 +204,7 @@ Progressbar.prototype.levelTo = function( newLevel ) {
 	else
 		duration = 'fast';
 	
-	$(this.selector).children().animate({width: this.max}, {duration: duration});
+	$(this.selector).children().animate({width: maxWidth}, {duration: duration});
 };
 
 /**
@@ -104,37 +214,5 @@ Progressbar.prototype.levelTo = function( newLevel ) {
  * @param skillObj - skill object with name and amount corresponding to progressbar to be filled
  */
 Progressbar.prototype.fillProgressbar = function( you, skillObj ) {
-	var skillName = skillObj.skillName;
-	var thisProgressbar = $("#skills #" + skillName + "Progressbar");
-	var progressbarObject = thisProgressbar.data(skillName + "Progressbar");
 	
-	var curPoints = you[skillName];
-	var curLevel = levelOf(you[skillName]);
-
-	//points between previous level and next level
-	var pointsOverPrevLevel = curPoints - pointsAtLevel(curLevel);
-	//points needed to get next level (max for the progressbar)
-	var pointsToNextLevel = pointsAtLevel(curLevel+1) - pointsAtLevel(curLevel);
-	
-	var maxWidth = thisProgressbar.width();
-	var calculatedWidth = (pointsOverPrevLevel / pointsToNextLevel) * maxWidth;
-	
-	var label =  $("#hidableSkillsBar ." + skillName + " .progressbar-label");
-	label.html(skillName + " " + pointsOverPrevLevel + "/" + pointsToNextLevel);
-
-	var duration;
-	if (curLevel < 1)
-		duration = 'slow';
-	else if (curLevel < 2)
-		duration = 'medium';
-	else
-		duration = 'fast';
-	
-	//if a new level was just reached, needs to show bar being filled before resetting
-	if (pointsOverPrevLevel === 0 || progressbarObject.level !== curLevel) {
-		progressbarObject.levelUp();
-	}
-	
-	thisProgressbar.children().animate({width: calculatedWidth}, {duration: duration});
-	progressbarObject.setValue(curPoints);
 };

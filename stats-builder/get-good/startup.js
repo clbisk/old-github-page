@@ -82,4 +82,5 @@ function startup(actions, actionsOnScreen) {
 	skillsUI.updateUI(actions, actionsOnScreen);
 	needsUI.construct();
 	uiConsole.construct();
+	needsUI.updateUI();
 }

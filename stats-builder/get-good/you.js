@@ -13,14 +13,7 @@ var thisBoi;
  */
 function You( console ) {
 	this.uiConsole = console;
-	
 	this.time;
-	this.language;
-	this.imagination;
-	this.coordination;
-	
-	this.needs = {};
-	
 	this.hasSkills;
 }
 
@@ -33,20 +26,18 @@ You.prototype.birth = function () {
 	//keep track of this boi for later operations on it
 	thisBoi = this;
 	
-	//initialize needs as full
-	this.needs["hunger"] = 18;
-	this.needs["energy"] = 18;
-	this.needs["hygene"] = 18;
-	this.needs["social"] = 18;
-	
-	//initialize skills at zero
-	this.language = 0;
-	this.imagination = 0;
-	this.coordination = 0;
+	//when you're just born, you don't have any skills
 	this.hasSkills = false;
 	
 	//when you're just born, you haven't been alive for any time
 	this.time = 0;
+	
+	//initialize needs
+	this.needs = {};
+	this.needs["hunger"] = 18;
+	this.needs["hygene"] = 18;
+	this.needs["social"] = 18;
+	this.needs["energy"] = 18;
 	
 	//fill the main ui with stuff
 	$("#screen").html(`

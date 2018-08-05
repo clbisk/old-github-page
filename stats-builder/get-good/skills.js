@@ -29,7 +29,13 @@ function doAction( event ) {
 			SkillsUI.prototype.newSkill(you, skillObj);
 		}
 		
-		Progressbar.prototype.fillProgressbar(you, skillObj);	//show change in ui
+		var progressbarElement = $("#" + skillObj.skillName + "Progressbar").data("Progressbar");
+		progressbarElement.incValue(skillObj.amount); //show change in ui
+		
+		//make sure ui and data agree
+		if (you[skillObj.skillName] !== progressbarElement.getValue()) {
+			console.error(this.data + " progressbar value does not agree with you value");
+		}
 	}
 	
 	//deal with needs
