@@ -103,56 +103,6 @@ You.prototype.decNeed = function( need, amount ) {
 //functions responding to listeners -- "this" becomes the event origin instead of You
 
 /**
- * @name You.prototype.firstSkill
- * @description adds the skill box when you do your first ever action
- * @function
- * @param skill - the skill to add a progressbar for
- */
-You.prototype.firstSkill = function( skill ) {
-	this.hasSkills = true;
-	
-	$(document.body).append(`
-		<div id="skills">
-			<div id="handle">
-				<div id="skillsOpenCloseTab">skills</div>
-			</div>
-			<div id="hidableSkillsBar">
-				<div class="` + skill + `">
-					<div class='progressbar-label'>` + skill + ` (` + this[skill] + `/5)</div>
-					<div id="` + skill + `Progressbar" class='progressbar'></div>
-				</div>
-			</div>
-		</div>
-	`);
-	
-	$("#skills .progressbar").progressbar({
-		max: 5,
-		value: this[skill]
-	});
-	//TODO: make hidableSkillsBar hidable
-};
-
-/**
- * @name You.prototype.newSkill
- * @description adds a new progressbar to the skills tab for a new skill discovered
- * @function
- * @param skill - the skill to add a progressbar for
- */
-You.prototype.newSkill = function( skill ) {
-	$("#hidableSkillsBar").append(`
-		<div class="` + skill + `">
-			<div class='progressbar-label'>` + skill + ` (` + this[skill] + `/5)</div>
-			<div id="` + skill + `Progressbar" class='progressbar'></div>
-		</div>
-	`);
-	
-	$("#skills .progressbar").progressbar({
-		max: 5,
-		value: this[skill]
-	});
-};
-
-/**
  * @name dream
  * @description when you sleep you might dream!
  * @function

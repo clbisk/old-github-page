@@ -20,6 +20,15 @@ function Progressbar( you, data, selector, value, max, hasLevels, hasLabel ) {
 	if (hasLevels)
 		this.level = 0;
 	this.hasLabel = hasLabel;
+	
+	var calculatedWidth;
+	if (hasLevels) {		
+		calculatedWidth = (value / pointsAtLevel(1)) * $(selector).width();
+	} else {
+		calculatedWidth = (value / max) * $(selector).width();
+	}
+	
+	$(selector).children().css('width', calculatedWidth);
 }
 
 /**
@@ -38,6 +47,20 @@ Progressbar.prototype.getMax = function() {
  */
 Progressbar.prototype.setMax = function( newMax ) {
 	this.max = newMax;
+	
+	var maxWidth = $(this.selector).width();
+	var calculatedWidth;
+	
+	if (!this.hasLevels) {
+		calculatedWidth = (this.value / this.max) * maxWidth;
+		
+		if (this.hasLabel) {
+			var label =  $("#" + this.data + "ProgressbarLabel");
+			label.html(this.data + " " + this.value + "/" + this.max);
+		}
+	}
+	
+	$(this.selector).children().css('width', calculatedWidth);
 };
 
 /**
