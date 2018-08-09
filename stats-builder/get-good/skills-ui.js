@@ -22,7 +22,7 @@ function SkillsUI (you, actions, actionsOnScreen) {
  * @param actions - keeps track of all possible actions
  * @param actionsOnScreen - keeps track of currently clickable actions
  */
-SkillsUI.prototype.updateUI = function(actions, actionsOnScreen) {
+SkillsUI.prototype.updateUI = function(actions, actionsOnScreen, needsUI) {
 	for (var action of actions) {
 		//add anything that has add requirement satisfied
 		if (eval(action.unlockReq.field) === action.unlockReq.value) {
@@ -37,8 +37,9 @@ SkillsUI.prototype.updateUI = function(actions, actionsOnScreen) {
 				
 				$("#" + nameID).button();
 				$("#" + nameID).data(action);
-				$("#" + nameID).on("click", {you: this.watching, skillsUI: this, action: action, actions: actions, actionsOnScreen: actionsOnScreen}, doAction);
+				$("#" + nameID).on("click", {you: this.watching, skillsUI: this, needsUI: needsUI, action: action, actions: actions, actionsOnScreen: actionsOnScreen}, doAction);
 				$("#" + nameID).on("mouseenter", {you: this.watching, action: action, caller: "#" + nameID}, this.showSkillStats);
+				$("#" + nameID).on("click", {you: this.watching, action: action}, this.refreshSkillStats);
 				$("#" + nameID).on("mouseleave", {action: action}, this.hideSkillStats);
 				
 				this.watching.uiConsole.add("You learned how to " + action.name + ".");
@@ -103,6 +104,34 @@ SkillsUI.prototype.showSkillStats = function( event ) {
 SkillsUI.prototype.hideSkillStats = function( event ) {
 	var uniqueID = event.data.action.name.replace(/\s/g, '-') + "-skills-stat-box";
 	$("#" + uniqueID).remove();
+};
+
+/**
+ * @name SkillsUI.prototype.refreshSkillStats
+ * @description refreshes the little box under the action button with levels of all corresponding skills
+ * @function
+ * @param event - passes along you and the action button that called this method
+ */
+SkillsUI.prototype.refreshSkillStats = function( event ) {
+	var you = event.data.you;
+	var uniqueID = event.data.action.name.replace(/\s/g, '-') + "-skills-stat-box";
+	
+	$("#" + uniqueID).html("");
+	
+	for (var skill in event.data.action.skills) {
+		if (event.data.action.skills.hasOwnProperty(skill)) {	//check it's not an inherited boi
+			var skillName = event.data.action.skills[skill].skillName;
+			if (you[skillName] === 0 || !you[skillName]) {
+				$("#" + uniqueID).append(`
+					<div>???: not learned</div>
+				`);
+			} else {
+				$("#" + uniqueID).append(`
+					<div>` + skillName + `: ` + levelOf(you[skillName]) + `</div>
+				`);
+			}
+		}
+	}
 };
 
 /**

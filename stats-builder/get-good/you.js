@@ -10,6 +10,7 @@ var thisBoi;
  * @name You
  * @description Prototype for keeping track of player data
  * @class
+ * @param console
  */
 function You( console ) {
 	this.uiConsole = console;
@@ -54,7 +55,6 @@ You.prototype.birth = function () {
 	
 	//initialize the first buttons
 	$("button").button();
-	$("#actions button").on("click", this.doAction);
 	$("#dreamEvent").on("click", this.dream);
 	$("#parentEvent").on("click", this.callParent);
 };
@@ -97,7 +97,7 @@ You.prototype.incSkill = function( skill, amount ) {
  * @param statUp - the need to worsen
  */
 You.prototype.decNeed = function( need, amount ) {
-	this[need] -= amount;
+	this.needs[need] -= amount;
 };
 
 //functions responding to listeners -- "this" becomes the event origin instead of You
@@ -133,12 +133,12 @@ You.prototype.callParent = function() {
 	$("#console").html("Oh look! It's " + parent + ".");
 	
 	//if you're in need of something
-	$.each( thisBoi.skills, function(key, value) {
+	$.each( thisBoi.needs, function(key, value) {
 		if (value < 5) {
 			$("#console").append(`
-				\n` + parent + ` saw that you were low on ` + key + `.
+				<br>` + parent + ` saw that you were low on ` + key + `.
 			`);
-			thisBoi.skills[key] = 20;
+			thisBoi.needs[key] = 20;
 		}
 	});
 };

@@ -30,8 +30,7 @@ NeedsUI.prototype.construct = function() {
 NeedsUI.prototype.newNeed = function( you, need ) {
 	$("#needs").append(`
 		<div class="` + need + `">
-			<div class='progressbar-label'>` + need + `</div>
-			<div class='level-label'></div>
+			<div class='progressbar-name'>` + need + `</div>
 			<div id="` + need + `Progressbar" class='progressbar'>
 				<div id="` + need + `ProgressbarValue" class='progressbar-value'></div>
 			</div> 

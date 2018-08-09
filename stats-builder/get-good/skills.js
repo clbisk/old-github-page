@@ -12,6 +12,7 @@ function doAction( event ) {
 	var actions = event.data.actions;
 	var actionsOnScreen = event.data.actionsOnScreen;
 	var skillsUI = event.data.skillsUI;
+	var needsUI = event.data.needsUI;
 	
 	you.uiConsole.describeAction(action);
 	
@@ -42,12 +43,23 @@ function doAction( event ) {
 	if (actions.needs) {	//not every action has needs
 		for (const need of action.needs) {
 			you.decNeed(need);	//decrement need in You
-			//TODO: how oh no	//show change in ui
+			needsUI.updateUI();	//show change in ui
 		}
 	}
-	
-	//TODO: deal with buffs
+	incTimeDiscrete(you, action.time);
 	
 	you.time += action.time;
-	skillsUI.updateUI(actions, actionsOnScreen);
+	skillsUI.updateUI(actions, actionsOnScreen, needsUI);
+	needsUI.updateUI();
+	
+	//if your needs get too low you cry
+	var crying = false;
+	for (var need in you.needs) {
+		if (you.needs[need] < 3) {
+			crying = true;
+		}
+	}
+	if (crying)
+		you.callParent();
+	needsUI.updateUI();
 }

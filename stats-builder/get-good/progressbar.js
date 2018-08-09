@@ -29,6 +29,12 @@ function Progressbar( you, data, selector, value, max, hasLevels, hasLabel ) {
 	}
 	
 	$(selector).children().css('width', calculatedWidth);
+	
+	if (!hasLabel) {
+		$(selector).on("mouseenter", {progressbar: this}, this.showValue);
+		$(selector).on("mouseleave", {progressbar: this}, this.hideValue);
+	}
+	
 }
 
 /**
@@ -122,7 +128,7 @@ Progressbar.prototype.setValue = function( newValue ) {
 			label.html(dataName + " " + curPoints + "/" + this.max);
 		}
 		
-		thisProgressbarElement.children().animate({width: calculatedWidth}, 'fast');
+		thisProgressbarElement.children().animate({width: calculatedWidth}, 100);
 	}
 };
 
@@ -231,11 +237,34 @@ Progressbar.prototype.levelTo = function( newLevel ) {
 };
 
 /**
- * @name fillProgressbar
- * @description fills progressbar from left to right over time
- * @param you
- * @param skillObj - skill object with name and amount corresponding to progressbar to be filled
+ * @name Progressbar.prototype.showValue
+ * @description shows the value of a progressbar on hover (used if the progressbar has no label)
+ * @function
+ * @param event - holds the progressbar for value to be shown
  */
-Progressbar.prototype.fillProgressbar = function( you, skillObj ) {
+Progressbar.prototype.showValue = function( event ) {
+	var progressbar = event.data.progressbar;
+	var uniqueID = progressbar.data + "ProgressbarValueText";
+	var progressbarCoordinates = $(progressbar.selector)[0].getBoundingClientRect();
+	var verticalCenter = progressbarCoordinates.top + (progressbarCoordinates.height/2);
 	
+	$("#" + progressbar.data + "Progressbar").append(`
+		<div id='` + uniqueID + `' class='progressbar-value-text'>` + progressbar.value + `/` + progressbar.max + `</div>
+	`);
+	
+	$("#" + uniqueID).css("top", verticalCenter - 6);
+	var width = $("#" + uniqueID).css("width").replace("px", '');
+	$("#" + uniqueID).css("left", (progressbarCoordinates.right - width) - 5);
+};
+
+/**
+ * @name Progressbar.prototype.hideValue
+ * @description hides the value of a progressbar when mouse leaves
+ * @function
+ * @param event - holds the name of the progressbar for value to be shown in
+ */
+Progressbar.prototype.hideValue = function( event ) {
+	var uniqueID = event.data.progressbar.data + "ProgressbarValueText";
+	
+	$("#" + uniqueID).remove();
 };

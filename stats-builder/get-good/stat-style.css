@@ -97,6 +97,14 @@ body {
   margin: -1px;
   height: 100%;
 }
+.progressbar .progressbar-value-text {
+	z-index: 1;
+	font-size: 10px;
+	position: absolute;
+	width: auto;
+	color: #697a96;
+	font-weight: bold;
+}
 
 #needs {
 	font-size: 15px;

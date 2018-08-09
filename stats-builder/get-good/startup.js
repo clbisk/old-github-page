@@ -79,7 +79,7 @@ function startup(actions, actionsOnScreen) {
 	
 	//your character is born!!
 	you.birth();	
-	skillsUI.updateUI(actions, actionsOnScreen);
+	skillsUI.updateUI(actions, actionsOnScreen, needsUI);
 	needsUI.construct();
 	uiConsole.construct();
 	needsUI.updateUI();
