@@ -128,7 +128,7 @@ Progressbar.prototype.setValue = function( newValue ) {
 			label.html(dataName + " " + curPoints + "/" + this.max);
 		}
 		
-		thisProgressbarElement.children().animate({width: calculatedWidth}, 100);
+		thisProgressbarElement.children().animate({width: calculatedWidth}, {duration: 100});
 	}
 };
 
@@ -183,7 +183,7 @@ Progressbar.prototype.incValue = function( amountUp ) {
 			label.html(dataName + " " + curPoints + "/" + this.max);
 		}
 		
-		thisProgressbarElement.children().animate({width: calculatedWidth}, 'fast');
+		thisProgressbarElement.children().animate({width: calculatedWidth}, {duration: 'fast'});
 	}
 };
 
@@ -235,6 +235,8 @@ Progressbar.prototype.levelTo = function( newLevel ) {
 	
 	$(this.selector).children().animate({width: maxWidth}, {duration: duration});
 };
+
+//events responding to listeners ("this" will be different)
 
 /**
  * @name Progressbar.prototype.showValue

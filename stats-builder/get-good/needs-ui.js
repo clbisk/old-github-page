@@ -11,6 +11,31 @@ function NeedsUI(you) {
  * @function
  */
 NeedsUI.prototype.construct = function() {
+	//constructing the need response actions
+	$("#screen").append(`
+	<div id="needActions">
+		<button class='progressbar-button' id='dream'>
+		sleep
+		<div class='progressbar-button-value'></div>
+		</button>
+	</div>
+	
+	<div id="needResponses">
+		<button class='progressbar-button' id='cry'>
+			cry
+			<div class='progressbar-button-value'></div>
+		</button>
+	</div>`);
+	
+	var dreamProgressbarButton = new ProgressbarButton(this.watching, "dream", "#needActions #dream", 1000);
+	$("#dream").data("ProgressbarButton", dreamProgressbarButton);
+	$("#dream").on("click", this.watching.dream);
+	
+	var cryProgressbarButton = new ProgressbarButton(this.watching, "cry", "#needResponses #cry", 1000);
+	$("#cry").data("ProgressbarButton", cryProgressbarButton);
+	$("#cry").on("click", this.watching.callParent);
+	
+	//constructing the needs sidebar
 	$("#sidebar").append(`
 		<div id='stats'>
 			<div>time: ` + this.watching.time + `</div>

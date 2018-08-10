@@ -43,20 +43,10 @@ You.prototype.birth = function () {
 	//fill the main ui with stuff
 	$("#screen").html(`
 		<div id="actions"></div>
-		
-		<div id="chanceEvents">
-			<button id='dreamEvent'>sleep</button>
-		</div>
-		
-		<div id="needResponses">
-			<button id='parentEvent'>cry</button>
-		</div>
 	`);
 	
 	//initialize the first buttons
 	$("button").button();
-	$("#dreamEvent").on("click", this.dream);
-	$("#parentEvent").on("click", this.callParent);
 };
 
 /**
@@ -134,7 +124,7 @@ You.prototype.callParent = function() {
 	
 	//if you're in need of something
 	$.each( thisBoi.needs, function(key, value) {
-		if (value < 5) {
+		if (value < 10) {
 			$("#console").append(`
 				<br>` + parent + ` saw that you were low on ` + key + `.
 			`);

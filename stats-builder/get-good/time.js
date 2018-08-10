@@ -12,5 +12,5 @@ function incTimeDiscrete( you, time ) {
 }
 
 function incTimeContinuous() {
-	
+	var conversionFactor = 1; //1ms is 1 in game time
 }
