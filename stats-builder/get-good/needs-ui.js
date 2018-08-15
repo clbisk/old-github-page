@@ -13,27 +13,27 @@ function NeedsUI(you) {
 NeedsUI.prototype.construct = function() {
 	//constructing the need response actions
 	$("#screen").append(`
-	<div id="needActions">
-		<button class='progressbar-button' id='dream'>
-		sleep
-		<div class='progressbar-button-value'></div>
-		</button>
-	</div>
-	
-	<div id="needResponses">
-		<button class='progressbar-button' id='cry'>
-			cry
-			<div class='progressbar-button-value'></div>
-		</button>
+	<div id="needsButtons">
+		<div id="needActions">
+			<div class='progressbar-button' id='dream'>
+				<div class='progressbar-button-text'>sleep</div>
+				<div class='progressbar-button-value'></div>
+			</div>
+		</div>
+		
+		<div id="needResponses">
+			<div class='progressbar-button' id='cry'>
+				<div class='progressbar-button-value'></div>
+				<div class='progressbar-button-text'>cry</div>
+			</div>
+		</div>
 	</div>`);
 	
-	var dreamProgressbarButton = new ProgressbarButton(this.watching, "dream", "#needActions #dream", 1000);
+	var dreamProgressbarButton = new ProgressbarButton(this.watching, "dream", this.watching.dream, "#needActions #dream", 1000, ["#actions button"], ["#needResponses .progressbar-button"]);
 	$("#dream").data("ProgressbarButton", dreamProgressbarButton);
-	$("#dream").on("click", this.watching.dream);
 	
-	var cryProgressbarButton = new ProgressbarButton(this.watching, "cry", "#needResponses #cry", 1000);
+	var cryProgressbarButton = new ProgressbarButton(this.watching, "cry", this.watching.callParent, "#needResponses #cry", 1000, ["#actions button"], ["#needActions .progressbar-button"]);
 	$("#cry").data("ProgressbarButton", cryProgressbarButton);
-	$("#cry").on("click", this.watching.callParent);
 	
 	//constructing the needs sidebar
 	$("#sidebar").append(`

@@ -104,6 +104,8 @@ You.prototype.dream = function() {
 	if (toDreamOrNotToDream) {
 		$("#console").html("You had a dream! It wasn't very memorable.");
 		thisBoi.incSkill("imagination");
+	} else {
+		$("#console").html("You slept like a baby. Which is to say for about five minutes, then woke up and went back to screaming.");
 	}
 };
 

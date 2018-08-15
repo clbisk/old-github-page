@@ -27,9 +27,15 @@ body {
 	background: #f4f6f9;
 	top: 0px;
 	left: 0px;
-	//reminder to self: list goes clockwise
 	padding: $sidebar-padding;
 
+	#needs {
+	font-size: 15px;
+		.progressbar {
+			height: 1.25em;
+		}
+	}
+	
 	.ui-progressbar {
 		height: 20px;
 	}
@@ -45,8 +51,37 @@ body {
 	$not-screen-width: 2 * $sidebar-horizontal-padding + $sidebar-width + 2 * 8px;
 	width: calc(100% - #{$not-screen-width});
 	height: 100%;
+	display: flex;
+	flex-direction: column;
+	
+	.skills-stat-box {
+		border: 1px solid #d6d7d8;
+	    border-radius: 3px;
+	    background: #ffffff;   
+	    position: absolute;
+	    z-index: 1;
+	    opacity: 0.8;
+	}
+	
+	#needsButtons {
+		display: flex;
+		flex-direction: column;
+		#needActions {
+			position: relative;
+			display: block;
+			width: 100%;
+			padding-top: 5px;
+		}
+		#needResponses {
+			position: relative;
+			display: block;
+			width: 100%;
+			padding-top: 5px;
+		}
+	}
 	
 	#console {
+		display: flex;
 		height: 8em;
 		background: $light-gray;
 		margin-top: 10px;
@@ -131,42 +166,31 @@ body {
 	border-radius: 3px;
 	height: 2em;
 	background: #f6f6f6;
-	font-weight: normal;
 	color: #454545;
 	font-size: 1em;
 	font-family: Arial,Helvetica,sans-serif;
-	padding: .4em 1em;
 	display: inline-block;
-	position: relative;
-	line-height: normal;
-	margin-right: .1em;
 	cursor: pointer;
-	vertical-align: middle;
-	text-align: center;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
+	position: relative;
+	overflow: hidden;
+	.progressbar-button-text {
+		text-align: center;
+		margin: .4em 1em;
+		width: auto;
+		position: relative;
+  		z-index: 1;
+		//can't accidentally select the text
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
 	.progressbar-button-value {
 		width: 0px;
 		background: #b1c8ed;
 		margin: -1px;
 		height: 100%;
+		position: absolute;
+		top: 0px;
 	}
-}
-
-#needs {
-	font-size: 15px;
-	.progressbar {
-		height: 1.25em;
-	}
-}
-
-.skills-stat-box {
-	border: 1px solid #d6d7d8;
-    border-radius: 3px;
-    background: #ffffff;   
-    position: absolute;
-    z-index: 1;
-    opacity: 0.8;
 }
