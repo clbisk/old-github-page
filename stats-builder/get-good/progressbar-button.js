@@ -79,6 +79,7 @@ ProgressbarButton.prototype.doAction = function( event ) {
 			$(disablesPB[button]).data("ProgressbarButton").enable();
 		}
 		$(selector + " .progressbar-button-value").css('width', '0px');
+		thisPB.watching.time += thisPB.time/1000;
 	});	
 };
 
