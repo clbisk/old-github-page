@@ -72,15 +72,13 @@ function startup(actions, actionsOnScreen) {
 	$('#screen').on('click', '.reset', reset);
 	
 	//intialize ui
-	var uiConsole = new UiConsole();
-	var you = new You(uiConsole);
+	var you = new You();
+	var uiConsole = new UiConsole(you);
 	var skillsUI = new SkillsUI(you, actions, actionsOnScreen);
 	var needsUI = new NeedsUI(you);
 	
 	//your character is born!!
-	you.birth();	
-	skillsUI.updateUI(actions, actionsOnScreen, needsUI);
-	needsUI.construct();
-	uiConsole.construct();
-	needsUI.updateUI();
+	you.birth();
+	var uiController = new UIController(you, uiConsole, needsUI, skillsUI, actions, actionsOnScreen);
+	//uiController.updateUI();
 }

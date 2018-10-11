@@ -18,11 +18,12 @@ function SkillsUI (you, actions, actionsOnScreen) {
  * @name updateUI
  * @description adds actions that have been unlocked when unlocked and removes redundant actions when they are redundant
  * @function
- * @param you - keeps track of you
  * @param actions - keeps track of all possible actions
- * @param actionsOnScreen - keeps track of currently clickable actions
+ * @param actionsOnScreen - keep track of the actions currently clickable
+ * @param uiController - controls all ui elements
+ * @param uiConsole - the console that will communicate with the user
  */
-SkillsUI.prototype.updateUI = function(actions, actionsOnScreen, needsUI) {
+SkillsUI.prototype.updateUI = function(actions, actionsOnScreen, uiController, uiConsole) {
 	for (var action of actions) {
 		//add anything that has add requirement satisfied
 		if (eval(action.unlockReq.field) === action.unlockReq.value) {
@@ -37,12 +38,13 @@ SkillsUI.prototype.updateUI = function(actions, actionsOnScreen, needsUI) {
 				
 				$("#" + nameID).button();
 				$("#" + nameID).data(action);
-				$("#" + nameID).on("click", {you: this.watching, skillsUI: this, needsUI: needsUI, action: action, actions: actions, actionsOnScreen: actionsOnScreen}, doAction);
+				//TODO: transmit UIController
+				$("#" + nameID).on("click", {you: this.watching, uiController: this.uiController}, doAction);
 				$("#" + nameID).on("mouseenter", {you: this.watching, action: action, caller: "#" + nameID}, this.showSkillStats);
 				$("#" + nameID).on("click", {you: this.watching, action: action}, this.refreshSkillStats);
 				$("#" + nameID).on("mouseleave", {action: action}, this.hideSkillStats);
 				
-				this.watching.uiConsole.add("You learned how to " + action.name + ".");
+				uiConsole.add("You learned how to " + action.name + ".");
 				
 				$("#" + nameID).effect("highlight", "slow");
 			}

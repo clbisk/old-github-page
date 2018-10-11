@@ -3,8 +3,10 @@
 /**
  * @name UiConsole
  * @description Prototype for the on-screen console
+ * @param you - the You that this console logs actions for
  */
-function UiConsole() {
+function UiConsole( you ) {
+	this.watching = you;
 	this.text = "";
 }
 

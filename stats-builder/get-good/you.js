@@ -10,10 +10,8 @@ var thisBoi;
  * @name You
  * @description Prototype for keeping track of player data
  * @class
- * @param console
  */
-function You( console ) {
-	this.uiConsole = console;
+function You() {
 	this.time;
 	this.hasSkills;
 }
