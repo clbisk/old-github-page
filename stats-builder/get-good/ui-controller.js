@@ -17,7 +17,13 @@ function UIController(you, uiConsole, needsUI, skillsUI, actions, actionsOnScree
 	this.actions = actions;
 	this.actionsOnScreen = actionsOnScreen;
 	
-	skillsUI.updateUI(actions, actionsOnScreen, needsUI, uiConsole);
+	uiConsole.uiController = this;
+	needsUI.uiController = this;
+	skillsUI.uiController = this;
+	you.uiController = this;
+	you.uiConsole = uiConsole;
+	
+	skillsUI.updateUI(actions, actionsOnScreen, this, uiConsole);
 	needsUI.construct();
 	uiConsole.construct();
 	needsUI.updateUI();
@@ -73,7 +79,7 @@ UIController.prototype.doAction = function( action ) {
 	incTimeDiscrete(this.watching, action.time);
 	
 	this.watching.time += action.time;
-	this.skillsUI.updateUI(this.actions, this.actionsOnScreen, this.needsUI);
+	this.skillsUI.updateUI(this.actions, this.actionsOnScreen, this, this.uiConsole);
 	this.needsUI.updateUI();
 	
 	//if your needs get too low you cry

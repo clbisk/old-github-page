@@ -39,7 +39,7 @@ SkillsUI.prototype.updateUI = function(actions, actionsOnScreen, uiController, u
 				$("#" + nameID).button();
 				$("#" + nameID).data(action);
 				//TODO: transmit UIController
-				$("#" + nameID).on("click", {you: this.watching, uiController: this.uiController}, doAction);
+				$("#" + nameID).on("click", {you: this.watching, uiController: this.uiController, action: action}, doAction);
 				$("#" + nameID).on("mouseenter", {you: this.watching, action: action, caller: "#" + nameID}, this.showSkillStats);
 				$("#" + nameID).on("click", {you: this.watching, action: action}, this.refreshSkillStats);
 				$("#" + nameID).on("mouseleave", {action: action}, this.hideSkillStats);
