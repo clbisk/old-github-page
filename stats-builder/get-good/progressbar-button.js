@@ -5,26 +5,62 @@
  * @description progressbar buttons are used when an activity takes some continuous time
  * @param you
  * @param action - the name of the action this progressbar button tracks
- * @param actionMethod - the method that should be called to carry out the action
- * @param selector - a unique selector for the html element attached to this progressbar
+ * @param actionMethod - the method that should be called to carry out the actio
+ * @param text - the text that should be displayed
+ * @param whereput - where the progressbar button should be put
+ * @param id - a unique id for the html element attached to this progressbar
  * @param time - the time in ms it takes to complete the action
  * @param disablesButton - a list of selectors for other buttons this progressbar button disables
  * @param disablesProgressbarButton - a list of selectors for other progressbar buttons this progressbar button disables
  */
-function ProgressbarButton( you, action, actionMethod, selector, time, disablesButton, disablesProgressbarButton ) {
+function ProgressbarButton( you, action, actionMethod, text, whereput, id, time, disablesButton, disablesProgressbarButton ) {
 	this.watching = you;
 	this.action = action;
 	this.actionMethod = actionMethod;
-	this.selector = selector;
+	this.text = text;
+	this.id = id;
+	this.selector = whereput + " #" + id;
 	this.time = time;
 	this.disables = disablesButton;
 	this.disablesPB = disablesProgressbarButton;
-	
-	$(selector).on("click", {selector: selector}, this.doAction);
-	$(selector).on("mousedown", {selector: selector}, this.showClick).on("mouseup", {selector: selector}, this.showMouseEnter);
-	$(selector).on("mouseenter", {selector: selector}, this.showMouseEnter);
-	$(selector).on("mouseleave", {selector: selector}, this.showMouseLeave);
+		
+	const creationPromise = this.create(whereput);
+	var thisButton = this;
+	creationPromise.then(function(result) {
+		thisButton.bindEvents(result);
+	});
 }
+
+ProgressbarButton.prototype.create = function( whereput ) {
+	var thisButton = this;
+	
+	return new Promise(function(resolve, reject) {
+		$(whereput).append(
+			`<div class='progressbar-button' id='` + thisButton.id + `'>
+				<div class='progressbar-button-text'>` + thisButton.text + `</div>
+				<div class='progressbar-button-value'></div>
+			</div>`
+		);
+
+		var created = document.getElementById(thisButton.id);		
+		if (created !== null)
+			resolve(thisButton);
+		else
+			reject("creation failed of " + thisButton.selector);
+	});
+};
+
+ProgressbarButton.prototype.bindEvents = function( subject ) {
+	console.log(subject);
+	
+	var thisButton = $(subject.selector);
+
+	$(subject.selector).on("click", {selector: subject.selector}, subject.doAction)
+		.on("mousedown", {selector: subject.selector}, subject.showClick)
+		.on("mouseup", {selector: subject.selector}, subject.showMouseEnter)
+		.on("mouseenter", {selector: subject.selector}, subject.showMouseEnter)
+		.on("mouseleave", {selector: subject.selector}, subject.showMouseLeave);
+};
 
 /**
  * @name ProgressbarButton.prototype.disable
@@ -54,6 +90,9 @@ ProgressbarButton.prototype.enable = function() {
  * @function
  */
 ProgressbarButton.prototype.doAction = function( event ) {
+	
+	console.log("doing action");
+	
 	var selector = event.data.selector;
 	var thisPB = $(selector).data("ProgressbarButton");
 	var disables = thisPB.disables;
