@@ -42,9 +42,7 @@ UiConsole.prototype.log = function ( text ) {
  */
 UiConsole.prototype.add = function ( text ) {
 	this.text += text;
-	$("#console").append(`
-		<div> `+ text + `</div>
-	`);
+	$("#console").append(text);
 };
 
 /**

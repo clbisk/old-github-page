@@ -5,7 +5,8 @@
  * @description progressbar buttons are used when an activity takes some continuous time
  * @param you
  * @param action - the name of the action this progressbar button tracks
- * @param actionMethod - the method that should be called to carry out the actio
+ * @param actionMethod - the method that should be called to carry out the action
+ * @param actionMethodArgs - the arguments to be passed to the actionMethod
  * @param text - the text that should be displayed
  * @param whereput - where the progressbar button should be put
  * @param id - a unique id for the html element attached to this progressbar
@@ -13,10 +14,11 @@
  * @param disablesButton - a list of selectors for other buttons this progressbar button disables
  * @param disablesProgressbarButton - a list of selectors for other progressbar buttons this progressbar button disables
  */
-function ProgressbarButton( you, action, actionMethod, text, whereput, id, time, disablesButton, disablesProgressbarButton ) {
+function ProgressbarButton( you, action, actionMethod, actionMethodArgs, text, whereput, id, time, disablesButton, disablesProgressbarButton ) {
 	this.watching = you;
 	this.action = action;
 	this.actionMethod = actionMethod;
+	this.actionMethodArgs = actionMethodArgs;
 	this.text = text;
 	this.id = id;
 	this.selector = whereput + " #" + id;
@@ -108,7 +110,7 @@ ProgressbarButton.prototype.doAction = function( event ) {
 	}
 	
 	$(selector + " .progressbar-button-value").animate({'width': '100%'}, {'duration': thisPB.time}).promise().done(function() {
-		thisPB.actionMethod();
+		thisPB.actionMethod(thisPB.actionMethodArgs);
 		//animates, then reenables itself and resets to 0
 		$(selector).on("click", {selector: selector}, thisPB.doAction);
 		for (const button in disables) {

@@ -19,10 +19,10 @@ NeedsUI.prototype.construct = function() {
 		<div id="needResponses"></div>
 	</div>`);
 	
-	var dreamProgressbarButton = new ProgressbarButton(this.watching, "dream", this.watching.dream, "sleep", "#needActions", "dream", 1000, ["#actions button"], ["#needResponses .progressbar-button"]);
+	var dreamProgressbarButton = new ProgressbarButton(this.watching, "dream", this.dream, {you: this.watching, needsUI: this}, "sleep", "#needActions", "dream", 1000, ["#actions button"], ["#needResponses .progressbar-button"]);
 	$("#dream").data("ProgressbarButton", dreamProgressbarButton);
 	
-	var cryProgressbarButton = new ProgressbarButton(this.watching, "cry", this.watching.callParent, "cry", "#needResponses", "cry", 1000, ["#actions button"], ["#needActions .progressbar-button"]);
+	var cryProgressbarButton = new ProgressbarButton(this.watching, "cry", this.callParent, {you: this.watching, needsUI: this}, "cry", "#needResponses", "cry", 1000, ["#actions button"], ["#needActions .progressbar-button"]);
 	$("#cry").data("ProgressbarButton", cryProgressbarButton);
 	
 	//constructing the needs sidebar
@@ -72,4 +72,56 @@ NeedsUI.prototype.updateUI = function() {
 		
 		$("#" + need + "Progressbar").data("Progressbar").setValue(this.watching.needs[need]);
 	}
+};
+
+/**
+ * @name dream
+ * @description when you sleep you might dream!
+ * @function
+ */
+NeedsUI.prototype.dream = function( args ) {
+	console.log("You had a li'l dream");
+	
+	var toDreamOrNotToDream = Boolean(Math.round(Math.random()));
+	if (toDreamOrNotToDream) {
+//		$("#console").html("You had a dream! It wasn't very memorable.");
+		this.watching.uiConsole.log("You had a dream! It wasn't very memorable.");
+		args.you.incSkill("imagination", 1);
+	} else {
+//		$("#console").html("You slept like a baby. Which is to say for about five minutes, then woke up and went back to screaming.");
+		this.watching.uiConsole.log("You slept like a baby. Which is to say for about five minutes, then woke up and went back to screaming.");
+	}
+	args.you.needs["energy"] = 20;
+	
+	args.needsUI.updateUI();
+};
+
+/**
+ * @name triggerParent
+ * @description when you cry, a parent will come over and check on your needs
+ * @function
+ * @param args - an element containing all the neccessary args:
+ * @param args.you is the You,
+ * @param args.uiConsole is the UIConsole,
+ * @param args.needsUI is the NeedsUI
+ */
+NeedsUI.prototype.callParent = function( args ) {
+	console.log("You're crying");
+	
+	//one of the parents rushes over
+	var parent = "mom";
+	if (Math.random() < 0.5) {
+		parent = "dad";
+	}
+	$("#console").html("Oh look! It's " + parent + ".");
+	
+	//if you're in need of something
+	$.each( args.you.needs, function(key, value) {
+		if (value < 10) {
+			args.you.uiConsole.add( "<br>" + parent + ` saw that you were low on ` + key + ".");
+			args.you.needs[key] = 20;
+		}
+	});
+	
+	args.needsUI.updateUI();
 };

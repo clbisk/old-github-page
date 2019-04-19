@@ -90,45 +90,10 @@ You.prototype.decNeed = function( need, amount ) {
 
 //functions responding to listeners -- "this" becomes the event origin instead of You
 
-/**
- * @name dream
- * @description when you sleep you might dream!
- * @function
- */
-You.prototype.dream = function() {
-	console.log("You had a li'l dream");
-	
-	var toDreamOrNotToDream = Boolean(Math.round(Math.random()));
-	if (toDreamOrNotToDream) {
-		$("#console").html("You had a dream! It wasn't very memorable.");
-		thisBoi.incSkill("imagination");
-	} else {
-		$("#console").html("You slept like a baby. Which is to say for about five minutes, then woke up and went back to screaming.");
-	}
-};
 
-/**
- * @name triggerParent
- * @description when you cry, a parent will come over and check on your needs
- * @function
- */
-You.prototype.callParent = function() {
-	console.log("You're crying");
-	
-	//one of the parents rushes over
-	var parent = "mom";
-	if (Math.random() < 0.5) {
-		parent = "dad";
-	}
-	$("#console").html("Oh look! It's " + parent + ".");
-	
-	//if you're in need of something
-	$.each( thisBoi.needs, function(key, value) {
-		if (value < 10) {
-			$("#console").append(`
-				<br>` + parent + ` saw that you were low on ` + key + `.
-			`);
-			thisBoi.needs[key] = 20;
-		}
-	});
-};
+
+//	You.prototype.incNeeds = function( event ) {
+//		for (var elem in event.data) {
+//			this.decNeed(elem.need, -1 * elem.amount);
+//		}
+//	};

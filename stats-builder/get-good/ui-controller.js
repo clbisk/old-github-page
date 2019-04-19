@@ -27,8 +27,17 @@ function UIController(you, uiConsole, needsUI, skillsUI, actions, actionsOnScree
 	needsUI.construct();
 	uiConsole.construct();
 	needsUI.updateUI();
+	
+	//when a button is clicked, update needs
+	//$(".progressbar-button").on("click", this.updateUI);
 }
 
+UIController.prototype.needsClickResponse = function( event ) {
+	var trigger = event.target;
+	var triggerID = trigger.parentElement.id;
+	
+	this.needsUI.updateUI();
+};
 
 UIController.prototype.updateUI = function() {
 	this.skillsUI.updateUI(this.actions, this.actionsOnScreen, this.needsUI, this.uiConsole);
@@ -90,6 +99,6 @@ UIController.prototype.doAction = function( action ) {
 		}
 	}
 	if (crying)
-		this.watching.callParent();
+		this.needsUI.callParent( {you: this.watching, uiConsole: this.uiConsole, needsUI: this.needsUI} );
 	this.needsUI.updateUI();
 };
