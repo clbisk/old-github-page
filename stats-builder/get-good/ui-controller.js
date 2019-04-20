@@ -48,25 +48,25 @@ UIController.prototype.updateUI = function() {
  * @name doAction
  * @description shows the effects of doing a certain action
  * @function
- * @param action - the action to be done
+ * @param event - event.action is the action to be done, event.you is the you
  */
 
-UIController.prototype.doAction = function( action ) {
+UIController.prototype.doAction = function( event ) {
 	
-	this.watching.uiConsole.describeAction(action);
+	event.data.you.uiConsole.describeAction(event.data.action);
 	
 	//deal with skills
-	for (const skillObj of action.skills) {
-		this.watching.incSkill(skillObj.skillName, skillObj.amount);	//increment skill in You
+	for (const skillObj of event.data.action.skills) {
+		event.data.you.incSkill(skillObj.skillName, skillObj.amount);	//increment skill in You
 		
 		//build skills display, if necessary
-		if (!this.watching.hasSkills) {
-			SkillsUI.prototype.firstSkill(this.watching, skillObj);
+		if (!event.data.you.hasSkills) {
+			SkillsUI.prototype.firstSkill(event.data.you, skillObj);
 		}
 		
 		//add a new progressbar, if necessary
 		else if (!$("#hidableSkillsBar ." + skillObj.skillName).length) {
-			SkillsUI.prototype.newSkill(this.watching, skillObj);
+			SkillsUI.prototype.newSkill(event.data.you, skillObj);
 		}
 		
 		var progressbarElement = $("#" + skillObj.skillName + "Progressbar").data("Progressbar");
@@ -80,14 +80,14 @@ UIController.prototype.doAction = function( action ) {
 	
 	//deal with needs
 	if (this.actions.needs) {	//not every action has needs
-		for (const need of action.needs) {
+		for (const need of event.data.action.needs) {
 			this.watching.decNeed(need);	//decrement need in You
 			this.needsUI.updateUI();	//show change in ui
 		}
 	}
-	incTimeDiscrete(this.watching, action.time);
+	incTime(this.watching, event.data.action.time);
 	
-	this.watching.time += action.time;
+	this.watching.time += event.data.action.time;
 	this.skillsUI.updateUI(this.actions, this.actionsOnScreen, this, this.uiConsole);
 	this.needsUI.updateUI();
 	

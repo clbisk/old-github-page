@@ -92,9 +92,6 @@ ProgressbarButton.prototype.enable = function() {
  * @function
  */
 ProgressbarButton.prototype.doAction = function( event ) {
-	
-	console.log("doing action");
-	
 	var selector = event.data.selector;
 	var thisPB = $(selector).data("ProgressbarButton");
 	var disables = thisPB.disables;
