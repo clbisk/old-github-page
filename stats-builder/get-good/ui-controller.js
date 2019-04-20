@@ -48,57 +48,61 @@ UIController.prototype.updateUI = function() {
  * @name doAction
  * @description shows the effects of doing a certain action
  * @function
- * @param event - event.action is the action to be done, event.you is the you
+ * @param event - containing the following:
+ * @param event.data.action - the action that was clicked,
+ * @param event.data.you
+ * @param event.data.uiController
  */
 
 UIController.prototype.doAction = function( event ) {
+	var you = event.data.you;
+	var action = event.data.action;
+	var control = event.data.uiController;
 	
-	event.data.you.uiConsole.describeAction(event.data.action);
+	you.uiConsole.describeAction(action);
 	
 	//deal with skills
-	for (const skillObj of event.data.action.skills) {
-		event.data.you.incSkill(skillObj.skillName, skillObj.amount);	//increment skill in You
+	for (const skillObj of action.skills) {
+		you.incSkill(skillObj.skillName, skillObj.amount);	//increment skill in You
 		
 		//build skills display, if necessary
-		if (!event.data.you.hasSkills) {
-			SkillsUI.prototype.firstSkill(event.data.you, skillObj);
+		if (!you.hasSkills) {
+			SkillsUI.prototype.firstSkill(you, skillObj);
 		}
 		
 		//add a new progressbar, if necessary
 		else if (!$("#hidableSkillsBar ." + skillObj.skillName).length) {
-			SkillsUI.prototype.newSkill(event.data.you, skillObj);
+			SkillsUI.prototype.newSkill(you, skillObj);
 		}
 		
 		var progressbarElement = $("#" + skillObj.skillName + "Progressbar").data("Progressbar");
 		progressbarElement.incValue(skillObj.amount); //show change in ui
-		
-		//make sure ui and data agree
-		if (this.watching[skillObj.skillName] !== progressbarElement.getValue()) {
-			console.error(this.data + " progressbar value does not agree with you value");
-		}
 	}
 	
 	//deal with needs
-	if (this.actions.needs) {	//not every action has needs
-		for (const need of event.data.action.needs) {
-			this.watching.decNeed(need);	//decrement need in You
-			this.needsUI.updateUI();	//show change in ui
+	if (control.needs) {	//not every action has needs
+		for (const need of action.needs) {
+			you.decNeed(need);	//decrement need in You
+			you.needsUI.updateUI();	//show change in ui
 		}
 	}
-	incTime(this.watching, event.data.action.time);
+	for (var need in you.needs) {
+		you.decNeed(need, action.time);
+	}
 	
-	this.watching.time += event.data.action.time;
-	this.skillsUI.updateUI(this.actions, this.actionsOnScreen, this, this.uiConsole);
-	this.needsUI.updateUI();
+	you.time += action.time;
+	control.skillsUI.updateUI(control.actions, control.actionsOnScreen, control, control.uiConsole);
+	control.needsUI.updateUI();
 	
 	//if your needs get too low you cry
 	var crying = false;
-	for (var need in this.watching.needs) {
-		if (this.watching.needs[need] < 3) {
+	for (var need in control.watching.needs) {
+		if (control.watching.needs[need] < 3) {
 			crying = true;
 		}
 	}
 	if (crying)
-		this.needsUI.callParent( {you: this.watching, uiConsole: this.uiConsole, needsUI: this.needsUI} );
-	this.needsUI.updateUI();
+		$("#cry").click();
+//		control.needsUI.callParent( {you: control.watching, uiConsole: control.uiConsole, needsUI: control.needsUI} );
+	control.needsUI.updateUI();
 };

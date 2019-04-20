@@ -28,7 +28,7 @@ NeedsUI.prototype.construct = function() {
 	//constructing the needs sidebar
 	$("#sidebar").append(`
 		<div id='stats'>
-			<div>time: ` + this.watching.time + `</div>
+			<div id='time'>time: ` + this.watching.time + `</div>
 		</div>
 		
 		<br>
@@ -72,6 +72,8 @@ NeedsUI.prototype.updateUI = function() {
 		
 		$("#" + need + "Progressbar").data("Progressbar").setValue(this.watching.needs[need]);
 	}
+	
+	$("#time").html("time: " + this.watching.time);
 };
 
 /**
