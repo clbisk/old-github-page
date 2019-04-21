@@ -171,23 +171,8 @@ body {
 		#goal {
 			display: inline-block;
 			right: 0px;
-			
-			#goal-flex {
-				text-align: center;
-				margin: 2px;
-				display: flex;
-				justify-content: flex-end;
-				background-color: #e3ecfc;
-				width: 200px;
-			}
-		}
-		#goal-help {
-			width: 20px;
-			right: 0px;
-			
-			img {
-				width: 20px;
-			}
+			text-align: right;
+			margin: 2px;
 		}
 	}
 }

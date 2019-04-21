@@ -155,23 +155,10 @@ body {
   width: calc(100% - 2px);
 }
 #skills #hidableSkillsBar #goal {
+  display: inline-block;
   right: 0px;
-  display: inline;
-}
-#skills #hidableSkillsBar #goal #goal-flex {
-  text-align: center;
+  text-align: right;
   margin: 2px;
-  display: flex;
-  justify-content: flex-end;
-  background-color: #e3ecfc;
-  width: 200px;
-}
-#skills #hidableSkillsBar #goal-help {
-  width: 20px;
-  right: 0px;
-}
-#skills #hidableSkillsBar #goal-help img {
-  width: 20px;
 }
 
 .progressbar {

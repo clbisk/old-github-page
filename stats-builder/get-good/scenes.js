@@ -43,9 +43,6 @@ function dreamSelect( you, selected ) {
 		<div id='goal'>
 			<div id='goal-flex'>
 				<div id='goal-text'>Dream: ` + selected.id + `</div>
-				<div id='goal-help'>
-					<img src="https://img.icons8.com/color/48/000000/help.png">
-				</div>
 			</div>
 		</div>`
 	);
