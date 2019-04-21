@@ -3,14 +3,52 @@
 
 /**lays out some scenes that occur in the lifesim**/
 
+
+function eventOptionSelected( event ) {
+	$(".popup").hide();
+	var selectedOption = event.target;
+	
+	event.data.handlerMethod(event.data.you, selectedOption);
+}
+
 //this is the one where you're a li'l kid dreaming about your
 //future and you chose a "life goal" which can be adjusted later
-function dreamJob() {
-	$('#screen').html(`
-			Wooow you're having a dream
-			<br><br>
-			Good for youuu
+function dreamJob( you ) {
+	$('#screen').append(`
+			<div class='popup'>
+				<div class='popup-content'>
+					<div class='popup-header'>Event: Dream</div>
+					<div class='popup-body'>
+						You lay sprawled out on the living room floor with crayons scattered in a circle around your page.
+						As you daydream of a future years away, you make a crude drawing of
+						<br/><br/>
+						<div id='science' class='event-option'>An astronaut</div>
+						<div id='sports' class='event-option'>A football player</div>
+						<div id='tech' class='event-option'>A robot</div>
+						<div id='art' class='event-option'>An artist</div>
+						<div id='social' class='event-option'>A pop star</div>
+					</div>
+				</div>
+			</div>
 	`);
+	
+	$(".popup").show();
+	$(".event-option").button();
+	$(".event-option").on("click", {you: you, handlerMethod: dreamSelect}, eventOptionSelected);
+}
+
+function dreamSelect( you, selected ) {
+	you.dream = selected.id;
+	$("#hidableSkillsBar").prepend(`
+		<div id='goal'>
+			<div id='goal-flex'>
+				<div id='goal-text'>Dream: ` + selected.id + `</div>
+				<div id='goal-help'>
+					<img src="https://img.icons8.com/color/48/000000/help.png">
+				</div>
+			</div>
+		</div>`
+	);
 }
 
 //this is the one where you're chosing your high-school senior

@@ -31,9 +31,24 @@ NeedsUI.prototype.construct = function() {
 			<div id='time'>time: ` + this.watching.time + `</div>
 		</div>
 		
-		<br>
+		<br> 
 		<div id='needs'></div>
 	`);
+	
+	<!--CHEATS FOR TESTING-->
+	$("#screen").append(`<button id='skip'>SKIP >></button>`);
+	$("#skip").on("click", {you: this.watching, needsUI: this}, this.timePlus100);
+};
+
+/**
+ * @name NeedsUI.prototype.timeTo100
+ * @description sets time to 100 (used for testing)
+ * @function
+ * @param event - contains event.data.you
+ */
+NeedsUI.prototype.timePlus100 = function( event ) {
+	event.data.you.time += 100;
+	event.data.needsUI.updateUI();
 };
 
 /**
@@ -72,8 +87,6 @@ NeedsUI.prototype.updateUI = function() {
 		
 		$("#" + need + "Progressbar").data("Progressbar").setValue(this.watching.needs[need]);
 	}
-	
-	console.log("updating time to: " + this.watching.time);
 	
 	$("#time").html("time: " + this.watching.time);
 };

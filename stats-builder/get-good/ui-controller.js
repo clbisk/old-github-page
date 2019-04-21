@@ -105,4 +105,8 @@ UIController.prototype.doAction = function( event ) {
 	if (crying)
 		$("#cry").click();
 	control.needsUI.updateUI();
+	
+	//dream event occurs at time = 100
+	if (you.dream === null && you.time >= 100)
+		dreamJob(you);
 };

@@ -53,8 +53,6 @@ ProgressbarButton.prototype.create = function( whereput ) {
 };
 
 ProgressbarButton.prototype.bindEvents = function( subject ) {
-	console.log(subject);
-	
 	var thisButton = $(subject.selector);
 
 	$(subject.selector).on("click", {selector: subject.selector}, subject.doAction)

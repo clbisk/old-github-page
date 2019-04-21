@@ -12,7 +12,7 @@ var thisBoi;
  * @class
  */
 function You() {
-	this.time ;
+	this.time;
 	this.hasSkills;
 }
 
@@ -25,11 +25,14 @@ You.prototype.birth = function () {
 	//keep track of this boi for later operations on it
 	thisBoi = this;
 	
-	//when you're just born, you don't have any skills
+	//whether or not skills have yet been acquired
 	this.hasSkills = false;
 	
-	//when you're just born, you haven't been alive for any time
+	//the amount of time this person has been alive for
 	this.time = 0;
+	
+	//this person's aspiration
+	this.dream = null;
 	
 	//initialize needs
 	this.needs = {};
