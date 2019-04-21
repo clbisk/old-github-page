@@ -92,17 +92,17 @@ UIController.prototype.doAction = function( event ) {
 	
 	you.time += action.time;
 	control.skillsUI.updateUI(control.actions, control.actionsOnScreen, control, control.uiConsole);
-	control.needsUI.updateUI();
 	
 	//if your needs get too low you cry
 	var crying = false;
-	for (var need in control.watching.needs) {
-		if (control.watching.needs[need] < 3) {
+	if (you.needs["sleep"] < 5)
+		crying = true;
+	for (var need in you.needs) {
+		if (you.needs[need] < 3) {
 			crying = true;
 		}
 	}
 	if (crying)
 		$("#cry").click();
-//		control.needsUI.callParent( {you: control.watching, uiConsole: control.uiConsole, needsUI: control.needsUI} );
 	control.needsUI.updateUI();
 };

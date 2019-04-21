@@ -59,8 +59,6 @@ SkillsUI.prototype.updateUI = function(actions, actionsOnScreen, uiController, u
 			}
 		}
 	}
-	
-	$("#sidebar #stats").html("time: " + this.watching.time);
 };
 
 /**

@@ -12,7 +12,7 @@ var thisBoi;
  * @class
  */
 function You() {
-	this.time;
+	this.time ;
 	this.hasSkills;
 }
 

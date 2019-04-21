@@ -22,7 +22,7 @@ NeedsUI.prototype.construct = function() {
 	var dreamProgressbarButton = new ProgressbarButton(this.watching, "dream", this.dream, {you: this.watching, needsUI: this}, "sleep", "#needActions", "dream", 1000, ["#actions button"], ["#needResponses .progressbar-button"]);
 	$("#dream").data("ProgressbarButton", dreamProgressbarButton);
 	
-	var cryProgressbarButton = new ProgressbarButton(this.watching, "cry", this.callParent, {you: this.watching, needsUI: this}, "cry", "#needResponses", "cry", 1000, ["#actions button"], ["#needActions .progressbar-button"]);
+	var cryProgressbarButton = new ProgressbarButton(this.watching, "cry", this.callParent, {you: this.watching, needsUI: this}, "cry", "#needResponses", "cry", 2000, ["#actions button"], ["#needActions .progressbar-button"]);
 	$("#cry").data("ProgressbarButton", cryProgressbarButton);
 	
 	//constructing the needs sidebar
@@ -73,6 +73,8 @@ NeedsUI.prototype.updateUI = function() {
 		$("#" + need + "Progressbar").data("Progressbar").setValue(this.watching.needs[need]);
 	}
 	
+	console.log("updating time to: " + this.watching.time);
+	
 	$("#time").html("time: " + this.watching.time);
 };
 
@@ -94,8 +96,6 @@ NeedsUI.prototype.dream = function( args ) {
 		this.watching.uiConsole.log("You slept like a baby. Which is to say for about five minutes, then woke up and went back to screaming.");
 	}
 	args.you.needs["energy"] = 20;
-	
-	args.needsUI.updateUI();
 };
 
 /**
@@ -124,6 +124,4 @@ NeedsUI.prototype.callParent = function( args ) {
 			args.you.needs[key] = 20;
 		}
 	});
-	
-	args.needsUI.updateUI();
 };
