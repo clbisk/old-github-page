@@ -42,10 +42,18 @@ function dreamSelect( you, selected ) {
 	$("#hidableSkillsBar").prepend(`
 		<div id='goal'>
 			<div id='goal-flex'>
-				<div id='goal-text'>Dream: ` + selected.id + `</div>
+				<div id='goal-text'>Aspiration: ` + selected.id + `</div>
 			</div>
 		</div>`
 	);
+	
+	learnTimeHours(you);
+}
+
+function learnTimeHours( you ) {
+	you.trackTimeHours = true;
+	you.day = 0;
+	you.time = 13;
 }
 
 //this is the one where you're chosing your high-school senior

@@ -30,6 +30,8 @@ You.prototype.birth = function () {
 	
 	//the amount of time this person has been alive for
 	this.time = 0;
+	//but you have no concept of time
+	this.trackTimeHours = false;
 	
 	//this person's aspiration
 	this.dream = null;

@@ -88,7 +88,12 @@ NeedsUI.prototype.updateUI = function() {
 		$("#" + need + "Progressbar").data("Progressbar").setValue(this.watching.needs[need]);
 	}
 	
-	$("#time").html("time: " + this.watching.time);
+	if (!this.watching.trackTimeHours)
+		$("#time").html("time: " + this.watching.time);
+	else {
+		this.watching.day += this.watching.time % 24;
+		$("#time").html("time: " + this.watching.time % 24 + ":00");
+	}
 };
 
 /**
