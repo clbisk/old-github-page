@@ -105,6 +105,9 @@ body {
   width: 100%;
   padding-top: 5px;
 }
+#screen #school {
+  padding: 0 300px 0 300px;
+}
 #screen #console {
   display: flex;
   flex-direction: column;

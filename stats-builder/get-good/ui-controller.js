@@ -56,15 +56,21 @@ UIController.prototype.updateUI = function() {
 
 UIController.prototype.goToSchool = function() {
 	console.log("Going to school!");
-	for (const button in ['#actions button']) {
-		$(['#actions button'][button]).button("disable");
-	}
-	for (const button in ['#needActions .progressbar-button']) {
-		$(['#needActions .progressbar-button'][button]).data("ProgressbarButton").disable();
-	}
-	for (const button in ['#needResponses .progressbar-button']) {
-		$(['#needResponses .progressbar-button'][button]).data("ProgressbarButton").disable();
-	}
+	$("#actions").empty();
+	$("#needsButtons").empty();
+	$("#screen").prepend(`<br><br><br>
+		<div id="school">
+			<div class='progressbar-name'>School</div>
+			<div id="schoolProgressbar" class='progressbar'>
+				<div id="schoolProgressbarValue" class='progressbar-value'></div>
+			</div> 
+		</div><br><br><br>
+	`);
+	
+	var selector = "#needs #schoolProgressbar";
+	var schoolProgressbar = new Progressbar(this.watching, "school", "#school", 0, 20, false, false);
+	$("#school").data("Progressbar", schoolProgressbar);
+	schoolProgressbar.setValue(20);
 };
 
 UIController.prototype.doAction = function( event ) {
