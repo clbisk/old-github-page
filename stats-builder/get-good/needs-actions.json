@@ -14,7 +14,7 @@
 		"handlerMethod": "this.dream",
 		"time": 1000,
 		"disablesSkillActions": "['#actions button']",
-		"disablesNeedActions": "['#needResponses . progressbar-button']"
+		"disablesNeedActions": "['#needResponses .progressbar-button']"
 	},
 	
 	"cry": {
@@ -22,7 +22,7 @@
 		"id": "cry",
 		"handlerMethod": "this.callParent",
 		"location": "#needResponses",
-		"time": 1000,
+		"time": 2000,
 		"disablesSkillActions": "['#actions button']",
 		"disablesNeedActions": "['#needActions .progressbar-button']",
 		

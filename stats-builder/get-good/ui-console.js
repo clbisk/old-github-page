@@ -32,7 +32,7 @@ UiConsole.prototype.log = function ( text ) {
 	$("#console").html(`
 		<div> `+ text + `</div>
 	`);
-};
+}; 
 
 /**
  * @name UiConsole.prototype.add
@@ -41,8 +41,8 @@ UiConsole.prototype.log = function ( text ) {
  * @param text
  */
 UiConsole.prototype.add = function ( text ) {
-	this.text += text;
-	$("#console").append(text);
+	this.text += " " + text;
+	$("#console").append("<div>" + text + "</div>");
 };
 
 /**

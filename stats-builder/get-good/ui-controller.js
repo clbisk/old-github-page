@@ -54,6 +54,19 @@ UIController.prototype.updateUI = function() {
  * @param event.data.uiController
  */
 
+UIController.prototype.goToSchool = function() {
+	console.log("Going to school!");
+	for (const button in ['#actions button']) {
+		$(['#actions button'][button]).button("disable");
+	}
+	for (const button in ['#needActions .progressbar-button']) {
+		$(['#needActions .progressbar-button'][button]).data("ProgressbarButton").disable();
+	}
+	for (const button in ['#needResponses .progressbar-button']) {
+		$(['#needResponses .progressbar-button'][button]).data("ProgressbarButton").disable();
+	}
+};
+
 UIController.prototype.doAction = function( event ) {
 	var you = event.data.you;
 	var action = event.data.action;

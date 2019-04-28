@@ -107,6 +107,7 @@ body {
 }
 #screen #console {
   display: flex;
+  flex-direction: column;
   height: 8em;
   background: #f7f7f7;
   margin-top: 10px;

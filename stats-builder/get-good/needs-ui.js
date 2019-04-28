@@ -82,21 +82,39 @@ NeedsUI.prototype.newNeed = function( you, need ) {
  */
 NeedsUI.prototype.updateUI = function() {
 	this.needs = this.watching.needs;
+	var you = this.watching;
 	
 	//construct needs status progressbars
 	for (var need in this.needs) {
 		if (!$("#needs #" + need + "Progressbar").length)
-			this.newNeed(this.watching, need);
+			this.newNeed(you, need);
 		
-		$("#" + need + "Progressbar").data("Progressbar").setValue(this.watching.needs[need]);
+		$("#" + need + "Progressbar").data("Progressbar").setValue(you.needs[need]);
 	}
 	
 	//update the time according to player "knowledge" of time
 	if (!this.watching.trackTimeHours)
-		$("#time").html("time: " + this.watching.time);
+		$("#time").html("time: " + you.time);
 	else {
-		this.watching.day += this.watching.time % 24;
-		$("#time").html("time: " + this.watching.time % 24 + ":00");
+		if (you.time >= 24) {
+			you.day += 1;
+			you.time = this.watching.time - 24;
+			you.schoolToday = true;
+		}
+		
+		$("#time").html("time: " + this.watching.time + ":00");
+		
+		//check if first day of school
+		if (you.firstDayOfSchool) {
+			you.uiConsole.add("Today is your first day of school! School starts at 8:00.");
+		}
+		
+		//check if need to go to school
+		if (you.schoolToday && this.watching.time >= 8) {
+			you.uiController.goToSchool();
+			you.firstDayOfSchool = false;
+			you.schoolToday = false;
+		}
 	}
 	
 	for (var action of this.needsActions) {
@@ -107,8 +125,8 @@ NeedsUI.prototype.updateUI = function() {
 				this.needsOnScreen.push(action);
 				
 				//construct the need actions as a new progressbar button
-				var progressbarButton = new ProgressbarButton(this.watching, action.id, action.handlerMethod, {you: this.watching, needsUI: this},
-							action.text, action.location, action.id, action.time, action.disablesSkillActions, action.disablesNeedActions);
+				var progressbarButton = new ProgressbarButton(this.watching, action.id, eval(action.handlerMethod), {you: this.watching, needsUI: this},
+							action.text, action.location, action.id, action.time, eval(action.disablesSkillActions), eval(action.disablesNeedActions));
 				$('#' + action.id).data("ProgressbarButton", progressbarButton);
 				
 				this.watching.uiConsole.add("You learned how to " + action.name + ".");
@@ -149,8 +167,6 @@ NeedsUI.prototype.removeAction = function( needAction ) {
  * @function
  */
 NeedsUI.prototype.dream = function( args ) {
-	console.log("You had a li'l dream");
-	
 	var toDreamOrNotToDream = Boolean(Math.round(Math.random()));
 	if (toDreamOrNotToDream) {
 //		$("#console").html("You had a dream! It wasn't very memorable.");
@@ -173,8 +189,6 @@ NeedsUI.prototype.dream = function( args ) {
  * @param args.needsUI is the NeedsUI
  */
 NeedsUI.prototype.callParent = function( args ) {
-	console.log("You're crying");
-	
 	//one of the parents rushes over
 	var parent = "mom";
 	if (Math.random() < 0.5) {

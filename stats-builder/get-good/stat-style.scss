@@ -115,6 +115,7 @@ body {
 	
 	#console {
 		display: flex;
+		flex-direction: column;
 		height: 8em;
 		background: $light-gray;
 		margin-top: 10px;

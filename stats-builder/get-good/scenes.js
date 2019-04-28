@@ -53,7 +53,24 @@ function dreamSelect( you, selected ) {
 function learnTimeHours( you ) {
 	you.trackTimeHours = true;
 	you.day = 0;
-	you.time = 13;
+	you.time = 5;
+	
+	const sleepPromise = sleepToChild();
+	sleepPromise.then(function(result) {
+		schoolStart( you );
+	});
+}
+
+function sleepToChild() {
+	return new Promise(function(resolve, reject) {
+		$("#dream").click();
+		resolve("child stage");
+	});
+}
+
+function schoolStart( you ) {
+	you.schoolToday = true;
+	you.firstDayOfSchool = true;
 }
 
 //this is the one where you're chosing your high-school senior
