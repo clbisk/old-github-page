@@ -83,7 +83,7 @@ Progressbar.prototype.getValue = function() {
  * @function
  * @param newValue
  */
-Progressbar.prototype.setValue = function( newValue ) {
+Progressbar.prototype.setValue = function( newValue, speed ) {
 	this.value = newValue;
 	
 	var dataName = this.data;
@@ -128,7 +128,7 @@ Progressbar.prototype.setValue = function( newValue ) {
 			label.html(dataName + " " + curPoints + "/" + this.max);
 		}
 		
-		thisProgressbarElement.children().animate({width: calculatedWidth}, {duration: 100});
+		thisProgressbarElement.children().animate({width: calculatedWidth}, {duration: speed});
 	}
 };
 

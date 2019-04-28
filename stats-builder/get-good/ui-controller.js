@@ -68,9 +68,9 @@ UIController.prototype.goToSchool = function() {
 	`);
 	
 	var selector = "#needs #schoolProgressbar";
-	var schoolProgressbar = new Progressbar(this.watching, "school", "#school", 0, 20, false, false);
+	var schoolProgressbar = new Progressbar(this.watching, "school", "#schoolProgressbar", 0, 20, false, false);
 	$("#school").data("Progressbar", schoolProgressbar);
-	schoolProgressbar.setValue(20);
+	schoolProgressbar.setValue(20, 10000);
 };
 
 UIController.prototype.doAction = function( event ) {
