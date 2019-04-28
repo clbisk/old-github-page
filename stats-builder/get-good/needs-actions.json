@@ -1,0 +1,36 @@
+{
+	"sleep": {
+		"text": "sleep",
+		"id": "dream",
+		"location": "#needActions",
+		
+		"unlockReq": {
+			"field": "this.watching.time",
+			"value": 0
+		},
+
+		"removeReq": null,
+		
+		"handlerMethod": "this.dream",
+		"time": 1000,
+		"disablesSkillActions": "['#actions button']",
+		"disablesNeedActions": "['#needResponses . progressbar-button']"
+	},
+	
+	"cry": {
+		"text": "cry",
+		"id": "cry",
+		"handlerMethod": "this.callParent",
+		"location": "#needResponses",
+		"time": 1000,
+		"disablesSkillActions": "['#actions button']",
+		"disablesNeedActions": "['#needActions .progressbar-button']",
+		
+		"unlockReq": {
+			"field": "this.watching.time",
+			"value": 0
+		},
+		
+		"removeReq": null
+	}
+}

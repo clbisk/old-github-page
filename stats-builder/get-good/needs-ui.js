@@ -1,8 +1,16 @@
 /*eslint-env jquery */
 
-function NeedsUI(you) {
+/**
+ * @name NeedsUI
+ * @description controls the needs progressbar buttons and status progressbars
+ * @param you
+ * @param needsActions
+ */
+function NeedsUI(you, needsActions) {
 	this.watching = you;
 	this.needs = you.needs;
+	this.needsActions = needsActions;
+	this.needsOnScreen = [];
 }
 
 /**
@@ -18,12 +26,6 @@ NeedsUI.prototype.construct = function() {
 		
 		<div id="needResponses"></div>
 	</div>`);
-	
-	var dreamProgressbarButton = new ProgressbarButton(this.watching, "dream", this.dream, {you: this.watching, needsUI: this}, "sleep", "#needActions", "dream", 1000, ["#actions button"], ["#needResponses .progressbar-button"]);
-	$("#dream").data("ProgressbarButton", dreamProgressbarButton);
-	
-	var cryProgressbarButton = new ProgressbarButton(this.watching, "cry", this.callParent, {you: this.watching, needsUI: this}, "cry", "#needResponses", "cry", 2000, ["#actions button"], ["#needActions .progressbar-button"]);
-	$("#cry").data("ProgressbarButton", cryProgressbarButton);
 	
 	//constructing the needs sidebar
 	$("#sidebar").append(`
@@ -81,6 +83,7 @@ NeedsUI.prototype.newNeed = function( you, need ) {
 NeedsUI.prototype.updateUI = function() {
 	this.needs = this.watching.needs;
 	
+	//construct needs status progressbars
 	for (var need in this.needs) {
 		if (!$("#needs #" + need + "Progressbar").length)
 			this.newNeed(this.watching, need);
@@ -88,12 +91,56 @@ NeedsUI.prototype.updateUI = function() {
 		$("#" + need + "Progressbar").data("Progressbar").setValue(this.watching.needs[need]);
 	}
 	
+	//update the time according to player "knowledge" of time
 	if (!this.watching.trackTimeHours)
 		$("#time").html("time: " + this.watching.time);
 	else {
 		this.watching.day += this.watching.time % 24;
 		$("#time").html("time: " + this.watching.time % 24 + ":00");
 	}
+	
+	for (var action of this.needsActions) {
+		//add anything that has add requirement satisfied
+		if (eval(action.unlockReq.field) === action.unlockReq.value) {
+			//if not already found
+			if (!$("#" + action.id).length) {
+				this.needsOnScreen.push(action);
+				
+				//construct the need actions as a new progressbar button
+				var progressbarButton = new ProgressbarButton(this.watching, action.id, action.handlerMethod, {you: this.watching, needsUI: this},
+							action.text, action.location, action.id, action.time, action.disablesSkillActions, action.disablesNeedActions);
+				$('#' + action.id).data("ProgressbarButton", progressbarButton);
+				
+				this.watching.uiConsole.add("You learned how to " + action.name + ".");
+				
+				$("#" + action.id).effect("highlight", "slow");
+			}
+		}
+	}
+	
+	for (var needOnScreen of this.needsOnScreen) {
+		//remove anything that has remove requirement satisfied
+		if (needOnScreen.removeReq) {	//not all needs actions have a removeReq
+			if (eval(needOnScreen.removeReq.field) === needOnScreen.removeReq.value) {
+				this.removeAction(needOnScreen);
+			}
+		}
+	}
+};
+
+/**
+ * @name removeAction
+ * @description removes a clickable action from the UI when redundant
+ * @param you
+ * @param needAction - need action to be removed
+ */
+NeedsUI.prototype.removeAction = function( needAction ) {
+	$("#" + needAction.name).effect("fade", "slow").promise().done(function() {
+		$("#" + needAction.name).remove();
+	});
+	
+	var loc = this.needsOnScreen.indexOf(needAction);
+	this.needsOnScreen.splice(loc, 1);
 };
 
 /**
