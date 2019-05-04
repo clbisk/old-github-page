@@ -58,13 +58,14 @@ UIController.prototype.goToSchool = function() {
 	this.uiConsole.log("Time for school.");
 	$("#actions").empty();
 	$("#needsButtons").empty();
-	$("#screen").prepend(`<br><br><br>
+	$("#screen").prepend(`
 		<div id="school">
+			<br><br><br>
 			<div class='progressbar-name'>School</div>
 			<div id="schoolProgressbar" class='progressbar'>
 				<div id="schoolProgressbarValue" class='progressbar-value'></div>
 			</div> 
-		</div><br><br><br>
+		<br><br><br></div>
 	`);
 	
 	var selector = "#needs #schoolProgressbar";
@@ -75,7 +76,6 @@ UIController.prototype.goToSchool = function() {
 	var schoolEvent = window.setInterval(this.childSchoolEvent, 2000, this.uiConsole);
 	const valSetPromise = schoolProgressbar.setValuePromiseDone(20, 10000);
 	valSetPromise.then(function(result) {
-		console.log("Progress set");
 		uiConsole.comeHomeFromSchool(uiConsole, schoolEvent);
 	});
 };
@@ -107,6 +107,8 @@ UIController.prototype.childSchoolEvent = function( uiConsole ) {
 };
 
 UIController.prototype.comeHomeFromSchool = function( uiConsole, eventTimer ) {
+	$("#school").empty();
+	//replace all the actions in actionsOnScreen to the #actions div
 	uiConsole.skillsUI.updateUI(uiConsole.actions, uiConsole.actionsOnScreen, uiConsole, uiConsole.uiConsole);
 	uiConsole.needsUI.updateUI();
 	window.clearInterval(eventTimer);

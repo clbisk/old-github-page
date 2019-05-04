@@ -15,6 +15,7 @@
  * @param disablesProgressbarButton - a list of selectors for other progressbar buttons this progressbar button disables
  */
 function ProgressbarButton( you, action, actionMethod, actionMethodArgs, text, whereput, id, time, disablesButton, disablesProgressbarButton ) {
+	this.whereput = whereput;
 	this.watching = you;
 	this.action = action;
 	this.actionMethod = actionMethod;
