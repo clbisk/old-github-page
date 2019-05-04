@@ -34,7 +34,6 @@ function Progressbar( you, data, selector, value, max, hasLevels, hasLabel ) {
 		$(selector).on("mouseenter", {progressbar: this}, this.showValue);
 		$(selector).on("mouseleave", {progressbar: this}, this.hideValue);
 	}
-	
 }
 
 /**
@@ -82,6 +81,7 @@ Progressbar.prototype.getValue = function() {
  * @name Progressbar.prototype.setValue
  * @function
  * @param newValue
+ * @returns a promise that resolves when the progressbar has filled to the specified newValue
  */
 Progressbar.prototype.setValue = function( newValue, speed ) {
 	this.value = newValue;
@@ -131,6 +131,70 @@ Progressbar.prototype.setValue = function( newValue, speed ) {
 		thisProgressbarElement.children().animate({width: calculatedWidth}, {duration: speed});
 	}
 };
+
+/**
+ * @name Progressbar.prototype.setValuePromiseDone
+ * @function
+ * @param newValue
+ * @returns a promise that resolves when the progressbar has been visually set to the specified newValue
+ */
+Progressbar.prototype.setValuePromiseDone = function( newValue, speed ) {
+	var thisBar = this;
+	
+	return new Promise(function(resolve, reject) {
+		thisBar.value = newValue;
+		
+		var dataName = thisBar.data;
+		var thisProgressbarElement = $(thisBar.selector);	
+		var curPoints = thisBar.value;
+		var maxWidth = thisProgressbarElement.width();
+		var calculatedWidth;
+		if (thisBar.hasLabel)
+			var label =  $("#" + dataName + "ProgressbarLabel");
+	
+		if (thisBar.hasLevels) {
+			var curLevel = levelOf(thisBar.watching[dataName]);
+			
+			//points between previous level and next level
+			var pointsOverPrevLevel = curPoints - pointsAtLevel(curLevel);
+			//points needed to get next level (max for the progressbar)
+			var pointsToNextLevel = pointsAtLevel(curLevel+1) - pointsAtLevel(curLevel);
+			calculatedWidth = (pointsOverPrevLevel / pointsToNextLevel) * maxWidth;
+			
+			if (thisBar.hasLabel) {
+				label.html(dataName + " " + pointsOverPrevLevel + "/" + pointsToNextLevel);
+			}
+			
+			var duration;
+			if (curLevel < 1)
+				duration = 'slow';
+			else if (curLevel < 2)
+				duration = 'medium';
+			else
+				duration = 'fast';
+			
+			//if a new level was just reached, needs to show bar being filled before resetting
+			if (pointsOverPrevLevel === 0 || thisBar.level !== curLevel) {
+				thisBar.levelUp();
+			}
+			
+			thisProgressbarElement.children().animate({width: calculatedWidth}, {duration: duration});
+		} else {
+			calculatedWidth = (curPoints / thisBar.max) * maxWidth;
+			
+			if (thisBar.hasLabel) {
+				label.html(dataName + " " + curPoints + "/" + thisBar.max);
+			}
+			
+			var progressbarInside = $(thisBar.selector + " div");
+			progressbarInside.animate({width: calculatedWidth}, {duration: speed, complete: function() {
+					resolve();
+				}
+			});
+		}
+	});
+};
+
 
 /**
  * @name Progressbar.prototype.incValue

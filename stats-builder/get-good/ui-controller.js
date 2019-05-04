@@ -40,7 +40,7 @@ UIController.prototype.needsClickResponse = function( event ) {
 };
 
 UIController.prototype.updateUI = function() {
-	this.skillsUI.updateUI(this.actions, this.actionsOnScreen, this.needsUI, this.uiConsole);
+	this.skillsUI.updateUI(this.actions, this.actionsOnScreen, this, this.uiConsole);
 	this.needsUI.updateUI();
 };
 
@@ -55,7 +55,7 @@ UIController.prototype.updateUI = function() {
  */
 
 UIController.prototype.goToSchool = function() {
-	console.log("Going to school!");
+	this.uiConsole.log("Time for school.");
 	$("#actions").empty();
 	$("#needsButtons").empty();
 	$("#screen").prepend(`<br><br><br>
@@ -70,35 +70,46 @@ UIController.prototype.goToSchool = function() {
 	var selector = "#needs #schoolProgressbar";
 	var schoolProgressbar = new Progressbar(this.watching, "school", "#schoolProgressbar", 0, 20, false, false);
 	$("#school").data("Progressbar", schoolProgressbar);
-	window.setInterval(this.childSchoolEvent, 20000);
-	schoolProgressbar.setValue(20, 10000);
-	//promise when done: refresh needsUI; refresh skillsUI; clearInterval
+	
+	var uiConsole = this;
+	var schoolEvent = window.setInterval(this.childSchoolEvent, 2000, this.uiConsole);
+	const valSetPromise = schoolProgressbar.setValuePromiseDone(20, 10000);
+	valSetPromise.then(function(result) {
+		console.log("Progress set");
+		uiConsole.comeHomeFromSchool(uiConsole, schoolEvent);
+	});
 };
 
-UIController.prototype.childSchoolEvent = function() {
-	if (Math.random() < 0.25) {
+UIController.prototype.childSchoolEvent = function( uiConsole ) {
+	if (Math.random() < 0.4) {
 		var event = Math.random();
 		if (event < 0.1)
-			this.uiConsole.log("Jasmine gets the desk behind yours.");
+			uiConsole.log("Jasmine gets the desk behind yours.");
 		else if (event < 0.2)
-			this.uiConsole.log("Jasmine trades snacks with you.");
+			uiConsole.log("Jasmine trades snacks with you.");
 		else if (event < 0.3)
-			this.uiConsole.log("Jasmine steals some goldfish from your lunch tray.");
+			uiConsole.log("Jasmine steals some goldfish from your lunch tray.");
 		else if (event < 0.4)
-			this.uiConsole.log("You play tag with Jasmine at recess.");
+			uiConsole.log("You play tag with Jasmine at recess.");
 		else if (event < 0.5)
-			this.uiConsole.log("Jasmine keeps looking at you instead of the teacher during story time.");
+			uiConsole.log("Jasmine keeps looking at you instead of the teacher during story time.");
 		else if (event < 0.6)
-			this.uiConsole.log("Jasmine's braid gets caught in her chair again.");
+			uiConsole.log("Jasmine's braid gets caught in her chair again.");
 		else if (event < 0.7)
-			this.uiConsole.log("Jasmine is the best in the class at math.");
+			uiConsole.log("Jasmine is the best in the class at math.");
 		else if (event < 0.8)
-			this.uiConsole.log("Jasmine keeps distracting you while the teacher is talking.");
+			uiConsole.log("Jasmine keeps distracting you while the teacher is talking.");
 		else if (event < 0.9)
-			this.uiConsole.log("You stare out the window.");
+			uiConsole.log("You stare out the window.");
 		else
-			this.uiConsole.log("You do arts and crafts.");
+			uiConsole.log("You do arts and crafts.");
 	}
+};
+
+UIController.prototype.comeHomeFromSchool = function( uiConsole, eventTimer ) {
+	uiConsole.skillsUI.updateUI(uiConsole.actions, uiConsole.actionsOnScreen, uiConsole, uiConsole.uiConsole);
+	uiConsole.needsUI.updateUI();
+	window.clearInterval(eventTimer);
 };
 
 UIController.prototype.doAction = function( event ) {
