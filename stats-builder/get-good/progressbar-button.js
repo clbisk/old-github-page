@@ -45,7 +45,7 @@ ProgressbarButton.prototype.create = function() {
 			</div>`
 		);
 
-		var created = document.getElementById(thisButton.id);		
+		var created = $(thisButton.id);		
 		if (created !== null)
 			resolve(thisButton);
 		else

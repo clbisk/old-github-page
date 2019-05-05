@@ -1,7 +1,7 @@
 {
-	"sleep": {
+	"sleepBaby": {
 		"text": "sleep",
-		"id": "dream",
+		"id": "dreamBaby",
 		"location": "#needActions",
 		
 		"unlockReq": {
@@ -9,10 +9,31 @@
 			"value": 0
 		},
 
+		"removeReq": {
+			"field": "this.watching.stage",
+			"value": "child"
+		},
+		
+		"handlerMethod": "this.dreamBaby",
+		"time": 1000,
+		"disablesSkillActions": "['#actions button']",
+		"disablesNeedActions": "['#needResponses .progressbar-button']"
+	},
+	
+	"sleepChild": {
+		"text": "sleep",
+		"id": "dreamChild",
+		"location": "#needActions",
+		
+		"unlockReq": {
+			"field": "this.watching.stage",
+			"value": "child"
+		},
+
 		"removeReq": null,
 		
-		"handlerMethod": "this.dream",
-		"time": 1000,
+		"handlerMethod": "this.dreamChild",
+		"time": 8000,
 		"disablesSkillActions": "['#actions button']",
 		"disablesNeedActions": "['#needResponses .progressbar-button']"
 	},

@@ -25,6 +25,9 @@ You.prototype.birth = function () {
 	//keep track of this boi for later operations on it
 	thisBoi = this;
 	
+	//the current stage of life
+	this.stage = "baby";
+	
 	//whether or not skills have yet been acquired
 	this.hasSkills = false;
 	

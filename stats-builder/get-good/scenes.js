@@ -63,7 +63,7 @@ function learnTimeHours( you ) {
 
 function sleepToChild() {
 	return new Promise(function(resolve, reject) {
-		$("#dream").click();
+		$("#dreamBaby").click();
 		resolve("child stage");
 	});
 }
@@ -71,6 +71,7 @@ function sleepToChild() {
 function schoolStart( you ) {
 	you.schoolToday = true;
 	you.firstDayOfSchool = true;
+	you.stage = "child";
 }
 
 //this is the one where you're chosing your high-school senior

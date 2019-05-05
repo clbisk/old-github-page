@@ -190,5 +190,5 @@ UIController.prototype.doAction = function( event ) {
 	
 	//dream event occurs at time = 100
 	if (you.dream === null && you.time >= 100)
-		dreamJob(you);
+		dreamJob(you);		
 };

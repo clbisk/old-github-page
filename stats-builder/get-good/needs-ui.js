@@ -171,8 +171,8 @@ NeedsUI.prototype.replaceNeedsOnScreen = function() {
  * @param needAction - need action to be removed
  */
 NeedsUI.prototype.removeAction = function( needAction ) {
-	$("#" + needAction.name).effect("fade", "slow").promise().done(function() {
-		$("#" + needAction.name).remove();
+	$("#" + needAction.id).effect("fade", "slow").promise().done(function() {
+		$("#" + needAction.id).remove();
 	});
 	
 	var loc = this.needsOnScreen.indexOf(needAction);
@@ -180,19 +180,33 @@ NeedsUI.prototype.removeAction = function( needAction ) {
 };
 
 /**
- * @name dream
- * @description when you sleep you might dream!
+ * @name dreamBaby
+ * @description when you sleep as a baby you might dream!
  * @function
  */
-NeedsUI.prototype.dream = function( args ) {
+NeedsUI.prototype.dreamBaby = function( args ) {
 	var toDreamOrNotToDream = Boolean(Math.round(Math.random()));
 	if (toDreamOrNotToDream) {
-//		$("#console").html("You had a dream! It wasn't very memorable.");
 		this.watching.uiConsole.log("You had a dream! It wasn't very memorable.");
 		args.you.incSkill("imagination", 1);
 	} else {
-//		$("#console").html("You slept like a baby. Which is to say for about five minutes, then woke up and went back to screaming.");
 		this.watching.uiConsole.log("You slept like a baby. Which is to say for about five minutes, then woke up and went back to screaming.");
+	}
+	args.you.needs["energy"] = 20;
+};
+
+/**
+ * @name dreamChild
+ * @description when you sleep as a child you might dream!
+ * @function
+ */
+NeedsUI.prototype.dreamChild = function( args ) {
+	var toDreamOrNotToDream = Boolean(Math.round(Math.random()));
+	if (toDreamOrNotToDream) {
+		this.watching.uiConsole.log("You had a dream! It wasn't very memorable.");
+		args.you.incSkill("imagination", 1);
+	} else {
+		this.watching.uiConsole.log("You slept well.");
 	}
 	args.you.needs["energy"] = 20;
 };
@@ -217,7 +231,7 @@ NeedsUI.prototype.callParent = function( args ) {
 	//if you're in need of something
 	$.each( args.you.needs, function(key, value) {
 		if (value < 10) {
-			args.you.uiConsole.add( "<br>" + parent + ` saw that you were low on ` + key + ".");
+			args.you.uiConsole.add( parent + ` saw that you were low on ` + key + ".");
 			args.you.needs[key] = 20;
 		}
 	});
