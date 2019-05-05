@@ -156,11 +156,14 @@ NeedsUI.prototype.replaceNeedsOnScreen = function() {
 		<div id="needActions"></div>
 		<div id="needResponses"></div>
 	`);
+	
 	for (var needKey in this.needsOnScreen) {
 		var needsAction = this.needsOnScreen[needKey];
-		var progressbarButton = new ProgressbarButton(this.watching, needsAction.id, eval(needsAction.handlerMethod), {you: this.watching, needsUI: this},
-					needsAction.text, needsAction.location, needsAction.id, needsAction.time, eval(needsAction.disablesSkillActions), eval(needsAction.disablesNeedActions));
-		$('#' + needsAction.id).data("ProgressbarButton", progressbarButton);
+		if (!$("#" + needsAction.id).length) {
+			var progressbarButton = new ProgressbarButton(this.watching, needsAction.id, eval(needsAction.handlerMethod), {you: this.watching, needsUI: this},
+						needsAction.text, needsAction.location, needsAction.id, needsAction.time, eval(needsAction.disablesSkillActions), eval(needsAction.disablesNeedActions));
+			$('#' + needsAction.id).data("ProgressbarButton", progressbarButton);
+		}
 	}
 };
 
