@@ -7,6 +7,12 @@ $(document).ready(function() {
 	var actionsOnScreen = [];
 	
 	/**
+	 * @name needsOnScreen
+	 * @description array holding all of the actions that are currently clickable
+	 */
+	var needsOnScreen = [];
+	
+	/**
 	 * @name actions
 	 * @description array holding all of the actions in the game
 	 */
@@ -24,7 +30,7 @@ $(document).ready(function() {
 	var b = readNeedsActions()
 		.then((needsResponse) => {storeNeedsActions(needsResponse, needsActions);});
 		
-	Promise.all([a, b]).then(() => {startup(needsActions, actions, actionsOnScreen);})
+	Promise.all([a, b]).then(() => {startup(needsActions, actions, actionsOnScreen, needsOnScreen);})
 		.catch((failure) => {console.log("failed with status " + failure);});
 });
 
@@ -112,7 +118,7 @@ function storeNeedsActions(response, needsActions) {
  * @param actions
  * @param actionsOnScreen
  */
-function startup(needsActions, actions, actionsOnScreen) {
+function startup(needsActions, actions, actionsOnScreen, needsOnScreen) {
 	//bind general event listener to selectors and buttons
 	$('#screen').on('selectmenuchange', '.selector', menuchange);
 	$('#screen').on('click', '.reset', reset);
@@ -121,10 +127,10 @@ function startup(needsActions, actions, actionsOnScreen) {
 	var you = new You();
 	var uiConsole = new UiConsole(you);
 	var skillsUI = new SkillsUI(you, actions, actionsOnScreen);
-	var needsUI = new NeedsUI(you, needsActions);
+	var needsUI = new NeedsUI(you, needsActions, needsOnScreen);
 	
 	//your character is born!!
 	you.birth();
-	var uiController = new UIController(you, uiConsole, needsUI, skillsUI, actions, actionsOnScreen);
+	var uiController = new UIController(you, uiConsole, needsUI, skillsUI, actions, actionsOnScreen, needsOnScreen);
 	//uiController.updateUI();
 }

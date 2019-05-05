@@ -8,14 +8,16 @@
  * @param skillsUI
  * @param actions
  * @param actionsOnScreen
+ * @param needsOnScreen
  */
-function UIController(you, uiConsole, needsUI, skillsUI, actions, actionsOnScreen) {
+function UIController(you, uiConsole, needsUI, skillsUI, actions, actionsOnScreen, needsOnScreen) {
 	this.watching = you;
 	this.uiConsole = uiConsole;
 	this.skillsUI = skillsUI;
 	this.needsUI = needsUI;
 	this.actions = actions;
 	this.actionsOnScreen = actionsOnScreen;
+	this.needsOnScreen = needsOnScreen;
 	
 	uiConsole.uiController = this;
 	needsUI.uiController = this;
@@ -72,11 +74,11 @@ UIController.prototype.goToSchool = function() {
 	var schoolProgressbar = new Progressbar(this.watching, "school", "#schoolProgressbar", 0, 20, false, false);
 	$("#school").data("Progressbar", schoolProgressbar);
 	
-	var uiConsole = this;
+	var uiController = this;
 	var schoolEvent = window.setInterval(this.childSchoolEvent, 2000, this.uiConsole);
 	const valSetPromise = schoolProgressbar.setValuePromiseDone(20, 10000);
 	valSetPromise.then(function(result) {
-		uiConsole.comeHomeFromSchool(uiConsole, schoolEvent);
+		uiController.comeHomeFromSchool(uiController, schoolEvent);
 	});
 };
 
@@ -106,11 +108,39 @@ UIController.prototype.childSchoolEvent = function( uiConsole ) {
 	}
 };
 
-UIController.prototype.comeHomeFromSchool = function( uiConsole, eventTimer ) {
+UIController.prototype.comeHomeFromSchool = function( uiController, eventTimer ) {
 	$("#school").empty();
+	
 	//replace all the actions in actionsOnScreen to the #actions div
-	uiConsole.skillsUI.updateUI(uiConsole.actions, uiConsole.actionsOnScreen, uiConsole, uiConsole.uiConsole);
-	uiConsole.needsUI.updateUI();
+	for (var actionKey in uiController.actionsOnScreen) {
+		var action = uiController.actionsOnScreen[actionKey];
+		var nameID = action.name.replace(/\s/g, '');
+		$("#actions").append(`
+			<button id='` + nameID + `'>` + action.name + `</button>
+		`);
+		
+		$("#" + nameID).button();
+		$("#" + nameID).data(action);
+		$("#" + nameID).on("click", {you: uiController.watching, uiController: uiController,  action: action}, uiController.doAction);
+		$("#" + nameID).on("mouseenter", {you: uiController.watching, action: action, caller: "#" + nameID}, uiController.skillsUI.showSkillStats);
+		$("#" + nameID).on("click", {you: uiController.watching, action: action}, uiController.skillsUI.refreshSkillStats);
+		$("#" + nameID).on("mouseleave", {action: action}, uiController.skillsUI.hideSkillStats);
+	}
+	
+	//replace the needsUI actions
+	$("#needsButtons").append(`
+		<div id="needActions"></div>
+		<div id="needResponses"></div>
+	`);
+	for (var needKey in uiController.needsOnScreen) {
+		var needsAction = uiController.needsOnScreen[needKey];
+		var progressbarButton = new ProgressbarButton(uiController.watching, needsAction.id, eval(action.handlerMethod), {you: uiController.watching, needsUI: uiController.needsUI},
+					needsAction.text, needsAction.location, needsAction.id, needsAction.time, eval(needsAction.disablesSkillActions), eval(needsAction.disablesNeedActions));
+		$('#' + needsAction.id).data("ProgressbarButton", progressbarButton);
+	}
+	
+	uiController.skillsUI.updateUI(uiController.actions, uiController.actionsOnScreen, uiController, uiController.uiConsole);
+	uiController.needsUI.updateUI();
 	window.clearInterval(eventTimer);
 };
 

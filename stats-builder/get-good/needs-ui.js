@@ -6,11 +6,11 @@
  * @param you
  * @param needsActions
  */
-function NeedsUI(you, needsActions) {
+function NeedsUI(you, needsActions, needsOnScreen) {
 	this.watching = you;
 	this.needs = you.needs;
 	this.needsActions = needsActions;
-	this.needsOnScreen = [];
+	this.needsOnScreen = needsOnScreen;
 }
 
 /**

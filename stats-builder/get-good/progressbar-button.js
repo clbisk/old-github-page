@@ -34,11 +34,11 @@ function ProgressbarButton( you, action, actionMethod, actionMethodArgs, text, w
 	});
 }
 
-ProgressbarButton.prototype.create = function( whereput ) {
+ProgressbarButton.prototype.create = function() {
 	var thisButton = this;
 	
 	return new Promise(function(resolve, reject) {
-		$(whereput).append(
+		$(thisButton.whereput).append(
 			`<div class='progressbar-button' id='` + thisButton.id + `'>
 				<div class='progressbar-button-text'>` + thisButton.text + `</div>
 				<div class='progressbar-button-value'></div>
