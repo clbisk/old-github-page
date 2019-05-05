@@ -110,6 +110,7 @@ UIController.prototype.childSchoolEvent = function( uiConsole ) {
 
 UIController.prototype.comeHomeFromSchool = function( uiController, eventTimer ) {
 	$("#school").empty();
+	uiController.watching.time += 7;
 	
 	//replace all the actions in actionsOnScreen to the #actions div
 	for (var actionKey in uiController.actionsOnScreen) {

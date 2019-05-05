@@ -53,23 +53,6 @@ You.prototype.birth = function () {
 };
 
 /**
- * @name You.prototype.growToChild
- * @description starts the REAL GAME
- * @function
- * @returns returns
- */
-You.prototype.growToChild = function() {
-	//initialize new skills at random levels
-	this.active = pointsAtLevel(Math.round((Math.random() * 2) + 1));
-	if (this.logic === undefined)
-		this.logic = pointsAtLevel(Math.round((Math.random() * 2) + 1));
-		
-	//transfer baby skills to their grown-up versions
-	this.creativity = this.imagniation;
-	this.active += this.coordination;
-};
-
-/**
  * @name You.prototype.incSkill
  * @description get better at a skill
  * @function

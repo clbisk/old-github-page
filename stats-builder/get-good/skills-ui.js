@@ -45,7 +45,7 @@ SkillsUI.prototype.updateUI = function(actions, actionsOnScreen, uiController, u
 				$("#" + nameID).on("mouseleave", {action: action}, this.hideSkillStats);
 				
 				uiConsole.add("You learned how to " + action.name + ".");
-				
+			
 				$("#" + nameID).effect("highlight", "slow");
 			}
 		}

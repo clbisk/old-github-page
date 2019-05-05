@@ -129,7 +129,7 @@ NeedsUI.prototype.updateUI = function() {
 							action.text, action.location, action.id, action.time, eval(action.disablesSkillActions), eval(action.disablesNeedActions));
 				$('#' + action.id).data("ProgressbarButton", progressbarButton);
 				
-				this.watching.uiConsole.add("You learned how to " + action.name + ".");
+//				this.watching.uiConsole.add("You learned how to " + action.text + ".");
 				
 				$("#" + action.id).effect("highlight", "slow");
 			}
