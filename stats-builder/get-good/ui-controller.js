@@ -128,16 +128,7 @@ UIController.prototype.comeHomeFromSchool = function( uiController, eventTimer )
 	}
 	
 	//replace the needsUI actions
-	$("#needsButtons").append(`
-		<div id="needActions"></div>
-		<div id="needResponses"></div>
-	`);
-	for (var needKey in uiController.needsOnScreen) {
-		var needsAction = uiController.needsOnScreen[needKey];
-		var progressbarButton = new ProgressbarButton(uiController.watching, needsAction.id, eval(action.handlerMethod), {you: uiController.watching, needsUI: uiController.needsUI},
-					needsAction.text, needsAction.location, needsAction.id, needsAction.time, eval(needsAction.disablesSkillActions), eval(needsAction.disablesNeedActions));
-		$('#' + needsAction.id).data("ProgressbarButton", progressbarButton);
-	}
+	uiController.needsUI.replaceNeedsOnScreen();
 	
 	uiController.skillsUI.updateUI(uiController.actions, uiController.actionsOnScreen, uiController, uiController.uiConsole);
 	uiController.needsUI.updateUI();

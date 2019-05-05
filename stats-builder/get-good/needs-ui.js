@@ -147,6 +147,24 @@ NeedsUI.prototype.updateUI = function() {
 };
 
 /**
+ * @name NeedsUI.prototype.replaceNeedsOnScreen
+ * @description repopulates #actions with all the needs buttons that are in needsOnScreen
+ * @function
+ */
+NeedsUI.prototype.replaceNeedsOnScreen = function() {
+	$("#needsButtons").append(`
+		<div id="needActions"></div>
+		<div id="needResponses"></div>
+	`);
+	for (var needKey in this.needsOnScreen) {
+		var needsAction = this.needsOnScreen[needKey];
+		var progressbarButton = new ProgressbarButton(this.watching, needsAction.id, eval(needsAction.handlerMethod), {you: this.watching, needsUI: this},
+					needsAction.text, needsAction.location, needsAction.id, needsAction.time, eval(needsAction.disablesSkillActions), eval(needsAction.disablesNeedActions));
+		$('#' + needsAction.id).data("ProgressbarButton", progressbarButton);
+	}
+};
+
+/**
  * @name removeAction
  * @description removes a clickable action from the UI when redundant
  * @param you
