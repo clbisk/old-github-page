@@ -5,12 +5,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { AppComponent } from './app.component';
 import { PuzzleSizeSelectorComponent } from './puzzle-size-selector/puzzle-size-selector.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { PuzzleViewComponent } from './puzzle-view/puzzle-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PuzzleSizeSelectorComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    PuzzleViewComponent
   ],
   imports: [
     BrowserModule,

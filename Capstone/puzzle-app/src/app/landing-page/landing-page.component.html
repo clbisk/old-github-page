@@ -1,0 +1,33 @@
+<h1>The Infinite Puzzle Generator</h1>
+<div class="body">
+    <div>
+        <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+            <li [ngbNavItem]="'Hitori'">
+                <a ngbNavLink>Hitori</a>
+            </li>
+            <li [ngbNavItem]="'Heyawake'">
+                <a ngbNavLink>Heyawake</a>
+            </li>
+        </ul>
+
+        <div ngbNavContent class="mt-2 tab-content">
+            <div class="left">
+                <h3>{{active}} rules:</h3>
+                <ol *ngIf="active === 'Hitori'">
+                    <li>There is only one of each number left in a row, the rest are blacked out</li>
+                    <li>Blacked out squares cannot touch each other vertically or horizontally, but they can be diagonal</li>
+                    <li>All white squares form a contiguous area, forming a path that can get to each other white square by a series of horizontal or vertical steps (diagonally does not count)</li>
+                </ol>
+                <ol *ngIf="active === 'Heyawake'">
+                    <li>The numbers in some outlined areas indicate how many squares are painted; if there is no number, there may be any number of painted squares, including zero</li>
+                    <li>Painted squares cannot touch each other vertically or horizontally, but they can be diagonal</li>
+                    <li>All white squares form a contiguous area, forming a path that can get to each other white square by a series of horizontal or vertical steps (diagonally does not count)</li>
+                    <li>A line of white squares, running either horizontally or vertically, may not span more than two outlined areas</li>
+                </ol>
+            </div>
+            <div class="right">
+                <app-puzzle-size-selector [puzzleType]="active"></app-puzzle-size-selector>
+            </div>
+        </div>
+    </div>
+</div>
