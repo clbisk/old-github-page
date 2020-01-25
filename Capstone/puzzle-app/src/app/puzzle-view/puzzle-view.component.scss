@@ -1,3 +1,9 @@
 h1, h3 {
     text-align: center;
 }
+
+.title-with-help {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
