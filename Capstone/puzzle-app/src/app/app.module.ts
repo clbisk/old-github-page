@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { PuzzleSizeSelectorComponent } from './puzzle-size-selector/puzzle-size-selector.component';
 import { PuzzleViewComponent } from './puzzle-view/puzzle-view.component';
+import { IdPipePipe } from './puzzle-view/id-pipe.pipe';
 
 const appRoutes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -17,7 +18,8 @@ const appRoutes: Routes = [
     AppComponent,
     PuzzleSizeSelectorComponent,
     LandingPageComponent,
-    PuzzleViewComponent
+    PuzzleViewComponent,
+    IdPipePipe
   ],
   imports: [
     BrowserModule,
