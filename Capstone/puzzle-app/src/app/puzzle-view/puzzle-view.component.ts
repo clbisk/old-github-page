@@ -20,6 +20,7 @@ export class PuzzleViewComponent implements OnInit {
     this.userRating = 0;
     this.userDifficultyRating = 0;
 
+    //get the route params (from url)
     this.routeSubscription = this.route.params.subscribe(params => {
       this.puzzleType = params['puzzle-type'];
       this.id = +params['id']
