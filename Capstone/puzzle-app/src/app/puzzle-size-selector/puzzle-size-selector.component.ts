@@ -28,10 +28,6 @@ export class PuzzleSizeSelectorComponent implements OnInit {
   selectSize(size: string) {
     this.selectedSize = size;
   }
-
-  getPuzzle() {
-    console.error("not implemented yet");
-  }
 }
 
 const puzzleSizes = {

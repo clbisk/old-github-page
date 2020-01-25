@@ -27,7 +27,7 @@ a {
 
     .left {
         width: 60%;
-        border-right: thin solid rgba(0,0,0,.125);
+        border-right: thin solid $theme-light-gray;
         padding-right: 20px;
     }
     .right {

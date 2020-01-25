@@ -1,11 +1,12 @@
 <h2>Try a {{puzzleType}} puzzle</h2>
 
 <div class="btn-group mr-3">
-    <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
-      <button class="btn btn-outline-primary" ngbDropdownToggle>{{selectedSize}}</button>
-      <div class="dropdown-menu" ngbDropdownMenu>
-        <button *ngFor="let size of puzzleSizes[puzzleType]" (click)="selectSize(size)" ngbDropdownItem>{{size}}</button>
-      </div>
+  <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+    <button class="btn btn-outline-primary" ngbDropdownToggle>{{selectedSize}}</button>
+    <div class="dropdown-menu" ngbDropdownMenu>
+      <button *ngFor="let size of puzzleSizes[puzzleType]" (click)="selectSize(size)" ngbDropdownItem>{{size}}</button>
     </div>
-    <button type="button" class="btn btn-outline-success" [disabled]="selectedSize === 'Select Size'" (click)="getPuzzle()">Get Puzzle!</button>
+  </div>
+  <button type="button" class="btn btn-outline-success" [disabled]="selectedSize === 'Select Size'"
+    routerLink="/puzzle/{{puzzleType}}/000000" routerLinkActive="active">Get Puzzle!</button>
 </div>
