@@ -1,5 +1,6 @@
 $info-blue: rgb(38, 97, 97);
 $theme-light-gray: rgba(0,0,0,.125);
+$theme-border: thin solid $theme-light-gray;
 
 h1, h3 {
     text-align: center;
@@ -19,6 +20,12 @@ h1, h3 {
     ngb-rating {
         width: fit-content;
     }
+}
+
+.puzzle-frame {
+    margin: 20px 60px 20px 60px;
+    border: $theme-border;
+    height: 600px;
 }
 
 .fa-question-circle {

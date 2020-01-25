@@ -1,4 +1,5 @@
 $theme-light-gray: rgba(0,0,0,.125);
+$theme-border: thin solid $theme-light-gray;
 
 h1 {
     font-size: 60;
@@ -27,7 +28,7 @@ a {
 
     .left {
         width: 60%;
-        border-right: thin solid $theme-light-gray;
+        border-right: $theme-border;
         padding-right: 20px;
     }
     .right {
