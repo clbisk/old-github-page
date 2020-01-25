@@ -7,3 +7,10 @@ $theme-border: thin solid $theme-light-gray;
     flex-direction: row;
     justify-content: center;
 }
+
+.vertically-centered {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
