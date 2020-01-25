@@ -7,5 +7,5 @@
         <button *ngFor="let size of puzzleSizes[puzzleType]" (click)="selectSize(size)" ngbDropdownItem>{{size}}</button>
       </div>
     </div>
-    <button type="button" class="btn btn-outline-success" (click)="getPuzzle()">Get Puzzle!</button>
+    <button type="button" class="btn btn-outline-success" [disabled]="selectedSize === 'Select Size'" (click)="getPuzzle()">Get Puzzle!</button>
 </div>

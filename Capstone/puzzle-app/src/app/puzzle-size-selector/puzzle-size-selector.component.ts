@@ -29,7 +29,7 @@ export class PuzzleSizeSelectorComponent implements OnInit {
     this.selectedSize = size;
   }
 
-  getPuzzles() {
+  getPuzzle() {
     console.error("not implemented yet");
   }
 }
