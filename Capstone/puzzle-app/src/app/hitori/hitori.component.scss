@@ -1,3 +1,18 @@
 $info-blue: rgb(38, 97, 97);
 $theme-light-gray: rgba(0,0,0,.125);
 $theme-border: thin solid $theme-light-gray;
+$puzzle-border: 2px solid black;
+
+.puzzle-cell {
+    width: 50px;
+    height: 50px;
+    border: $puzzle-border;
+
+    div {
+        font-size: 40px;
+    }
+}
+
+.puzzle {
+    border: $puzzle-border; //makes the appearance of the border consistent for the outer boxes
+}
