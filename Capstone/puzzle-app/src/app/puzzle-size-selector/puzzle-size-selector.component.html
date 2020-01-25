@@ -2,10 +2,10 @@
 
 <div class="btn-group mr-3">
     <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
-      <button class="btn btn-outline-primary" ngbDropdownToggle>Select Size</button>
+      <button class="btn btn-outline-primary" ngbDropdownToggle>{{selectedSize}}</button>
       <div class="dropdown-menu" ngbDropdownMenu>
-        <button *ngFor="let size of puzzleSizes[puzzleType]" ngbDropdownItem>{{size}}</button>
+        <button *ngFor="let size of puzzleSizes[puzzleType]" (click)="selectSize(size)" ngbDropdownItem>{{size}}</button>
       </div>
     </div>
-    <button type="button" class="btn btn-outline-success">Get Puzzle!</button>
+    <button type="button" class="btn btn-outline-success" (click)="getPuzzle()">Get Puzzle!</button>
 </div>

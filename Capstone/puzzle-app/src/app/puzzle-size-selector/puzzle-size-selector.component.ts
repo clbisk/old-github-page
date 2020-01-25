@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-puzzle-size-selector',
@@ -6,14 +6,32 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./puzzle-size-selector.component.scss']
 })
 export class PuzzleSizeSelectorComponent implements OnInit {
+  puzzleSizes: { "Hitori": Array<string>, "Heyawake": Array<string> };
+
   @Input() puzzleType: string;
-  puzzleSizes: {"Hitori": Array<string>, "Heyawake": Array<string>};
+  selectedSize: string;
   constructor() {
     this.puzzleSizes = puzzleSizes;
   }
 
-  ngOnInit() { }
+  ngOnInit() { this.selectedSize = "Select Size" }
 
+  ngOnChanges(changes: SimpleChanges) {
+    for (let propName in changes) {
+      if (propName === 'puzzleType') {
+        console.log("size changed")
+        this.selectedSize = "Select Size"
+      }
+    }
+  }
+
+  selectSize(size: string) {
+    this.selectedSize = size;
+  }
+
+  getPuzzles() {
+    console.error("not implemented yet");
+  }
 }
 
 const puzzleSizes = {
