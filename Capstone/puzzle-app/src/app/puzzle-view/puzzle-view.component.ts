@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-puzzle-view',
   templateUrl: './puzzle-view.component.html',
-  styleUrls: ['./puzzle-view.component.css']
+  styleUrls: ['./puzzle-view.component.scss']
 })
 export class PuzzleViewComponent implements OnInit {
   puzzleType: string;
