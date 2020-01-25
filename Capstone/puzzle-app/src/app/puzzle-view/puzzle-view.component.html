@@ -2,7 +2,18 @@
 
 <br />
 
-<div class="title-with-help">
+<div class="centered">
     <h3>Puzzle #{{id | number:'6.0-0' | idPipe}}</h3> <!-- formats the number as a min six-digit int with no commas -->
     <i class="fas fa-question-circle"></i>
+</div>
+
+<div class="centered">
+    <div class="user-ratings">
+        <div>
+            Rate this puzzle: <ngb-rating [(rate)]="userRating" max="5"></ngb-rating>
+        </div>
+        <div>
+            Rate its difficulty: <ngb-rating [(rate)]="userDifficultyRating" max="5"></ngb-rating>
+        </div>
+    </div>
 </div>

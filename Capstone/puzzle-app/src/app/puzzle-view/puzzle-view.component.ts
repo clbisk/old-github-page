@@ -9,11 +9,17 @@ import { ActivatedRoute } from '@angular/router';
 export class PuzzleViewComponent implements OnInit {
   puzzleType: string;
   id: number;
+  userRating: number;
+  userDifficultyRating: number;
 
   private routeSubscription;
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+    //initialize user rating to 0
+    this.userRating = 0;
+    this.userDifficultyRating = 0;
+
     this.routeSubscription = this.route.params.subscribe(params => {
       this.puzzleType = params['puzzle-type'];
       this.id = +params['id']
