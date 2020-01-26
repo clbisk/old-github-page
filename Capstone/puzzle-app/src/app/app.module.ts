@@ -9,6 +9,8 @@ import { PuzzleViewComponent } from './puzzle-view/puzzle-view.component';
 import { IdPipePipe } from './puzzle-view/id-pipe.pipe';
 import { HitoriComponent } from './hitori/hitori.component';
 import { HeyawakeComponent } from './heyawake/heyawake.component';
+import { HitoriRulesComponent } from './hitori-rules/hitori-rules.component';
+import { HeyawakeRulesComponent } from './heyawake-rules/heyawake-rules.component';
 
 const appRoutes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -23,7 +25,9 @@ const appRoutes: Routes = [
     PuzzleViewComponent,
     IdPipePipe,
     HitoriComponent,
-    HeyawakeComponent
+    HeyawakeComponent,
+    HitoriRulesComponent,
+    HeyawakeRulesComponent
   ],
   imports: [
     BrowserModule,

@@ -4,10 +4,15 @@
 
 <div class="centered">
     <h3>Puzzle #{{id | number:'6.0-0' | idPipe}}</h3> <!-- formats the number as a min six-digit int with no commas -->
-    <i class="fas fa-question-circle" title="How to Play"></i>
+    <i class="fas fa-question-circle" title="How to Play" (click)="showHelp = !showHelp"></i>
 </div>
 
-<div class="puzzle-frame centered">
+<div *ngIf="showHelp" class="bordered centered">
+    <app-hitori-rules *ngIf="puzzleType === 'Hitori'"></app-hitori-rules>
+    <app-heyawake-rules *ngIf="puzzleType === 'Heyawake'"></app-heyawake-rules>
+</div>
+
+<div class="puzzle-frame bordered centered">
     <app-hitori *ngIf="puzzleType === 'Hitori'"></app-hitori>
     <app-heyawake *ngIf="puzzleType === 'Heyawake'"></app-heyawake>
 </div>

@@ -16,9 +16,13 @@ h1, h3 {
     }
 }
 
-.puzzle-frame {
+.bordered {
     margin: 20px 60px 20px 60px;
     border: $theme-border;
+    border-radius: 10px;
+}
+
+.puzzle-frame {
     height: 600px;
 }
 

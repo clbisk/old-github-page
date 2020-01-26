@@ -11,6 +11,7 @@ export class PuzzleViewComponent implements OnInit {
   id: number;
   userRating: number;
   userDifficultyRating: number;
+  showHelp: boolean;
 
   private routeSubscription;
   constructor(private route: ActivatedRoute) { }
