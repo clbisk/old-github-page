@@ -14,6 +14,15 @@ $puzzle-border: 2px solid black;
     }
 }
 
+.blackened-out {
+    background: black;
+}
+
+.circled {
+    background: url('./500px-Circle_-_black_simple.svg.png');
+    background-size: 47px;
+}
+
 .puzzle {
     border: $puzzle-border; //makes the appearance of the border consistent for the outer boxes
 }
