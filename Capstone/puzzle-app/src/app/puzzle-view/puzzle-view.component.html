@@ -7,7 +7,7 @@
     <i class="fas fa-question-circle" title="How to Play" (click)="showHelp = !showHelp"></i>
 </div>
 
-<div *ngIf="showHelp" class="bordered centered">
+<div *ngIf="showHelp" class="info-box bordered centered">
     <app-hitori-rules *ngIf="puzzleType === 'Hitori'"></app-hitori-rules>
     <app-heyawake-rules *ngIf="puzzleType === 'Heyawake'"></app-heyawake-rules>
 </div>
