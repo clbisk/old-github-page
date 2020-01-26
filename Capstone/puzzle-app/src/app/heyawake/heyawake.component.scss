@@ -2,19 +2,38 @@ $info-blue: rgb(38, 97, 97);
 $theme-light-gray: rgba(0,0,0,.125);
 $theme-border: thin solid $theme-light-gray;
 $cell-border: thin solid black;
-$room-border: thick solid black;
+$room-border: 3px solid black;
 
 .puzzle-cell {
     width: 50px;
     height: 50px;
     border: $cell-border;
     user-select: none;
+    padding-left: 5px;
 
     div {
-        font-size: 40px;
+        font-size: 20px;
+        font-weight: bold;
     }
 }
 
+.left-border {
+    border-left: $room-border;
+}
+
+.right-border {
+    border-right: $room-border;
+}
+
+.bottom-border {
+    border-bottom: $room-border;
+}
+
+.top-border {
+    border-top: $room-border;
+}
+
 .puzzle {
-    border: $room-border; //makes the appearance of the border consistent for the outer boxes
+    border: $room-border; //marks the top and left borders as implicit boundaries for some room
+    border-left: $room-border;
 }

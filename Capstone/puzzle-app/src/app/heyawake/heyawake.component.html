@@ -1,12 +1,16 @@
-<div class="vertically-centered"><div class="centered">
-    <!-- puzzle grid -->
-    <div class="puzzle centered">
-        <!-- puzzle rows -->
-        <div *ngFor="let row of userSolution" class="vertically-centered">
-            <!-- each column in a puzzle row -->
-            <div *ngFor="let n of row" class="puzzle-cell centered">
-                <div class="vertically-centered"></div>
+<div class="vertically-centered">
+    <div class="centered">
+        <!-- puzzle grid -->
+        <div class="puzzle centered">
+            <!-- puzzle rows -->
+            <div *ngFor="let row of userSolution; index as x" class="vertically-centered">
+                <!-- each column in a puzzle row -->
+                <div *ngFor="let n of row; index as y" class="puzzle-cell"
+                [class.right-border]="cellHasRightBoundary(x, y)" [class.bottom-border]="cellHasLowerBoundary(x, y)"
+                [class.left-border]="cellHasLeftBoundary(x, y)" [class.top-border]="cellHasUpperBoundary(x, y)">
+                    <div>{{clueInCell(x,y)}}</div>
+                </div>
             </div>
         </div>
     </div>
-</div></div>
+</div>
