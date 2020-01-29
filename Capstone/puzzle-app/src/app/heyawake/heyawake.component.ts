@@ -23,6 +23,9 @@ export class HeyawakeComponent implements OnInit {
     this.size = 6;
     for (let i = 0; i < this.size; i++) {
       this.userSolution.push(new Array<boolean | null>(this.size));
+      for (let j = 0; j < this.size; j++) {
+        this.userSolution[i][j] = null;
+      }
     }
 
     this.roomBoundaries = [
@@ -52,6 +55,12 @@ export class HeyawakeComponent implements OnInit {
     });
   }
 
+  toggleCellColor(cellX, cellY) {
+    const prev = this.userSolution[cellY][cellX];
+    console.log(prev);
+    this.userSolution[cellY][cellX] = prev === null? false: prev === false? true: null;
+  }
+
   cellHasRightBoundary(cellX, cellY) {
     return this.rightBoundaries.some(boundary => (boundary[0] === cellX) && (boundary[1] === cellY));
   }
@@ -72,7 +81,6 @@ export class HeyawakeComponent implements OnInit {
     let clue: number;
     this.roomBoundaries.forEach(room => {
       if ((room.topLeft[0] === cellX) && (room.topLeft[1] === cellY)) {
-        console.log("x: " + cellX + ", y: " + cellY + " -- " + room.clue);
         clue = room.clue;
       }
     });

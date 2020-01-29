@@ -7,7 +7,10 @@
                 <!-- each column in a puzzle row -->
                 <div *ngFor="let n of row; index as y" class="puzzle-cell"
                 [class.right-border]="cellHasRightBoundary(x, y)" [class.bottom-border]="cellHasLowerBoundary(x, y)"
-                [class.left-border]="cellHasLeftBoundary(x, y)" [class.top-border]="cellHasUpperBoundary(x, y)">
+                [class.left-border]="cellHasLeftBoundary(x, y)" [class.top-border]="cellHasUpperBoundary(x, y)"
+                [class.painted]="userSolution[y][x] !== null? !userSolution[y][x] : false"
+                [class.blank]="userSolution[y][x] !== null? userSolution[y][x] : false"
+                (click)="toggleCellColor(x, y)">
                     <div>{{clueInCell(x,y)}}</div>
                 </div>
             </div>

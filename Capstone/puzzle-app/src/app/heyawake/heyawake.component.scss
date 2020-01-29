@@ -3,6 +3,7 @@ $theme-light-gray: rgba(0,0,0,.125);
 $theme-border: thin solid $theme-light-gray;
 $cell-border: thin solid black;
 $room-border: 3px solid black;
+$dark-gray: rgb(71, 71, 71);
 
 .puzzle-cell {
     width: 50px;
@@ -10,11 +11,20 @@ $room-border: 3px solid black;
     border: $cell-border;
     user-select: none;
     padding-left: 5px;
+    background: lightgray;
 
     div {
         font-size: 20px;
         font-weight: bold;
     }
+}
+
+.painted {
+    background: $dark-gray;
+}
+
+.blank {
+    background: white;
 }
 
 .left-border {
