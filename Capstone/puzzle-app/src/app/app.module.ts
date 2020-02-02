@@ -11,6 +11,7 @@ import { HitoriComponent } from './hitori/hitori.component';
 import { HeyawakeComponent } from './heyawake/heyawake.component';
 import { HitoriRulesComponent } from './hitori-rules/hitori-rules.component';
 import { HeyawakeRulesComponent } from './heyawake-rules/heyawake-rules.component';
+import { HttpClientModule } from '@angular/common/http';
 
 const appRoutes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -32,7 +33,8 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     NgbModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

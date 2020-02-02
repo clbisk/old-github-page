@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PuzzleService } from '../puzzle.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -6,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./landing-page.component.scss']
 })
 export class LandingPageComponent implements OnInit {
+  active;
 
-  constructor() { }
+  constructor(private puzzleService: PuzzleService) { }
 
   ngOnInit() {
+    this.puzzleService.getPuzzle("0000").subscribe(puzzle => {
+      console.log(puzzle);
+      console.log(puzzle.data);
+    });
   }
 }

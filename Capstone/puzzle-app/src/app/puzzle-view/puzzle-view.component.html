@@ -3,7 +3,7 @@
 <br />
 
 <div class="centered">
-    <h3>Puzzle #{{id | number:'6.0-0' | idPipe}}</h3> <!-- formats the number as a min six-digit int with no commas -->
+    <h3>Puzzle #{{id}}</h3>
     <i class="fas fa-question-circle" title="How to Play" (click)="showHelp = !showHelp"></i>
 </div>
 
@@ -25,5 +25,6 @@
         <div>
             Rate its difficulty: <ngb-rating [(rate)]="userDifficultyRating" max="5"></ngb-rating>
         </div>
+        <button type="button" class="btn btn-outline-success" [disabled]="selectedSize === 'Select Size'">Submit</button>
     </div>
 </div>
